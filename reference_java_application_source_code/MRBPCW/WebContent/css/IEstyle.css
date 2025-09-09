@@ -1,0 +1,97 @@
+@page {
+  size: A4;
+  margin: 0;
+}
+
+@media all {
+	html, body {
+	background: #ccc;
+    width: 282mm !important;
+    height: 397mm !important;
+    margin: 0;
+    font-size: 20px;
+  }
+  
+  
+  table {
+  	width: 100% !important;
+  }
+  table tr td, th{
+	   font-size: 10px !important;
+	   font-weight:normal;
+	   word-break: break-all;
+	}
+	.datetimeinfo
+	{
+		display: none;
+	}
+	
+	
+	.nav navbar-nav navbar-right{
+	  display: none;
+	}
+	
+	table{
+	  min-width:500px;
+	}
+	
+	table tr td, th{
+	   font-size: 8px !important;
+	   font-weight:normal;
+	   word-break: break-all;
+	}
+
+	.tamil table .tamil{
+	 font-size: 18px !important;
+	  font-weight:normal;
+	}
+	
+	.contenttable{
+		font-size: 12px;
+	}
+	
+	.personsl-dtl{
+	   font-size: 12px;
+	}
+	
+  .printBtn {
+    display: none !important;
+  }
+  
+ #educationformDetails{
+  width: 70% !important;
+ }
+ 
+ #pop2{
+   display: none !important;
+ }
+ 
+ #pop10{
+ display: none !important;
+ }
+
+.pageTitle{
+    font-size: 24px;
+}
+.personsl-dtl th {
+    word-break: break-all;
+    min-width: 100px;
+    vertical-align: top;
+}
+	
+.personsl-dtl td {
+  text-align: left;
+  word-break: break-all;
+}
+	
+.common_dashboard{
+  margin-left: 20px; 
+  margin-right: 20px;
+}	
+	.postingword{
+	position: relative;
+	  	left: 5px !important
+	}
+	
+  
+}

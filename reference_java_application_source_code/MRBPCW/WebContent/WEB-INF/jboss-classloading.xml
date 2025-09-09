@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--  Created by Mukesh Kumar Modi on 02-09-2011 for JBoss compatibility  -->
+<classloading xmlns="urn:jboss:classloading:1.0"
+              parent-first="false"
+              domain="DefaultDomain"
+              top-level-classloader="true"
+              parent-domain="Ignored"
+              export-all="NON_EMPTY"
+              import-all="true">
+</classloading>
+
+
+
+

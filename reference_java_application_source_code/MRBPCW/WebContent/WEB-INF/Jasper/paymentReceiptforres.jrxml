@@ -1,0 +1,101 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="ePostChallan" pageWidth="842" pageHeight="595" orientation="Landscape" columnWidth="802" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="f05f590b-0c8f-4348-8482-17a91767f63d">
+	<property name="ireport.zoom" value="1.5"/>
+	<property name="ireport.x" value="93"/>
+	<property name="ireport.y" value="180"/>
+	<parameter name="ePostChallan" class="java.lang.Object" isForPrompting="false">
+		<defaultValueExpression><![CDATA["C:\\Users\\amrutab\\Desktop\\Release Tags\\trbpgci\\payment receipt"]]></defaultValueExpression>
+	</parameter>
+	<parameter name="CANDIDATE_NAME" class="java.lang.String">
+		<defaultValueExpression><![CDATA[]]></defaultValueExpression>
+	</parameter>
+	<parameter name="USER_ID" class="java.lang.String"/>
+	<parameter name="oum_user_id" class="java.lang.String"/>
+	<parameter name="transaction_Date" class="java.lang.String"/>
+	<parameter name="opd_transaction_no" class="java.lang.String"/>
+	<parameter name="tp_transaction_no" class="java.lang.String"/>
+	<parameter name="otm_test_name" class="java.lang.String"/>
+	<parameter name="optm_payment_desc" class="java.lang.String"/>
+	<parameter name="post_office" class="java.lang.String" isForPrompting="false"/>
+	<parameter name="post_office_NO" class="java.lang.String" isForPrompting="false"/>
+	<parameter name="onlineAmount" class="java.lang.String"/>
+	<parameter name="OfflineAmount" class="java.lang.String"/>
+	<parameter name="PAYMENT_STATUS" class="java.lang.String">
+		<defaultValueExpression><![CDATA["SUCCESSFUL"]]></defaultValueExpression>
+	</parameter>
+	<parameter name="district" class="java.lang.String"/>
+	<queryString>
+		<![CDATA[]]>
+	</queryString>
+	<summary>
+		<band height="555">
+			<image scaleImage="FillFrame">
+				<reportElement uuid="7749acd2-5717-483c-a4df-f36610b113cf" x="10" y="-17" width="802" height="555"/>
+				<imageExpression><![CDATA[$P{ePostChallan}]]></imageExpression>
+			</image>
+			<textField isStretchWithOverflow="true" isBlankWhenNull="true">
+				<reportElement uuid="d05924e8-0048-4082-b28d-ae35b965db2b" x="400" y="192" width="313" height="48"/>
+				<textElement verticalAlignment="Top">
+					<font size="11" isBold="false"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{CANDIDATE_NAME}]]></textFieldExpression>
+			</textField>
+			<textField isBlankWhenNull="true">
+				<reportElement uuid="2c5cd120-f0a2-43f8-a27e-495ef40f9cdf" x="400" y="344" width="328" height="22"/>
+				<textElement verticalAlignment="Middle">
+					<font size="12" isBold="false"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{transaction_Date}]]></textFieldExpression>
+			</textField>
+			<textField isBlankWhenNull="true">
+				<reportElement uuid="3ab4237a-f64c-414b-a9ad-adfcaa29cca4" x="400" y="389" width="328" height="22"/>
+				<textElement verticalAlignment="Middle">
+					<font size="12" isBold="false"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{tp_transaction_no}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement uuid="0b3611d6-c909-41ad-bae8-12751b3062af" x="400" y="170" width="323" height="20"/>
+				<textElement>
+					<font size="12"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{USER_ID}]]></textFieldExpression>
+			</textField>
+			<textField isBlankWhenNull="true">
+				<reportElement uuid="33d0ad0e-f716-4d3c-94a4-2e653b0bbed7" x="400" y="367" width="326" height="22"/>
+				<textElement verticalAlignment="Middle">
+					<font size="12" isBold="false"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{opd_transaction_no}]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true" isBlankWhenNull="true">
+				<reportElement uuid="e3cbc77d-6fbe-4018-95b2-f04219643b33" x="400" y="297" width="327" height="22" isPrintWhenDetailOverflows="true"/>
+				<textElement textAlignment="Justified" verticalAlignment="Middle">
+					<font size="12" isBold="false"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{onlineAmount}]]></textFieldExpression>
+			</textField>
+			<textField isBlankWhenNull="true">
+				<reportElement uuid="48af1e98-9239-4e2e-9244-d4364d9f27de" x="400" y="320" width="327" height="22"/>
+				<textElement verticalAlignment="Middle">
+					<font size="12"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{PAYMENT_STATUS}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement uuid="0b3611d6-c909-41ad-bae8-12751b3062af" x="400" y="258" width="323" height="20"/>
+				<textElement>
+					<font size="12"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{otm_test_name}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement uuid="0b3611d6-c909-41ad-bae8-12751b3062af" x="400" y="279" width="323" height="22"/>
+				<textElement>
+					<font size="12"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{district}]]></textFieldExpression>
+			</textField>
+		</band>
+	</summary>
+</jasperReport>

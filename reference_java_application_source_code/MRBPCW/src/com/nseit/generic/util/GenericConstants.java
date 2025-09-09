@@ -1,0 +1,544 @@
+package com.nseit.generic.util;
+
+public interface GenericConstants {
+	String SHOW_OTP_ON_SCREEN = "SHOW_OTP_ON_SCREEN";
+	String FORGOT_PASSWORD_SMS = "FORGOT_PASSWORD_SMS";
+	String Is_this_Live_Server = "Is_this_live_server";
+	String SAVE_SUCCESS = "SAVE_SUCCESS";
+	String SESSION_USER = "SESSION_USER";
+	String GLOBAL_PLAIN_TEXT_MESSAGE = "GLOBAL_PLAIN_TEXT_MESSAGE";
+	String DESTINATION_PATH = "DESTINATION_PATH";
+	String MESSAGE_TYPE = "MESSAGE_TYPE";
+	String SESSION_TIME_OUT_URL = "LoginAction_input.action";
+
+	// [Start] Swapneel K - User Type Constants */
+	String USER_TYPE_CANDIDATE = "C";
+	String USER_TYPE_AGENCY = "A";
+	String USER_TYPE_QB_ADMIN = "Q";
+	String USER_TYPE_NSEIT = "N";
+	String USER_TYPE_GCET_ADMIN = "G";
+	String USER_TYPE_GCET_NODAL = "O";
+	String USER_TYPE_SUPER_ADMIN = "S";
+	String USER_TYPE_HELP_CENTER = "HC";
+
+	// [End] Swapneel K - User Type Constants */
+
+	// [Start] Swapneel K - Message Type Constants */
+	String MESSAGE_TYPE_INFORMATION = "1";
+	String MESSAGE_TYPE_ERROR = "2";
+	// [End] Swapneel K - Message Type Constants */
+
+	// [Start] Swapneel K - Application Constants */
+	String LINE_SEPERATOR = System.getProperty("line.separator");
+	int MILLISEC_IN_DAY = 86400000;
+	String DATE_FORMAT_DEFAULT = "dd-MMM-yyyy";
+	String DATE_FORMAT_DEFAULT1 = "dd-MMM-yyyy HH:mm:ss";
+	String DATE_FORMAT_DEFAULT_DATABASE = "dd-Mon-yyyy";
+	String DATE_FORMAT_DEFAULT_JAVASCRIPT = "dd-M-yy";
+	// [End] Swapneel K - Application Constants */
+
+	/**
+	 * TAB_CONFIG_PARAM Constants Key Name
+	 */
+
+	// [Start] Swapneel K - Regisration Constants */
+	String REGISTRATION_CONFIRMATION_MAIL = "REGISTRATION_CONFIRMATION_MAIL";
+	String REGISTRATION_SENDER = "REGISTRATION_SENDER";
+	String REGISTRATION_SUBJECT = "REGISTRATION_SUBJECT";
+	int REGISTRATION_PASSWORD_LENGTH = 10;
+	String CAPTCHA_STRING_REGISTRATION = "CAPTCHA_STRING_REGISTRATION";
+	// [End] Swapneel K - Regisration Constants */
+
+	// [Start] Swapneel K - Regisration Constants */
+	String MAX_IMAGE_SIZE_IN_KB = "MAX_IMAGE_SIZE_IN_KB";
+	String MAX_PAYMENTIMAGE_SIZE_IN_KB = "MAX_PAYMENTIMAGE_SIZE_IN_KB";
+
+	String MAX_SIGNATURE_SIZE_IN_KB = "MAX_SIGNATURE_SIZE_IN_KB";
+	String MAX_DOCUMENT_SIZE_IN_KB = "MAX_DOCUMENT_SIZE_IN KB";
+	String IMAGE_TYPE = "IMAGE_TYPE";
+	String SIGNATURE_TYPE = "SIGNATURE_TYPE";
+	String DOCUMENT_TYPE = "DOCUMENT_TYPE";
+	String PaymentReceipt_TYPE = "PaymentReceipt_TYPE";
+
+	String SERVER_ADDRESS = "SERVER_ADDRESS";
+	// [End] Swapneel K - Regisration Constants */
+
+	// [Start] Swapneel K - Email & SMS Constants */
+
+	String EMAIL_SMS_FLAG_EMAIL_VALUE = "EMAIL_SMS_FLAG_EMAIL_VALUE";
+	String EMAIL_SMS_FLAG_SMS_VALUE = "EMAIL_SMS_FLAG_SMS_VALUE";
+	String DELAY_BETWEEN_EMAIL_IN_SEC = "DELAY_BETWEEN_EMAIL_IN_SEC";
+	String DELAY_BETWEEN_SMS_IN_SEC = "DELAY_BETWEEN_SMS_IN_SEC";
+	String EMAIL_MAX_FAILURE_COUNT = "EMAIL_MAX_FAILURE_COUNT";
+	String SMS_MAX_FAILURE_COUNT = "SMS_MAX_FAILURE_COUNT";
+	String NO_OF_THREAD_FOR_PROCESSING = "NO_OF_THREAD_FOR_PROCESSING";
+	String SMS_URL = "SMS_URL";
+	String SMS_FEED_ID = "SMS_FEED_ID";
+	String SMS_USERNAME = "SMS_USERNAME";
+	String SMS_PASSWORD = "SMS_PASSWORD";
+	String SMS_SENDER_ID = "SMS_SENDER_ID";
+	String SMS_KEYWORD = "SMS_KEYWORD";
+	String SMS_TIME_FORMAT = "SMS_TIME_FORMAT";
+	String smsConnectionTimeOut = "60000";
+	String smsReadOutputTimeOut = "60000";
+	// [End] Swapneel K - SMS Constants */
+
+	// [Start] Swapneel K - SSL Constants */
+	String SSL_ENABLED = "SSL_ENABLED";
+	String NON_SSL_PORT = "NON_SSL_PORT";
+	String SSL_PORT = "SSL_PORT";
+	String SSL_ENTRY_POINTS = "SSL_ENTRY_POINTS";
+	String SSL_EXIT_POINTS = "SSL_EXIT_POINTS";
+	// [End] Swapneel K - SSL Constants */
+
+	// nimish (Stages)
+	String STAGE_LOGIN_GENERATED = "STAGE_LOGIN_GENERATED";
+	String STAGE_REGISTRATION_INITIATED = "STAGE_REGISTRATION_INITIATED";
+	String STAGE_REGISTRATION_CONFIRMED = "STAGE_REGISTRATION_CONFIRMED";
+	String STAGE_IMAGE_UPLOADED = "STAGE_IMAGE_UPLOADED";
+	String STAGE_REGISTRATION_SUBMITTED = "STAGE_REGISTRATION_SUBMITTED";
+	String STAGE_REGISTRATION_APPROVED = "STAGE_REGISTRATION_APPROVED";
+	String STAGE_REGISTRATION_REJECTED = "STAGE_REGISTRATION_REJECTED";
+	String STAGE_FIRST_ATTEMPT_SEAT_BOOKED = "STAGE_FIRST_ATTEMPT_SEAT_BOOKED";
+	String STAGE_SECOND_ATTEMPT_SEAT_BOOKED = "STAGE_SECOND_ATTEMPT_SEAT_BOOKED";
+
+	String STAGE_SIGNATURE_UPLOADED = "STAGE_SIGNATURE_UPLOADED";
+	String STAGE_PREFERENCE_UPLOADED = "STAGE_PREFERENCE_UPLOADED";
+
+	String STAGE_PAYMENT_SUBMITTED = "STAGE_PAYMENT_SUBMITTED";
+
+	String STAGE_PAYMENT_APPROVED = "STAGE_PAYMENT_APPROVED";
+
+	String STAGE_DOCUMENT_UPLOADED = "STAGE_DOCUMENT_UPLOADED";
+
+	String CANDIDATE_STAGE = "CANDIDATE_STAGE";
+	String STAGE_NEW_CANDIDATE = "0.0";
+
+	String CANDIDATE_REGISTRATION = "Candidate Registration";// done
+	String CANDIDATE_CHANGE_PASSWORD = "Change Password";// done
+	String CANDIDATE_PAYMENT_ACKNOWLEDGEMENT = "Payment Acknowledgement";// done
+	String CANDIDATE_ENROLLMENT_CONFIRMATION = "Enrollment Confirmation";// done
+	String CANDIDATE_PAYMENT_APPROVAL = "Payment Approval";// done
+	String CANDIDATE_TEST_CENTER_ALLOCATION = "Test Center Allocation";
+	String CANDIDATE_SEAT_SELECTION = "Seat Selection";// done
+	String CANDIDATE_INTERVIEW__SEAT_SELECTION = "Interview Selection";// done
+	String CANDIDATE_ADMIT_CARD_GENERATION = "Admit Card generation";
+	String CANDIDATE_MERIT_LIST_GENERATED = "Merit List Generated";
+	String CANDIDATE_INTERVIEW_CALL = "Generation of interview Call Letters";
+	String CANDIDATE_RETEST = "Retest Approved/Rejected";
+	String CANDIDATE_FINAL_MERIT_LIST = "Generation of Final Merit List";
+	String CANDIDATE_FORGOT_USER_ID = "Forgot User Id";// done
+	String CANDIDATE_FORGOT_PASSWORD = "Forgot Password";// done
+
+	// [Start] Swapneel K - Test Center Allocation
+	String TST_CNTR_ALLOCATION_TYPE = "TST_CNTR_ALLOCATION_TYPE";
+	// [End] Swapneel K - Test Center Allocation
+
+	// [Start] Swapneel K - Login Constants
+	String LOGIN_FAILURE_COUNT = "LOGIN_FAILURE_COUNT";
+	Integer LOGIN_MAX_FAILURE_BEFORE_CAPTCHA = 3;
+	String CAPTCHA_STRING_LOGIN = "CAPTCHA_STRING_LOGIN";
+	String HALL_TICKET_TIMER_IN_SECONDS = "HALL_TICKET_TIMER_IN_SECONDS";// added
+																			// for
+																			// Timer
+	// [End] Swapneel K - Login Constants
+	String BOOKING_ATTEMPT_1 = "BOOKING_ATTEMPT_1";
+	String BOOKING_ATTEMPT_2 = "BOOKING_ATTEMPT_2";
+
+	String FINAL_PRINT_PAGE = "FINAL_PRINT_PAGE";
+
+	String ACKNOWLEDGEMENT_RECEIPT_CANDIDATE_COPY = "ACKNOWLEDGEMENT_RECEIPT_CANDIDATE_COPY";
+
+	String ACKNOWLEDGEMENT_RECEIPT_HELP_CENTRE_COPY = "ACKNOWLEDGEMENT_RECEIPT_HELP_CENTRE_COPY";
+
+	// [Start] Pankaj Sh - Date definition constants
+	Integer APPLICATION_FORM_DATES = 1;
+	Integer APPROVE_CANDIDATE_DATES = 2;
+	Integer OTBS_DATES = 3;
+	Integer ATTEMPT_ONE_DATES = 4;
+	Integer ATTEMPT_TWO_DATES = 5;
+	Integer PAYMENT_DATES = 6;
+	// [End] Pankaj Sh - Date definition constants
+
+	String SESSION_TIMEOUT = "SESSION_TIMEOUT";
+	String SESSION_QBANK = "SESSION_QBANK";
+
+	// activity for gcet
+	// String APPROVE_REJECT_CANDIADTE = "Approve Candidate";
+	// String REJECT_CANDIDATE = "Reject Candidate";
+	// String FIRST_TIME_CHANGE_PWD = "First Time Change Password";
+	// String REGISTERATION_CONFIRMATION= "Registration Confirmation";
+	String CHANGE_PASSWORD = "Change Password";
+	String FORGOT_PASSWORD = "Forgot Password";
+	/*
+	 * String SEAT_BOOKING_1= "Seat Booking 1"; String
+	 * SEAT_BOOKING_2="Seat Booking 2";
+	 */
+
+	String CC_ADDRESS = "CC_ADDRESS";
+	String LOGIN_FOOTER = "LOGIN_FOOTER";
+	String DESTINATION_URL = "DESTINATION_URL";
+	String REDIRECT_ACTION_URL = "redirectActionURL";
+
+	/** Creating constants for STATUS MASTER **/
+	String NEW_REGISTERATION = "New Registeration";
+	String CHANGE_PASSWORD_STATUS = "Change Password";
+	String FORGOT_PASSWORD_STATUS = "Forgot Password";
+	String FORGOT_USER_ID_STATUS = "Forgot UserId";
+	String REGISTRATION_INTITIATED = "Application Form Initiated";
+	String REGISTRATION_CONFIRMATION = "Application Form Confirmation";
+	String REGISTRATION_SUBMITED = "One Time Registration Form Submitted";
+	String REGISTRATION_APPROVED = "Candidate Approved";
+	String REGISTRATION_REJECTED = "Candidate Rejected";
+	String CANDIDATE_APPROVED = "Candidate Approved";
+	String APPLIED_FOR_POST_INITIATED = "Applied for Post - Initiated";
+	String APPLIED_FOR_POST = "Payment Pending";
+
+	String PAYMENT_SUBMITED = "Payment Submitted";
+	String PAYMENT_APPROVED = "Payment Approved";
+	String PAYMENT_REJECTED = "Payment Rejected";
+	String PAYMENTWAITING = "Your Payment is in pending state. Please wait until you get any response either Success or Failure and only then try again.";
+	String BRANCH_PAYMENT_PENDING = "Your SBI Branch is pending, Please visit the branch and complete the payment inorder to proceed.";
+	String POS_PAYMENT_PENDING = "Your POS payment is Pending, Kindly complete inorder to proceed.";
+	String NEFT_PAYMENT_WAITING = "Your NEFT payment is Pending, Kindly complete inorder to proceed.";
+	
+	String ATTEMPT_ONE_BOOKED = "Attempt One Booked";
+	String ATTEMPT_TWO_BOOKED = "Attempt Two Booked";
+
+	String HALL_TICKET_GENERATED_FOR_ATTEMPT_1 = "Hall Ticket Generated";
+	String HALL_TICKET_GENERATED_FOR_ATTEMPT_2 = "Hall Ticket Generated Attempt2";
+
+	String SCHEDULED_FOR_WRITTEN_TEST = "Scheduled for Written Test";
+	String WRITTEN_TEST_CLEARED = "Written Test Cleared";
+	String WRITTEN_TEST_NOT_CLEARED = "Written Test Not Cleared";
+	String SCHEDULED_FOR_FIELD_TEST = "Scheduled for Field Test";
+	String CALL_LETTER_FIELD_TEST = "Call Letter Generated - Field Test";
+	String FIELD_TEST_CLEARED = "Field Test Cleared";
+	String FIELD_TEST_NOT_CLEARED = "Field Test Not Cleared";
+	String SCHEDULED_FOR_INTERVIEW = "Scheduled for Interview";
+	String CALL_LETTER_INTERVIEW = "Call Letter Generated - Interview";
+	String INTERVIEW_CLEARED = "Interview Cleared";
+	String INTERVIEW_NOT_CLEARED = "Interview Not Cleared";
+	String SCHEDULED_FOR_MEDICAL_TEST = "Scheduled for Medical Test";
+	String CALL_LETTER_MEDICAL = "Call Letter Generated - Medical";
+	String MEDICAL_TEST_CLEARED = "Medical Test Cleared";
+	String MEDICAL_TEST_NOT_CLEARED = "Medical Test Not Cleared";
+	String SELECTED_FOR_FINAL = "Selected for Final";
+	String NOT_SELECTED_FOR_FINAL = "Not Selected for Final";
+
+	String REGISTER_HERE = "REGISTER_HERE";
+	String INSTRUCTION_REQD = "1";
+	String INSTRUCTION_FILED = "INSTRUCTIONS";
+
+	String MANDATORY = "1";
+	String NON_MANDATORY = "0";
+
+	String REGISTRATION = "Registration";
+	String REGISTER_CONFIRMATION = "REGISTER_CONFIRMATION";
+	String REGISTER_SUBMITTED = "REGISTER_SUBMITTED";
+	String SUBMIT_FORM = "Submit Form";
+	String CONFIRM_FORM = "Preview";
+	String SEND_OTP = "Send OTP";
+
+	String USER_ID_PREFIX = "USER_ID_PREFIX";
+
+	String USER_ID_PADDING_FORMAT = "USER_ID_PADDING_FORMAT";
+	String ADMIT_CARD_LOCATION = "ADMIT_CARD_LOCATION";
+	String ADMIT_CARD_DOWNLOAD_LOCATION = "ADMIT_CARD_DOWNLOAD_LOCATION";
+	String NO_OF_DIGITS_FOR_MAX_USER_ID = "NO_OF_DIGITS_FOR_MAX_USER_ID";
+	String OTBS = "OTBS";
+	String ATTEMPT_1 = "Attempt 1";
+	String ATTEMPT_2 = "Attempt 2";
+	String PAYMENT = "Payment";
+	String VIEW_HALLTICKET = "View Admit Card";
+
+	String NUMBER_OF_ATTEMPTS = "Number of Attempts";
+
+	String MAX_DIGITS_FOR_ROLL_NUMBER = "MAX_DIGITS_FOR_ROLL_NUMBER";
+
+	String EXAM_DATE_FOR_ATTEMPT_ONE = "Exam Date for Attempt One";
+	String EXAM_DATE_FOR_ATTEMPT_TWO = "Exam Date for Attempt Two";
+
+	String APPROVE_VAL = "1";
+	String REJECT_VAL = "0";
+	String UPLOAD_PHOTO = "Upload Photo";
+	String UPLOAD_SIGNATURE = "Upload Signature";
+	String UPLOAD_DOCUMENT = "Document Upload";
+	String SELECT_TEST_CENTER_PREFERENCE = "Test Centre Preference";
+
+	String NEW_REG_EMAIL_SUBJECT = "NEW_REG_EMAIL_SUBJECT";
+
+	String NEW_REG_EMAIL = "NEW_REG_EMAIL";
+
+	String ONLINE_PAYMENT_TRANSACTION_FAILED = "Online Payment Transaction Failed";
+	String Payment_Rejected = "Payment Rejected";
+	String CANDIDATE_APPROVE_REJECT = "Candidate Approve / Reject";
+
+	String GENERATE_ADMIT_CARD = "Generate Admit Card";
+	String TEST_CENTER_ALLOTTED = "Test Center Allotted";
+
+	String CANDIDATE_DOC_LABEL = "CANDIDATE_DOC_LABEL";
+	String UPLOAD_DOCUMENT_NO = "UPLOAD_DOCUMENT_NO";
+
+	String GENERATE_ROLL_NUMBER = "Generate Roll Numbers";
+
+	String NEW_REG_SMS = "NEW_REG_SMS";
+
+	String TEMPLATE_DD_CHALLAN = "TEMPLATE_DD_CHALLAN";
+	String TEMPLATE_USER_CREDENTIALS = "TEMPLATE_USER_CREDENTIALS";
+	String TEMPLATE_UPLOAD_MARKS = "TEMPLATE_UPLOAD_MARKS";
+
+	String MIN_DATE_OF_BIRTH_YEAR = "MIN_DATE_OF_BIRTH_YEAR";
+
+	String MAX_DATE_OF_BIRTH_YEAR = "MAX_DATE_OF_BIRTH_YEAR";
+
+	String FORGOT_USER_ID_SUBJECT = "FORGOT_USER_ID_SUBJECT";
+	String FORGOT_USER_ID_EMAIL = "FORGOT_USER_ID_EMAIL";
+	String FORGOT_USER_ID_SMS = "FORGOT_USER_ID_SMS";
+
+	String POST_GRADUATION_REQUIRED = "POST_GRADUATION_REQUIRED";
+	String POST_GRADUATION_MANDATORY = "POST_GRADUATION_MANDATORY";
+	String TEST_CENTER_URL = "TEST_CENTER_URL";
+	String OTHERS = "others";
+
+	String CHALLAN = "Challan";
+	String EPOST = "Offline Post Office Payment";
+
+	String TST_CNTR_PREFERENCE_COUNT = "TST_CNTR_PREFERENCE_COUNT";
+	String TST_CNTR_DATE_COUNT = "TST_CNTR_DATE_COUNT";
+
+	String EDUCATION_DETAILS = "Educational Qualification";
+
+	String SCHEDULING_ON = "SCHEDULING_ON";
+	String GUIDELINES_CHALLAN_RECONCILIATION = "GUIDELINES_CHALLAN_RECONCILIATION";
+
+	String NET_BANKING = "Net Banking / Debit Card";
+	String CREDIT_CARD = "Credit Card";
+	String DEMAND_DRAFT = "Demand Draft";
+	// added by Prudhvi 24-09-2017
+	String ONLINE = "Online";
+
+	String PAYMENT_APPROVE_REJECT = "Payment Approve / Reject";
+
+	String PAYMENT_REJECT_STATUS = "R";
+	String CUT_OFF_PERCENTAGE = "CUT_OFF_PERCENTAGE";
+
+	String NA = "NA";
+	String CHECKSUMKEY = "CHECKSUMKEY";
+	String PAYMENTSUCCESS = "Thank You. Your Payment has been successfully processed.";
+	String PAYMENTFAILURE = "Sorry. Your Payment could not be processed. Your Transaction ID is ";
+	String RSA_KEY_PATH = "RSA_KEY_PATH";
+	String PAYMENT_APP_FLAG = "A";
+	String PAYMENT_REJ_FLAG = "R";
+	String TYPE_OF_PAYMENT = "TYPE_OF_PAYMENT";
+
+	String CANDIDATE_INSTRUCTIONS = "CANDIDATE_INSTRUCTIONS";
+	String VALIDITY_OF_PASSING_FROM_YEAR = "VALIDITY_OF_PASSING_FROM_YEAR";
+	String VALIDITY_OF_PASSING_TO_YEAR = "VALIDITY_OF_PASSING_TO_YEAR";
+	String WORK_EXP_COUNT = "WORK_EXP_COUNT";
+	String WORK_EXPERIENCE = "Work Experience";
+	String YEAR_OF_EXPERIENCE_FROM = "YEAR_OF_EXPERIENCE_FROM";
+	String VERSION = "VERSION";
+	String DECLARATION = "CANDIDATE_DECLARATION";
+	String DECLARATION1 = "CANDIDATE_DECLARATION1";
+	// shekharc apply page confirmation msg start
+	String APPLYPOSTCONFIRMATION = "APPLY_POST_CONFIRMATION";
+	// shekharc apply page confirmation msg end
+	// Siddhesh
+	String NB = "NB"; // Net Banking
+	String DD = "DD"; // Demand Draft
+	String CH = "CH"; // Challan
+	String EP = "EP"; // e-Post
+	String CIT = "CIT"; // Credit Card
+	String C = "C"; // Cash
+
+	String Eligibility_Criteria = "ELIGIBILITY_CRITERIA";
+
+	// For TP - PG Keys [Start] [Siddhesh]
+	String MERCHANT_ID = "MERCHANT_ID";
+	String TXN_REF_NUMBER_PREFIX = "TXN_REF_NUMBER_PREFIX";
+	String CURRENCY_TYPE = "CURRENCY_TYPE";
+	String REGISTRATION_PREFIX = "REGISTRATION_PREFIX";
+	String TYPE_FIELD1 = "TYPE_FIELD1";
+	String TYPE_FIELD2 = "TYPE_FIELD2";
+	String SECURITY_ID = "SECURITY_ID";
+	String PAYMENT_RESPONSE_URL = "PAYMENT_RESPONSE_URL";
+	String BANK_CODE = "BANK_CODE";
+	String TP_PG_WEB_SERVICE_URL = "TP_PG_WEB_SERVICE_URL";
+	String TIME_OUT = "TIME_OUT";
+	String PG_ENCRYPTION_KEY = "PG_ENCRYPTION_KEY";
+	String PG_ENCRYPTION_IV = "PG_ENCRYPTION_IV";
+	String ACCOUNT_NUMBER = "ACCOUNT_NUMBER";
+	String SCHEME_CODE = "SCHEME_CODE";
+	String OES_PAYMENT_WEB_SERVICE_URL = "OES_PAYMENT_WEB_SERVICE_URL";
+	String OES_DOCUMNETS_AND_PHOTO_PATH = "OES_DOCUMNETS_AND_PHOTO_PATH";
+	String PAYMENT_MESSAGE = "PAYMENT_MESSAGE";
+	String MERCHANT_KEY = "MERCHANT_KEY";
+	String SAFEX_CHANNEL = "SAFEX_CHANNEL";
+	String TXN_TYPE = "TXN_TYPE";
+	String AGGREGATOR_ID = "AGGREGATOR_ID";
+	String SAFEX_STATUS_VERIFICATION_URL = "SAFEX_STATUS_VERIFICATION_URL";
+	
+	// For TP - PG Keys [End] [Siddhesh]
+	String MIN_IMAGE_SIZE_IN_KB = "MIN_IMAGE_SIZE_IN_KB";
+	String MIN_PAYMENTIMAGE_SIZE_IN_KB = "MIN_PAYMENTIMAGE_SIZE_IN_KB";
+
+	String MIN_SIGN_SIZE_IN_KB = "MIN_SIGN_SIZE_IN_KB";
+	String MIN_DOCUMENT_SIZE_IN_KB = "MIN_DOCUMENT_SIZE_IN_KB";
+
+	String CANDIDATE_DOC_PATH = "CANDIDATE_DOC_PATH";
+	String EMAIL_SENDER = "EMAIL_SENDER";
+	String EXTRA_QUALIFICATION_FLAG_VALUE = "extraqual";
+	String DEPT_QUOTA_FLAG_VALUE = "dept";
+
+	// For SBIePay
+	String REQUEST_URL = "REQUEST_URL";
+	String RESP_DOUBLEVERIFY_URL = "RESP_DOUBLEVERIFY_URL";
+	String RESP_DOUBLEVERIFY_BULK_URL = "RESP_DOUBLEVERIFY_BULK_URL";
+	String SBIDOUBLEVERIFY_URL = "SBIDOUBLEVERIFY_URL";
+	String SBIDOUBLEVERIFY_WEBSERVICE_URL = "SBIDOUBLEVERIFY_WEBSERVICE_URL";
+	String SBI_HEAD_OF_ACC = "SBI_HEAD_OF_ACC";
+
+	String DOMAIN_NAME = "DOMAIN_NAME";
+	String PASSWORD_PATTERN = "^[a-zA-Z0-9\\.@_!#$^&]*$";
+	String SPECIAL_CHAR_FOR_ERROR_MSG = ".@_!#$^&";
+	String PROTOCOL_TYPE = "PROTOCOL_TYPE";
+	// vendor name
+	String VENDOR_NAME = "VENDOR_NAME";
+	String FEE_UNDERQUOTA_BOTH = "FEE_UNDERQUOTA_BOTH";
+	String AGE_AS_ON = "AGE_AS_ON";
+	String MIN_DATE_FOR_DATEPICKER = "MIN_DATE_FOR_DATEPICKER";
+	String MAX_DATE_FOR_DATEPICKER = "MAX_DATE_FOR_DATEPICKER";
+	String EMAIL_OTP_SUBJECT = "EMAIL_OTP_SUBJECT";
+	String OTP_EMAIL_CONTENT = "OTP_EMAIL_CONTENT";
+	String OTP_MOB_CONTENT = "OTP_MOB_CONTENT";
+	String OTP_ATTEMPT = "OTP_ATTEMPT";
+
+	String GENERAL_OBC_AMOUNT = "GENERAL_OBC_AMOUNT";
+	String SC_ST_AMOUNT = "SC_ST_AMOUNT";
+
+	String TP_REQUEST_URL = "TP_REQUEST_URL";
+	String TP_RETURN_URL = "TP_RETURN_URL";
+	String TP_TIME_OUT = "TP_TIME_OUT";
+
+	String PAYMENT_APPROVED_EMAIL_SUBJECT = "PAYMENT_APPROVED_EMAIL_SUBJECT";
+	String PAYMENT_APPROVED_EMAIL = "PAYMENT_APPROVED_EMAIL";
+
+	String PAYMENT_APPROVED_SMS = "PAYMENT_APPROVED_SMS";
+
+	String PAYMENT_REJECTED_SMS = "PAYMENT_REJECTED_SMS";
+
+	String PAYMENT_REJECTED_EMAIL_SUBJECT = "PAYMENT_REJECTED_EMAIL_SUBJECT";
+	String PAYMENT_REJECTED_EMAIL = "PAYMENT_REJECTED_EMAIL";
+
+	String DISABILITY_AMOUNT = "DISABILITY_AMOUNT";
+	String BSNL_AMOUNT = "BSNL_AMOUNT";
+	String PAYMENT_SUCCESS = "OTS0000";
+	String PAYMENT_FAILED = "F";
+	String PAYMENT_CANCELLED = "CC";
+	String APPLICATIONS_SUBMITTED = "Apply Course";
+
+	String USER_TYPE_ACCOUNTS = "ACC";
+	String CASH = "Cash";
+
+	String USER_TYPE_MANISH = "CANDAPP";
+
+	String USER_TYPE_ACCOUNTS_ADMIN = "ACCA";
+
+	String ACDM_SSC = "1";
+	String APPLICATION_CLOSED_MSG = "APPLICATION_CLOSED_MSG";
+
+	String OES_ADMIT_CARD_PATH = "OES_ADMIT_CARD_PATH";
+	String OES_CALL_LETTER_PATH = "OES_CALL_LETTER_PATH";
+	String OES_SCORE_CARD_PATH = "OES_SCORE_CARD_PATH";
+	
+	
+	String ACCOUNT_LOCK_COUNT = "ACCOUNT_LOCK_COUNT";
+	String DISABILITY_YES = "229";
+	String COMMUNITY_TYPE = "227";
+	String PG_POST = "31";
+	String GET_MERITORIOUS = "227";
+	String TEAM_SPORT = "227";
+
+	String POST_A = "30";
+	String POST_B = "29";
+	String TEST_GROUP_1 = "1";
+	String TEST_GROUP_7 = "7";
+	String TEST_GROUP_5 = "5";
+	String TEST_GROUP_4 = "4";
+	String TEST_GROUP_3 = "3";
+	String GENDER_VALUE = "11";
+	String EX_SERVICE_MAN = "64";
+	String DEGREE_SUB_2 = "2";
+	String DEGREE_SUB_1 = "1";
+	String DEGREE_SUB_3 = "3";
+
+	String MARKS_GRADE_98 = "98";
+
+	Integer WELFARE_POST = 40;
+	String PROFDEGREE = "25";
+	String PRACTISE_TEST_LINK = "PRACTISE_TEST_LINK";
+	String OES_SHOW_PRACTICE_LINK="OES_SHOW_PRACTICE_LINK";
+	String MERCHANTCODE = "MERCHANT_CODE";
+
+	String CANDIDATE_DETAILS_JSON_FOLDER = "CANDIDATE_DETAILS_JSON_FOLDER";
+	String LOGIN_URL = "LOGIN_URL";
+	String OES_ADMIT_CARD_LABEL = "OES_ADMIT_CARD_LABEL";
+	String OES_CALL_LETTER_LABEL = "OES_CALL_LETTER_LABEL";
+	String OES_SCORE_CARD_LABEL = "OES_SCORE_CARD_LABEL";
+	String OES_PRACTICE_TEST_LABEL = "OES_PRACTICE_TEST_LABEL";
+	
+	//##################################### AWS Configuration
+	//Bucket name should be in lowercase
+	String BUCKET_NAME = "BUCKET_NAME";
+	String BUCKET_REGION = "BUCKET_REGION";
+	String SAVE_IN_S3 = "SAVE_FILES_IN_S3";
+	String AWS_ACCESS_KEY_ID = "AWS_ACCESS_KEY_ID";
+	String AWS_SECRET_ACCESS_KEY = "AWS_SECRET_ACCESS_KEY";
+	String S3_ADMIT_CARD_PATH = "S3_ADMIT_CARD_PATH";
+	String S3_CALL_LETTER_PATH = "S3_CALL_LETTER_PATH";
+	String S3_SCORE_CARD_PATH = "S3_SCORE_CARD_PATH";
+
+
+	//For Enabling Encryption
+	String PII_ENABLED = "PII_ENABLED";
+	
+	//For AtomPayment Gateway
+	String DATE_TIME_DEFAULT = "dd-MMM-yyyy hh:mm:ss";
+	String AIPAY_DECRYPTION_KEY = "AIPAY_DECRYPTION_KEY";
+	String AIPAY_DECRYPTION_IV = "AIPAY_DECRYPTION_IV";
+	String DATE_OFFLINE = "yyyy-MM-dd";
+	String DATE_DEFAULT = "dd/MM/yyyy";
+	String TIME_DEFAULT = "hh:mm:ss";
+	String ERROR_MSG = "Error in creating Atom URL";
+	String ATOM_TTYPE ="ATOM_TTYPE";
+	String AIPAY_PASSWORD ="AIPAY_PASSWORD";
+	String AIPAY_PRODID ="AIPAY_PRODID";
+	String ATOM_TXNSCAMT ="ATOM_TXNSCAMT";
+	String AIPAY_RESPONSE_URL ="AIPAY_RESPONSE_URL";
+	String AIPAY_REQUEST_URL ="AIPAY_REQUEST_URL";
+	String AIPAY_REQUEST_HASHKEY ="AIPAY_REQUEST_HASHKEY";
+	String AIPAY_RESPONSE_HASHKEY = "AIPAY_RESPONSE_HASHKEY";
+	String AIPAY_ACCOUNT_NO="AIPAY_ACCOUNT_NO";
+	String AIPAY_ENCRYPTION_KEY = "AIPAY_ENCRYPTION_KEY";
+	String AIPAY_ENCRYPTION_IV = "AIPAY_ENCRYPTION_IV";
+	String AIPAY_API = "AIPAY_API";
+	String AIPAY_PLATFORM = "AIPAY_PLATFORM";
+	String AIPAY_VERSION = "AIPAY_VERSION";
+	String AIPAY_ENVIRONMENT = "AIPAY_ENVIRONMENT";
+	String AIPAY_DOUBLE_VERIFICATION_URL = "AIPAY_DOUBLE_VERIFICATION_URL";
+	String REQUESTERROR = "There is some issue with the system. Please contact administrator.";
+	String WAITING_TIME_FOR_ONE_TIME_PAYMENT = "WAITING_TIME_FOR_ONE_TIME_PAYMENT";
+	String WAITING_TIME_FOR_FINAL_PAYMENT = "WAITING_TIME_FOR_FINAL_PAYMENT";
+	String ATOM_RESPONSE_HASHKEY ="ATOM_RESPONSE_HASHKEY";
+	String AUTH_STATUS_SUCCESS = "Success";
+	String AUTH_STATUS_WAITING = "Waiting";
+	String AUTH_STATUS_FAILURE = "Failure";
+	String AUTH_STATUS_DUPLICATE = "Duplicate";
+	String ATOM_MULTI_PRODUCT = "ATOM_MULTI_PRODUCT";
+	String ASSISTANT_MANAGER_AMOUNT = "ASSISTANT_MANAGER_AMOUNT";
+	String FORGOT_PASSWORD_EMAIL = "FORGOT_PASSWORD_EMAIL";
+	String VF_EMAIL_SENDER_URL = null;
+	String FORGOT_PASSWORD_SUBJECT = "FORGOT_PASSWORD_SUBJECT";
+	String DATE_OF_DISCHARGE_EXSERVICEMAN = "DATE_OF_DISCHARGE_EXSERVICEMAN";
+}

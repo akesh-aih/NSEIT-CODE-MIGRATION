@@ -1,0 +1,68 @@
+package com.nseit.generic.queries;
+
+public interface ModuleQueries {
+	String GET_SYLLABUS = "select distinct SYLLABUS from OES_TEST_MASTER WHERE SYLLABUS IS NOT NULL";
+	
+	String GET_TESTGROUP="select otg_test_pk,otg_test_name,otm_description from oes_test_group";
+
+	String GET_MODULE_SEARCH = "SELECT * FROM (SELECT ROW_NUMBER() OVER (ORDER BY OTM_TEST_PK) AS num, OTM_TEST_PK,OTM_TEST_NAME, OTM_DESCRIPTION, OTM_STATUS, to_char(OTM_FROM_DATE,'dd-Mon-yyyy') as OTM_FROM_DATE, to_char(OTM_TO_DATE,'dd-Mon-yyyy') as OTM_TO_DATE,to_char(OTM_PAYMENT_START_DATE,'dd-Mon-yyyy') as OTM_PAYMENT_START_DATE, to_char(OTM_PAYMENT_END_DATE,'dd-Mon-yyyy') as OTM_PAYMENT_END_DATE, to_char(otm_notify_date,'dd-Mon-yyyy') as dateOfNotification , otm_test_group_fk as testGroup , OTM_ADVERTISEMENT_NUMBER as advertisementnumber FROM OES_TEST_MASTER WHERE "+
+			//+ " from OES_TEST_MASTER WHERE " +
+			" OTM_STATUS = CASE WHEN ? = 'B' THEN OTM_STATUS ELSE ? END GROUP BY OTM_TEST_PK ORDER BY OTM_TEST_PK";
+	
+	String GET_MODULE_COUNT = "SELECT COUNT(1) FROM OES_TEST_MASTER WHERE "+
+								" OTM_STATUS = CASE WHEN ? = 'B' THEN OTM_STATUS ELSE ? END";
+	
+	String GET_CATEGORY_SEARCH = "SELECT OCTM_CATEGORY_PK,OCTM_CATEGORY_CODE FROM OES_CATEGORY_MASTER";
+	
+	
+
+	String INSERT_MODULE = "Insert into OES_TEST_MASTER(OTM_TEST_PK, OTM_TEST_NAME, OTM_DESCRIPTION,"
+			+ " OTM_FEES_OPEN, OTM_FEES_SC_ST,OTM_DURATION, OTM_STATUS,"
+			+ " OTM_FEES_IN_WORDS_OPEN, OTM_FEES_IN_WORDS_SC_ST, OTM_FROM_DATE, OTM_TO_DATE,OTM_CREATED_BY, OTM_CREATED_DATE , OTM_PAYMENT_START_DATE, OTM_PAYMENT_END_DATE,otm_notify_date,otm_test_group_fk,OTM_ADVERTISEMENT_NUMBER"
+			+ " ) Values((select COALESCE(max(OTM_TEST_PK)+1) from oes_test_master),?,?,0,0,0,?,'test','test',to_date(?,'dd-Mon-yyyy'),to_date(?,'dd-Mon-yyyy'),?,CURRENT_TIMESTAMP,to_date(?,'dd-Mon-yyyy') ,to_date(?,'dd-Mon-yyyy'),to_date(?,'dd-Mon-yyyy'),?,?)";
+
+	String GET_SECTION_DETAILS = "Select OEM_EXEMPTION_MASTER_PK,OEM_PAPER_CODE,OEM_PAPER_NAME,OES_PAPER_SHORT_NAME,OEM_MODULE_FK "
+			+ "as moduleId from  OES_EXEMPTION_MASTER "
+			+ "where OEM_MODULE_FK=?";
+
+	String GET_MODULE_EDIT_DETAILS = "select OTM_TEST_NAME,"+
+			"OTM_DESCRIPTION,OTM_STATUS,to_char(OTM_FROM_DATE,'dd-Mon-yyyy') as OTM_FROM_DATE,to_char(OTM_TO_DATE,'dd-Mon-yyyy') as OTM_TO_DATE, to_char(OTM_PAYMENT_START_DATE,'dd-Mon-yyyy') as OTM_PAYMENT_START_DATE, to_char(OTM_PAYMENT_END_DATE,'dd-Mon-yyyy') as OTM_PAYMENT_END_DATE,otm_test_group_fk as testGroup,to_char(otm_notify_date,'dd-Mon-yyyy') as dateOfNotification,OTM_ADVERTISEMENT_NUMBER as advertisementnumber  from OES_TEST_MASTER where OTM_TEST_NAME = ?";
+
+	String DELETE_SECTION_DETAILS = "delete from OES_EXEMPTION_MASTER where OEM_EXEMPTION_MASTER_PK=?";
+
+	String UPDATE_MODULE_DETAILS = "update OES_TEST_MASTER set OTM_TEST_NAME=?,OTM_DESCRIPTION=?,OTM_STATUS=?,OTM_FROM_DATE = to_date(?,'dd-MON-yyyy'),OTM_TO_DATE = to_date(?,'dd-MON-yyyy'), OTM_UPDATED_BY = ?, OTM_UPDATED_DATE = CURRENT_TIMESTAMP, OTM_PAYMENT_START_DATE = to_date(?,'dd-MON-yyyy'), OTM_PAYMENT_END_DATE = to_date(?,'dd-MON-yyyy'),OTM_ADVERTISEMENT_NUMBER = ? where OTM_TEST_PK=?";
+
+	String UPDATE_FEES_DETAILS = "UPDATE OES_FEES_MASTER SET OFM_FEES = ?, OFM_FEES_IN_WORDS = ?, OFM_UPDATED_BY =?, OFM_UPDATED_DATE = CURRENT_TIMESTAMP WHERE OFM_TEST_FK = ? and OFM_CATEGORY_FK = ?";
+	
+	String ADD_SECTION_DETAILS = "Insert into OES_EXEMPTION_MASTER(OEM_EXEMPTION_MASTER_PK, OEM_PAPER_CODE, OEM_PAPER_NAME, OES_PAPER_SHORT_NAME,"
+			+ " OEM_MODULE_FK,OEM_CREATED_BY, OEM_CREATED_DATE)Values	(OES_EXEMPTION_SEQ.nextval, ?, ?, ?, ?,?, systimestamp)";
+
+	String GET_MODULE_PK = "Select OTM_TEST_PK from OES_TEST_MASTER where otm_test_name = ?";
+	
+	String GET_CATEGORY_PK = "Select OCTM_CATEGORY_PK from OES_CATEGORY_MASTER where OCTM_CATEGORY_CODE=?";
+	
+	String GET_MODULE_FEES_DETAILS = "select OCTM_CATEGORY_PK,OCTM_CATEGORY_CODE,OFM_FEES, OFM_FEES_IN_WORDS from OES_FEES_MASTER,OES_CATEGORY_MASTER where OFM_TEST_FK = ? and OFM_CATEGORY_FK = OCTM_CATEGORY_PK";
+	
+	String INSERT_MODULE_FEES = "INSERT INTO oes_fees_master(\r\n" + 
+								" ofm_test_fk, ofm_category_fk, ofm_fees, ofm_status, ofm_fees_in_words, \r\n" + 
+								" ofm_created_by, ofm_created_date ) \r\n" + 
+								" VALUES (?, ?, ?, ?, ?, \r\n" + 
+								" ?, CURRENT_TIMESTAMP)";
+								
+
+	String UPDATE_SECTION_DETAILS = "update OES_EXEMPTION_MASTER set OEM_PAPER_CODE=? ,OEM_PAPER_NAME=? ,"
+			+ "OES_PAPER_SHORT_NAME=? where OEM_EXEMPTION_MASTER_PK=?";
+	
+	String GET_EXEMPTION_PK ="SELECT OEM_EXEMPTION_MASTER_PK FROM OES_EXEMPTION_MASTER  WHERE  OEM_PAPER_CODE=? AND OEM_MODULE_FK=?";
+	
+	String IS_SCHEDULE_EXIST_FOR_MODULE = "SELECT COUNT(1) FROM OES_ENTROLLMENT_DETAILS WHERE OED_TEST_FK=?";
+
+	String DELETE_SECTION_WITH_MODULE_ID = "DELETE FROM OES_EXEMPTION_MASTER WHERE OEM_MODULE_FK=?";
+	
+	String GET_EXAM_MASTER_DATA = "SELECT EXAM_PK,EXAM_CODE,EXAM_NAME FROM OES_EXAM_MSTR WHERE ISACTIVE='Y'";
+	
+	String GET_EXAM_MASTER_OBJECT = "SELECT EXAM_CODE,EXAM_NAME from OES_EXAM_MSTR WHERE EXAM_PK=?";
+	String GET_MODULE_PK_COUNT = "Select COUNT(1) from OES_TEST_MASTER where otm_test_name = ?";
+	
+	String GET_DISCIPLINE_MAP = "SELECT GTM.OTM_TEST_PK,GTM.OTM_TEST_NAME FROM OES_TEST_MASTER GTM where OTM_STATUS='A' order by GTM.OTM_TEST_NAME";
+}

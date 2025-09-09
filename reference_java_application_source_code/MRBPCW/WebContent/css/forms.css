@@ -1,0 +1,26 @@
+.inputbox
+{
+    BACKGROUND-COLOR: #FFFFFF;
+    BORDER-BOTTOM: #cfc6a6 1px solid;
+    BORDER-LEFT: #cfc6a6 1px solid;
+    BORDER-RIGHT: #cfc6a6 1px solid;
+    BORDER-TOP: #cfc6a6 1px solid;
+    COLOR: #333333;
+    FONT-FAMILY: Arial, Verdana, Arial, 'MS Sans Serif';
+	padding:1px;
+	padding-left:3px;
+    TEXT-DECORATION: none
+}
+
+
+.select
+{
+    BORDER-BOTTOM: #cfc6a6 1px solid;
+    BORDER-LEFT: #cfc6a6 1px solid;
+    BORDER-RIGHT: #cfc6a6 1px solid;
+    BORDER-TOP: #cfc6a6 1px solid;
+    COLOR: #000000;
+    FONT-FAMILY: Arial, Verdana, 'MS Sans Serif';
+    FONT-SIZE: 10pt;
+    TEXT-DECORATION: none
+}

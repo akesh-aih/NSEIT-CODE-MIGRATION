@@ -1,0 +1,704 @@
+<!DOCTYPE tiles-definitions PUBLIC "-//Apache Software Foundation//DTD Tiles Configuration 3.0//EN" "http://tiles.apache.org/dtds/tiles-config_3_0.dtd">
+
+<tiles-definitions>
+
+<!-- Basic Mapping Start -->
+
+	<definition name="baseLayout" template="/WEB-INF/util/baseLayout.jsp">
+		<put-attribute name="title" value="Template" />
+		<put-attribute name="header" value="/WEB-INF/util/header.jsp" />
+		<put-attribute name="menu" value="/WEB-INF/util/Menu.jsp" />
+		<put-attribute name="body" value="/WEB-INF/util/body.jsp" />
+		<put-attribute name="footer" value="/WEB-INF/util/footer.jsp" />
+	</definition>
+	
+	<definition name="loginLayout" template="/WEB-INF/util/loginLayout.jsp">
+		<put-attribute name="title" value="Template" />
+		<put-attribute name="header" value="/WEB-INF/util/header.jsp" />
+		<put-attribute name="body" value="/WEB-INF/util/body.jsp" />
+		<put-attribute name="footer" value="/WEB-INF/util/footer.jsp" />
+	</definition>
+
+	<definition name="registrationLayout" template="/WEB-INF/util/registrationLayout.jsp">
+		<put-attribute name="title" value="Template" />
+		<put-attribute name="header" value="/WEB-INF/util/header.jsp" />
+		<put-attribute name="body" value="/WEB-INF/util/body.jsp" />
+		<put-attribute name="footer" value="/WEB-INF/util/footer.jsp" />
+	</definition>
+	
+	<definition name="forgotpasswordLayout" template="/WEB-INF/util/passwordLayout.jsp">
+		<put-attribute name="title" value="Template" />
+		<put-attribute name="body" value="/WEB-INF/util/body.jsp" />
+	</definition>
+	
+	<definition name="checkoutLayout" template="/WEB-INF/util/checkoutLayout.jsp">
+		<put-attribute name="title" value="Template" />
+		<put-attribute name="body" value="/WEB-INF/util/body.jsp" />
+	</definition>
+
+	<definition name="invalidtoken" extends="baseLayout">
+		<put-attribute name="title" value="Welcome to Security Page" />
+		<put-attribute name="body" value="/WEB-INF/security/SecurityCheck.jsp" />
+	</definition>
+
+	<definition name="loginPage" extends="loginLayout">
+		<put-attribute name="title" value="Welcome to Login Page" />
+		<put-attribute name="body" value="/WEB-INF/LoginPage.jsp" />
+		<put-attribute name="footer" value="/WEB-INF/util/loginFooter.jsp" />
+	</definition>
+
+	<definition name="index" extends="baseLayout">
+		<put-attribute name="title" value="Welcome to Online Exams" />
+		<put-attribute name="body" value="/WEB-INF/index.jsp" />
+	</definition>
+
+	<definition name="displayMessage" extends="baseLayout">
+		<put-attribute name="title" value="Welcome to Online Exams" />
+		<put-attribute name="body" value="/WEB-INF/DisplayMessage.jsp" />
+	</definition>
+
+	<definition name="displayDocumentMessage" extends="baseLayout">
+		<put-attribute name="title" value="Welcome to Online Exams" />
+		<put-attribute name="body" value="/WEB-INF/displayDocumentMessage.jsp" />
+	</definition>
+	
+	<definition name="childNotFoundForMenu" extends="baseLayout">
+		<put-attribute name="title" value="Child not found for menu" />
+		<put-attribute name="body" value="/WEB-INF/util/childNotFoundForMenu.jsp" />
+	</definition>
+
+	<definition name="dynamicMenu" extends="baseLayout">
+		<put-attribute name="title" value="My Home" />
+		<put-attribute name="body" value="/WEB-INF/util/dynamicMenu.jsp" />
+	</definition>	
+
+	<definition name="displayPrefTestCenterSuccessMessage"
+		extends="baseLayout">
+		<put-attribute name="title" value="Welcome to Online Exams" />
+		<put-attribute name="body" value="/WEB-INF/displayPrefTestCenterSuccessMsg.jsp" />
+	</definition>
+
+	<definition name="showMessage" extends="baseLayout">
+		<put-attribute name="title" value="Eligible/Non-Eligible Candidates" />
+		<put-attribute name="body" value="/WEB-INF/closedWindowForApproval.jsp" />
+	</definition>
+	
+	<definition name="displayAppForm" extends="baseLayout">
+		<put-attribute name="title" value="jasperReport" />
+		<put-attribute name="body" value="/WEB-INF/RedirectToAppForm.jsp" />
+	</definition>
+
+	<definition name="instructions" extends="baseLayout">
+		<put-attribute name="title" value="Instruction Page" />
+		<put-attribute name="body" value="/WEB-INF/instructions.jsp" />
+	</definition>
+
+	<definition name="getSeatBookDetails" extends="baseLayout">
+		<put-attribute name="title" value="Booking Seat" />
+		<put-attribute name="body" value="/WEB-INF/otbs/seatBookForTest.jsp" />
+	</definition>
+
+	<definition name="CloseWindow" extends="baseLayout">
+		<put-attribute name="title" value="Window Closed" />
+		<put-attribute name="body" value="/WEB-INF/closedWindow.jsp" />
+	</definition>
+
+	<definition name="showBatchDetails" extends="baseLayout">
+		<put-attribute name="title" value="Booking Seat" />
+		<put-attribute name="body" value="/WEB-INF/otbs/seatBookForTest.jsp" />
+	</definition>
+
+	<definition name="ShowHallTicket" extends="baseLayout">
+		<put-attribute name="title" value="Hall Ticket" />
+		<put-attribute name="body" value="/WEB-INF/otbs/viewHallTicket.jsp" />
+	</definition>
+
+	<definition name="shortlistedCandidateReportPage" extends="baseLayout">
+		<put-attribute name="title" value="Shortlisted Candidate Report" />
+		<put-attribute name="body" value="/WEB-INF/agency/shortlistedCandiateReportPage.jsp" />
+	</definition>
+	
+	<definition name="selectedCandidateReportPage" extends="baseLayout">
+		<put-attribute name="title" value="Selected Candidate Report" />
+		<put-attribute name="body" value="/WEB-INF/agency/selectedCandiateReportPage.jsp" />
+	</definition>
+	
+<!-- Basic Mapping End -->
+	
+<!-- Candidate Mapping Start -->
+	
+	<definition name="dashboard" extends="baseLayout">
+		<put-attribute name="title" value="Home" />
+		<put-attribute name="body" value="/WEB-INF/candidate/dashboard.jsp" />
+	</definition>
+	
+	<definition name="showCandidateDashboard" extends="baseLayout">
+		<put-attribute name="title" value="Dashboard" />
+		<put-attribute name="body" value="/WEB-INF/candidate/candidateDashboard.jsp" />
+	</definition>
+
+	<definition name="personalDetails" extends="baseLayout">
+		<put-attribute name="title" value="Preview" />
+		<put-attribute name="body" value="/WEB-INF/candidate/personalDetails.jsp" />
+	</definition>
+	<definition name="getAgeQutaDetails" extends="baseLayout">
+		<put-attribute name="title" value="Quota/Special Marks" />
+		<put-attribute name="body" value="/WEB-INF/candidate/getAgeQutaDetails.jsp" />
+	</definition>
+	<definition name="finalPersonalDetails" extends="baseLayout">
+		<put-attribute name="title" value="Final Preview" />
+		<put-attribute name="body" value="/WEB-INF/candidate/finalPersonalDetails.jsp" />
+	</definition>
+	
+	<definition name="displaySelectSlot" extends="baseLayout">
+		<put-attribute name="title" value="Select Slot" />
+		<put-attribute name="body" value="/WEB-INF/candidate/selectSchedule.jsp" />
+	</definition>
+
+	<definition name="displaySelectInterviewDay" extends="baseLayout">
+		<put-attribute name="title" value="Select Interview Slot" />
+		<put-attribute name="body" value="/WEB-INF/candidate/selectInterviewSchedule.jsp" />
+	</definition>
+
+	<definition name="home" extends="baseLayout">
+		<put-attribute name="title" value="Dashboard" />
+		<put-attribute name="body" value="/WEB-INF/candidate/dashboard.jsp" />
+	</definition>
+
+	<definition name="displayChallanScreen" extends="baseLayout">
+		<put-attribute name="title" value="Payment" />
+		<put-attribute name="body" value="/WEB-INF/candidate/insertChallanDetails.jsp" />
+	</definition>
+	
+	<definition name="checkout" extends="checkoutLayout">
+		<put-attribute name="title" value="Payment" />
+		<put-attribute name="body" value="/WEB-INF/candidate/checkout.jsp" />
+	</definition>
+	
+	<definition name="displayEPostScreen" extends="baseLayout">
+		<put-attribute name="title" value="Offline Payment" />
+		<put-attribute name="body" value="/WEB-INF/candidate/insertEPostDetails.jsp" />
+	</definition>
+	
+	<definition name="displayDDScreen" extends="baseLayout">
+		<put-attribute name="title" value="Offline Payment" />
+		<put-attribute name="body" value="/WEB-INF/candidate/insertDDDetails.jsp" />
+	</definition>
+	
+	<definition name="showOnlinePaymentScreen" extends="baseLayout">
+		<put-attribute name="title" value="Payment" />
+		<put-attribute name="body" value="/WEB-INF/candidate/insertOnlinePayment.jsp" />
+	</definition>
+	
+	<definition name="changePassword" extends="baseLayout">
+		<put-attribute name="title" value="Dashboard" />
+		<put-attribute name="body" value="/WEB-INF/candidate/firstLoginChangePassword.jsp" />
+	</definition>
+
+	<definition name="applicationForm" extends="baseLayout">
+		<put-attribute name="title" value="Personal Details" />
+		<put-attribute name="body" value="/WEB-INF/candidate/applicationForm.jsp" />
+	</definition>
+	
+	<!--Added for Covid Duty Certificate - Jyoti -->
+	<definition name="covidDutyCertificate" extends="baseLayout"> 
+		<put-attribute name="title" value="Covid Duty Certificate" />
+		<put-attribute name="body" value="/WEB-INF/candidate/covidDutyCertificate.jsp" />
+	</definition>
+	
+	<definition name="echallanPaymentDetailsPage" extends="baseLayout">
+		<put-attribute name="title" value="E-Challan Payment details page" />
+		<put-attribute name="body" value="/WEB-INF/candidate/echallanPaymentDetailsPage.jsp" />
+	</definition>
+	
+	<definition name="preferencesPage" extends="baseLayout">
+		<put-attribute name="title" value="Preferences Selection" />
+		<put-attribute name="body" value="/WEB-INF/candidate/preferences.jsp" />
+	</definition>	
+	
+	<definition name="additionalEduForm" extends="baseLayout">
+		<put-attribute name="title" value="Additional Education Details" />
+		<put-attribute name="body" value="/WEB-INF/candidate/additionalEduDetails.jsp" />
+	</definition>
+	
+	<definition name="additionalDetailsForm" extends="baseLayout">
+		<put-attribute name="title" value="Additional Details" />
+		<put-attribute name="body" value="/WEB-INF/candidate/additionalDetailsForm.jsp" />
+	</definition>
+	
+	<definition name="ageDetailsForm" extends="baseLayout">
+		<put-attribute name="title" value="Age Relaxation Details" />
+		<put-attribute name="body" value="/WEB-INF/candidate/ageRelaxation.jsp" />
+	</definition>
+	
+	<definition name="quotaDetailsForm" extends="baseLayout">
+		<put-attribute name="title" value="Quota / Special Marks Details" />
+		<put-attribute name="body" value="/WEB-INF/candidate/quotaDetailsForm.jsp" />
+	</definition>
+	
+	<definition name="apply" extends="baseLayout">
+		<put-attribute name="title" value="Apply" />
+		<put-attribute name="body" value="/WEB-INF/candidate/applyPost.jsp" />
+	</definition>
+
+	<definition name="applicationFormPreview" extends="baseLayout">
+		<put-attribute name="title" value="Preview Page" />
+		<put-attribute name="body" value="/WEB-INF/candidate/applicationFormPreview.jsp" />
+	</definition>
+
+	<definition name="showUploadPhotograph" extends="baseLayout">
+		<put-attribute name="title" value="Upload Photo" />
+		<put-attribute name="body" value="/WEB-INF/candidate/UploadPhotograph.jsp" />
+	</definition>
+	
+	<definition name="showPaymentReceipt" extends="baseLayout">
+		<put-attribute name="title" value="Payment Receipt" />
+		<put-attribute name="body" value="/WEB-INF/candidate/displayPaymentReceipt.jsp" />
+	</definition>
+
+	<definition name="showUploadSignature" extends="baseLayout">
+		<put-attribute name="title" value="Upload Signature" />
+		<put-attribute name="body" value="/WEB-INF/candidate/uploadSignature.jsp" />
+	</definition>
+
+	<definition name="getUploadDocument" extends="baseLayout">
+		<put-attribute name="title" value="Upload Document" />
+		<put-attribute name="body" value="/WEB-INF/candidate/uploadDocuments.jsp" />
+	</definition>
+
+	<definition name="preferenceTestCenterPage" extends="baseLayout">
+		<put-attribute name="title" value="Candidate Test Centre Preference" />
+		<put-attribute name="body" value="/WEB-INF/candidate/candidateTestCenterPreference.jsp" />
+	</definition>
+
+	<definition name="showFinalPersonalDetails" extends="baseLayout">
+		<put-attribute name="title" value="Preview" />
+		<put-attribute name="body" value="/WEB-INF/candidate/personalDetails.jsp" />
+	</definition>
+	
+	<definition name="showViewPrintDetails" extends="baseLayout">
+		<put-attribute name="title" value="View" />
+		<put-attribute name="body" value="/WEB-INF/candidate/viewPrintPage.jsp" />
+	</definition>
+	
+	<definition name="showViewPrintDetails1" extends="baseLayout">
+		<put-attribute name="title" value="Application Form" />
+		<put-attribute name="body" value="/WEB-INF/candidate/MyJsp.jsp" />
+	</definition>
+	
+	<definition name="showViewPrintDetails2" extends="baseLayout">
+		<put-attribute name="title" value="One Time Registration Form" />
+		<put-attribute name="body" value="/WEB-INF/candidate/MyJsp1.jsp" />
+	</definition>
+	
+	<definition name="mockTest" extends="baseLayout">
+		<put-attribute name="title" value="Mock Test" />
+		<put-attribute name="body" value="/WEB-INF/candidate/mockTest.jsp" />
+	</definition>
+
+	<definition name="registerPage" extends="registrationLayout">
+		<put-attribute name="title" value="Registration Page" />
+		<put-attribute name="body" value="/WEB-INF/candidate/registrationPage.jsp" />
+	</definition>
+	
+	<definition name="resetPassword" extends="forgotpasswordLayout">
+		<put-attribute name="title" value="Reset Password" />
+		<put-attribute name="body" value="/WEB-INF/candidate/resetPassword.jsp" />
+	</definition>
+	
+	<definition name="goTowelcomePage" extends="forgotpasswordLayout">
+		<put-attribute name="title" value="Welcome Page" />
+		<put-attribute name="body" value="/WEB-INF/candidate/welcomeSignUpPage.jsp" />
+	</definition>
+	
+	<definition name="resetPasswordSuccessful" extends="forgotpasswordLayout">
+		<put-attribute name="title" value="Welcome Page" />
+		<put-attribute name="body" value="/WEB-INF/candidate/resetPasswordSuccessful.jsp" />
+	</definition>
+	
+	<definition name="linkExpire" extends="forgotpasswordLayout">
+		<put-attribute name="title" value="Welcome Page" />
+		<put-attribute name="body" value="/WEB-INF/candidate/linkExpire.jsp" />
+	</definition>
+	
+<!-- Candidate Mapping End -->
+	
+<!-- Agency Mapping Start -->
+	
+	<definition name="agencyDashboard" extends="baseLayout">
+		<put-attribute name="title" value="Dashboard" />
+		<put-attribute name="body" value="/WEB-INF/agency/dashboard.jsp" />
+	</definition>
+
+	<definition name="insertEmailSMSSettingDetails" extends="baseLayout">
+		<put-attribute name="title" value="Configure Email/SMS Settings" />
+		<put-attribute name="body" value="/WEB-INF/agency/insertEmailSMSSettingDetails.jsp" />
+	</definition>
+
+	<definition name="getUploadManagement" extends="baseLayout">
+		<put-attribute name="title" value="Manage Uploads" />
+		<put-attribute name="body" value="/WEB-INF/agency/manageUploads.jsp" />
+	</definition>
+
+	<definition name="displayPaymentApproval" extends="baseLayout">
+		<put-attribute name="title" value="Payment Approval" />
+		<put-attribute name="body" value="/WEB-INF/agency/agencyPaymentApproval.jsp" />
+	</definition>
+	
+	<definition name="showPaymentReportScreen" extends="baseLayout">
+		<put-attribute name="title" value="Payment Report" />
+		<put-attribute name="body" value="/WEB-INF/agency/paymentDetailsReport.jsp" />
+	</definition>
+
+	<definition name="admitCatdDetails" extends="baseLayout">
+		<put-attribute name="title" value="Generate Admit Card" />
+		<put-attribute name="body" value="/WEB-INF/agency/admitCardDetails.jsp"/>
+	</definition>
+	
+	<definition name="admitCardforWrittenTest" extends="baseLayout">
+		<put-attribute name="title" value="Generate Admit Card" />
+		<put-attribute name="body" value="/WEB-INF/agency/admitCardforWrittenTest.jsp"/>
+	</definition>
+	
+	<definition name="admitCardforFieldTest" extends="baseLayout">
+		<put-attribute name="title" value="Generate Admit Card" />
+		<put-attribute name="body" value="/WEB-INF/agency/admitCardforFieldTest.jsp"/>
+	</definition>
+	
+	<definition name="admitCardforInterview" extends="baseLayout">
+		<put-attribute name="title" value="Generate Admit Card" />
+		<put-attribute name="body" value="/WEB-INF/agency/admitCardforInterview.jsp"/>
+	</definition>
+	
+	<definition name="admitCardforMedicalTest" extends="baseLayout">
+		<put-attribute name="title" value="Generate Admit Card" />
+		<put-attribute name="body" value="/WEB-INF/agency/admitCardforMedicalTest.jsp"/>
+	</definition>
+
+	<definition name="successAgency" extends="baseLayout">
+		<put-attribute name="title" value="Generate Credentials" />
+		<put-attribute name="body" value="/WEB-INF/agency/generateLoginCredentials.jsp" />
+	</definition>
+
+	<definition name="eligible" extends="baseLayout">
+		<put-attribute name="title" value="Approve / Reject Candidate" />
+		<put-attribute name="body" value="/WEB-INF/agency/eligibleNoneligible.jsp" />
+	</definition>
+
+	<definition name="approvalReceipt" extends="baseLayout">
+		<put-attribute name="title" value="Approval Receipt" />
+		<put-attribute name="body" value="/WEB-INF/agency/approvalReceipt.jsp" />
+	</definition>
+
+	<definition name="approvalReceiptNodal" extends="baseLayout">
+		<put-attribute name="title" value="Approval Receipt" />
+		<put-attribute name="body" value="/WEB-INF/agency/approvalReceiptNodal.jsp" />
+	</definition>
+
+	<definition name="viewCandidate" extends="baseLayout">
+		<put-attribute name="title" value="View Edit Candidate" />
+		<put-attribute name="body" value="/WEB-INF/agency/viewEditCandidate.jsp" />
+	</definition>
+
+	<definition name="displayLoginData" extends="baseLayout">
+		<put-attribute name="title" value="Export Login Credentials" />
+		<put-attribute name="body" value="/WEB-INF/agency/exportLoginCredentials.jsp" />
+	</definition>
+
+	<definition name="adminHomePage" extends="baseLayout">
+		<put-attribute name="title" value="Admin Home Page" />
+		<put-attribute name="body" value="/WEB-INF/agency/adminHomePage.jsp" />
+	</definition>
+
+	<definition name="viewHallTicketForAdmin" extends="baseLayout">
+		<put-attribute name="title" value="Print Admit Card" />
+		<put-attribute name="body" value="/WEB-INF/agency/viewHallTicketForAdmin.jsp" />
+	</definition>
+
+	<definition name="registrationDetails" extends="baseLayout">
+		<put-attribute name="title" value="Registration Details" />
+		<put-attribute name="menuKey" value="2" />
+		<put-attribute name="body" value="/WEB-INF/agency/registrationDetails.jsp" />
+	</definition>
+
+	<definition name="displayGcetHome" extends="baseLayout">
+		<put-attribute name="title" value="Admin Home" />
+		<put-attribute name="body" value="/WEB-INF/agency/gcetAgencyHome.jsp" />
+	</definition>
+
+	<definition name="reportPage" extends="baseLayout">
+		<put-attribute name="title" value="Candidate Report" />
+		<put-attribute name="body" value="/WEB-INF/agency/reportsPage.jsp" />
+	</definition>
+
+	<definition name="mailPage" extends="baseLayout">
+		<put-attribute name="title" value="Mail/SMS" />
+		<put-attribute name="body" value="/WEB-INF/agency/sendEmail.jsp" />
+	</definition>
+
+	<definition name="importCredentials" extends="baseLayout">
+		<put-attribute name="title" value="Upload Credentials" />
+		<put-attribute name="body" value="/WEB-INF/agency/importCredentials.jsp" />
+	</definition>
+
+	<definition name="eligibleForNodal" extends="baseLayout">
+		<put-attribute name="title" value="Approve / Reject Candidate" />
+		<put-attribute name="body" value="/WEB-INF/agency/eligibleNoneligibleForNodal.jsp" />
+	</definition>
+	
+	<definition name="viewEditCandidateForNodal" extends="baseLayout">
+		<put-attribute name="title" value="View Edit Candidate" />
+		<put-attribute name="body" value="/WEB-INF/agency/viewEditCandidateForNodal.jsp" />
+	</definition>
+	
+	<definition name="getUploadBulkManagement" extends="baseLayout">
+		<put-attribute name="title" value="Upload Candidate Details" />
+		<put-attribute name="body" value="/WEB-INF/agency/uploadBulkManagement.jsp" />
+	</definition>
+	
+	<definition name="getUploadCandidateMarks" extends="baseLayout">
+		<put-attribute name="title" value="Upload Candidate Marks" />
+		<put-attribute name="body" value="/WEB-INF/agency/uploadCandidateMarks.jsp" />
+	</definition>
+	
+	<definition name="getUploadOfflinePayments" extends="baseLayout">
+		<put-attribute name="title" value="Upload Offline Payments" />
+		<put-attribute name="body" value="/WEB-INF/agency/uploadOfflinePayments.jsp" />
+	</definition>
+	<definition name="getUploadCandidateSchedule" extends="baseLayout">
+		<put-attribute name="title" value="Upload Candidate Schedule" />
+		<put-attribute name="body" value="/WEB-INF/agency/uploadCandidateSchedule.jsp" />
+	</definition>
+	<definition name="getUploadCandidateWrittenTestScore" extends="baseLayout">
+		<put-attribute name="title" value="Upload Candidate Written Test Score" />
+		<put-attribute name="body" value="/WEB-INF/agency/uploadCandidateWrittenTestScore.jsp" />
+	</definition>
+	<definition name="getUploadCandidateFieldTestScore" extends="baseLayout">
+		<put-attribute name="title" value="Upload Candidate Field Test Score" />
+		<put-attribute name="body" value="/WEB-INF/agency/uploadCandidateFieldTestScore.jsp" />
+	</definition>
+	<definition name="getUploadCandidateInterviewScore" extends="baseLayout">
+		<put-attribute name="title" value="Upload Candidate Interview Score" />
+		<put-attribute name="body" value="/WEB-INF/agency/uploadCandidateInterviewScore.jsp" />
+	</definition>
+	<definition name="getUploadCandidateMedicalScore" extends="baseLayout">
+		<put-attribute name="title" value="Upload Candidate Field Test Score" />
+		<put-attribute name="body" value="/WEB-INF/agency/uploadCandidateMedicalScore.jsp" />
+	</definition>
+	<definition name="getUploadInterviewSchedule" extends="baseLayout">
+		<put-attribute name="title" value="Upload Candidate Interview Schedule" />
+		<put-attribute name="body" value="/WEB-INF/agency/uploadInterviewSchedule.jsp" />
+	</definition>
+	<definition name="getUploadMedicalSchedule" extends="baseLayout">
+		<put-attribute name="title" value="Upload Candidate Medical Schedule" />
+		<put-attribute name="body" value="/WEB-INF/agency/uploadMedicalSchedule.jsp" />
+	</definition>
+	<definition name="getUploadFieldSchedule" extends="baseLayout">
+		<put-attribute name="title" value="Upload Candidate Field Test Score" />
+		<put-attribute name="body" value="/WEB-INF/agency/uploadFieldTestSchedule.jsp" />
+	</definition>
+<!-- Agency Mapping End -->
+
+<!-- Admin Mapping Start -->
+
+	<definition name="getDateDefinitionDetails" extends="baseLayout">
+		<put-attribute name="title" value="Define Date Window" />
+		<put-attribute name="body" value="/WEB-INF/admin/dateDefinition.jsp" />
+	</definition>
+
+	<definition name="allocateTestCenter" extends="baseLayout">
+		<put-attribute name="title" value="Allocate Test Center" />
+		<put-attribute name="body" value="/WEB-INF/admin/allocateTestCenter.jsp" />
+	</definition>
+
+	<definition name="uploaded" extends="baseLayout">
+		<put-attribute name="title" value="Encrypt QBank" />
+		<put-attribute name="body" value="/WEB-INF/admin/uploadAndEncryptQBank.jsp" />
+	</definition>
+
+	<definition name="encryptQBank" extends="baseLayout">
+		<put-attribute name="title" value="Encrypt QBank" />
+		<put-attribute name="body" value="/WEB-INF/admin/uploadAndEncryptQBank.jsp" />
+	</definition>
+
+	<definition name="getHelpCenterList" extends="baseLayout">
+		<put-attribute name="title" value="Change Password For Help Centre" />
+		<put-attribute name="body" value="/WEB-INF/admin/changePasswordForHelpCenter.jsp" />
+	</definition>
+	
+	<definition name="hallTicket" extends="baseLayout">
+		<put-attribute name="title" value="View Admit Card" />
+		<put-attribute name="body" value="/WEB-INF/otbs/showHallTicket.jsp" />
+	</definition>
+
+	<definition name="successPage" extends="baseLayout">
+		<put-attribute name="title" value="show Hall Ticket" />
+		<put-attribute name="body" value="/WEB-INF/otbs/successOtbsPage.jsp" />
+	</definition>
+
+	<definition name="generateRollNumber" extends="baseLayout">
+		<put-attribute name="title" value="Generate Roll Number" />
+		<put-attribute name="body" value="/WEB-INF/admin/generateRollNumber.jsp" />
+	</definition>
+	
+	<definition name="seatUtilizationReport" extends="baseLayout">
+		<put-attribute name="title" value="Seat Utilization Report" />
+		<put-attribute name="body" value="/WEB-INF/seatUtilizationReport.jsp" />
+	</definition>
+	
+	<definition name="attendenceReportPage" extends="baseLayout">
+		<put-attribute name="title" value="Candidate Attendance Details Report" />
+		<put-attribute name="body" value="/WEB-INF/agency/attedenceReport.jsp" />
+	</definition>
+	
+	<definition name="scheduleReportPage" extends="baseLayout">
+		<put-attribute name="title" value="Schedule Report" />
+		<put-attribute name="body" value="/WEB-INF/agency/scheduleReportNew.jsp" />
+	</definition>
+	
+	<definition name="paymentReportPage" extends="baseLayout">
+		<put-attribute name="title" value="Schedule Report" />
+		<put-attribute name="body" value="/WEB-INF/agency/paymentReports.jsp" />
+	</definition>
+	
+	<definition name="paymentCollectionReportPage" extends="baseLayout">
+		<put-attribute name="title" value="Payment Collection Report" />
+		<put-attribute name="body" value="/WEB-INF/agency/paymentCollectionReports.jsp" />
+	</definition>
+	
+	<definition name="paymentReconcilliationReport" extends="baseLayout">
+		<put-attribute name="title" value="Payment Reconcilliation Report" />
+		<put-attribute name="body" value="/WEB-INF/agency/paymentReconcilliationReport.jsp" />
+	</definition>
+	
+	<definition name="bulkDownloadReportPage" extends="baseLayout">
+		<put-attribute name="title" value="Bulk Download" />
+		<put-attribute name="body" value="/WEB-INF/agency/bulkDownloadsForJasperPDF.jsp" />
+	</definition>
+	
+	<definition name="selectSlot" extends="baseLayout">
+		<put-attribute name="title" value="Select Slot" />
+		<put-attribute name="body" value="/WEB-INF/candidate/selectSlot.jsp" />
+	</definition>
+	
+	<definition name="showTemplateDownloadPage" extends="baseLayout">
+		<put-attribute name="title" value="Template Download Page" />
+		<put-attribute name="body" value="/WEB-INF/admin/showTemplateDownloadPage.jsp" />
+	</definition>
+	
+	<definition name="preferenceTestCenterPageWithTestDate" extends="baseLayout">
+		<put-attribute name="title" value="Candidate Test Center Preference" />
+		<put-attribute name="body" value="/WEB-INF/candidate/candidateTestCenterTestDatePreference.jsp" />
+	</definition>
+	
+	<definition name="allocateTestSlot" extends="baseLayout">
+		<put-attribute name="title" value="Allocate Test Slot" />
+		<put-attribute name="body" value="/WEB-INF/admin/allocateTestSlot.jsp" />
+	</definition>
+	
+	<definition name="showChallanReconcile" extends="baseLayout">
+		<put-attribute name="title" value="Challan Reconcilation" />
+		<put-attribute name="body" value="/WEB-INF/agency/challanReconciliation.jsp" />
+	</definition>
+
+	<definition name="showEPostReconcile" extends="baseLayout">
+		<put-attribute name="title" value="e-Post Reconcilation" />
+		<put-attribute name="body" value="/WEB-INF/agency/ePostReconciliation.jsp" />
+	</definition>
+
+	<definition name="educationalDetailsPage" extends="baseLayout">
+		<put-attribute name="title" value="Educational Qualification" />
+		<put-attribute name="body" value="/WEB-INF/candidate/educationalDetailsPage.jsp" />
+	</definition>	
+	
+	
+	<definition name="candidateExportData" extends="baseLayout">
+		<put-attribute name="title" value="Export Data" />
+		<put-attribute name="body" value="/WEB-INF/agency/candidateExportData.jsp" />
+	</definition>
+	
+	<definition name="billDeskMsg" extends="baseLayout">
+		<put-attribute name="title" value="Payment Status" />
+		<put-attribute name="body" value="/WEB-INF/candidate/paymentSuccMsg.jsp" />
+	</definition>
+	
+	<!--Added for Work Experience details - Siddhesh -->
+	<definition name="workExperience" extends="baseLayout">
+		<put-attribute name="title" value="Work Experience" />
+		<put-attribute name="body" value="/WEB-INF/candidate/workExperience.jsp" />
+	</definition>
+	
+	<definition name="moduleMaster" extends="baseLayout">
+		<put-attribute name="title" value="Module Master" />
+		<put-attribute name="body" value="/WEB-INF/agency/moduleMaster.jsp" />
+	</definition>
+	
+	<definition name="editModule" extends="baseLayout">
+		<put-attribute name="title" value="Edit Module"/>
+		<put-attribute name="body" value="/WEB-INF/agency/editModule.jsp" />
+	</definition>
+			
+	<definition name="addModule" extends="baseLayout">
+		<put-attribute name="title" value="Add Module"/>
+		<put-attribute name="body" value="/WEB-INF/agency/addModule.jsp" />
+	</definition>
+	
+	<definition name="roleMaster" extends="baseLayout">
+		<put-attribute name="title" value="Role Master" />
+		<put-attribute name="body" value="/WEB-INF/agency/roleMaster.jsp" />
+	</definition>
+	
+	<definition name="editRole" extends="baseLayout">
+		<put-attribute name="title" value="Edit Role"/>
+		<put-attribute name="body" value="/WEB-INF/agency/editRole.jsp" />
+	</definition>
+			
+	<definition name="addRole" extends="baseLayout">
+		<put-attribute name="title" value="Add Role"/>
+		<put-attribute name="body" value="/WEB-INF/agency/addRole.jsp" />
+	</definition>
+	
+	<definition name="roleMenuMaster" extends="baseLayout">
+		<put-attribute name="title" value="Role Master" />
+		<put-attribute name="body" value="/WEB-INF/agency/roleMenuMaster.jsp" />
+	</definition>
+	
+	<definition name="userMaster" extends="baseLayout">
+		<put-attribute name="title" value="User Master" />
+		<put-attribute name="body" value="/WEB-INF/agency/userMaster.jsp" />
+	</definition>
+	
+	<definition name="editUser" extends="baseLayout">
+		<put-attribute name="title" value="Edit User"/>
+		<put-attribute name="body" value="/WEB-INF/agency/editUser.jsp" />
+	</definition>
+			
+	<definition name="addUser" extends="baseLayout">
+		<put-attribute name="title" value="Add User"/>
+		<put-attribute name="body" value="/WEB-INF/agency/addUser.jsp" />
+	</definition>
+	
+	<definition name="paymentResponse" extends="baseLayout">
+		<put-attribute name="title" value="Payment Status" />
+		<put-attribute name="body" value="/WEB-INF/candidate/paymentSuccMsg.jsp" />
+	</definition>
+	
+	<definition name="typeOCallHomeTP" extends="baseLayout">
+		<put-attribute name="title" value="Tech Process O Call Request" />
+		<put-attribute name="body" value="/WEB-INF/agency/typeOCallTP.jsp" />
+	</definition>
+	
+	<!-- For SBIEPay Offline Call -->
+	<definition name="typeSBIEPayCallHome" extends="baseLayout">
+		<put-attribute name="title" value="SBIePay Offline Call" />
+		<put-attribute name="body" value="/WEB-INF/admin/typeSBIEPayCallHome.jsp" />
+	</definition>
+	
+	<definition name="pondiReportPage" extends="baseLayout">
+		<put-attribute name="title" value="TNPCB Report" />
+		<put-attribute name="body" value="/WEB-INF/agency/pondiReportsPage.jsp" />
+	</definition>
+	
+<!-- Admin Mapping End -->
+
+</tiles-definitions>

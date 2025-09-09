@@ -1,0 +1,965 @@
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:context="http://www.springframework.org/schema/context" 
+	xmlns:jee="http://www.springframework.org/schema/jee" xmlns:tx=" http://www.springframework.org/schema/tx" 
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:aop="http://www.springframework.org/schema/aop"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans
+	http://www.springframework.org/schema/beans/spring-beans.xsd
+	http://www.springframework.org/schema/jee
+	http://www.springframework.org/schema/jee/spring-jee.xsd
+	http://www.springframework.org/schema/tx
+	http://www.springframework.org/schema/tx/spring-tx.xsd
+	http://www.springframework.org/schema/context
+	http://www.springframework.org/schema/context/spring-context.xsd
+	http://www.springframework.org/schema/aop
+	http://www.springframework.org/schema/aop/spring-aop-3.0.xsd"> 
+
+
+	<!-- Database Configuration -->
+	<jee:jndi-lookup id="dataSource" jndi-name="jdbc/GenericDataSource" />
+
+	<jee:jndi-lookup id="writeDataSource" jndi-name="jdbc/WriteDataSource" />
+	<bean id="writeJdbcTemplate" class="org.springframework.jdbc.core.JdbcTemplate"
+		scope="prototype">
+		<property name="dataSource" ref="writeDataSource" />
+	</bean>
+
+	<!-- ======================================================================================================== -->
+
+	<!-- [Start] Email Configuration -->
+	<!-- <bean id="mailSender" class="org.springframework.mail.javamail.JavaMailSenderImpl"
+		scope="prototype">
+		<property name="session">
+			<ref bean="mailSession" />
+		</property>
+	</bean> -->
+
+	<!-- <bean id="mailSession" class="org.springframework.jndi.JndiObjectFactoryBean"
+		scope="prototype">
+		<property name="jndiName">
+			<value>java:comp/env/mail/Session</value>
+		</property>
+	</bean> -->
+
+	<!-- Mail message: configure this as desired -->
+	<bean id="messageTemplate" class="org.springframework.mail.javamail.MimeMessageHelper"
+		scope="prototype">
+		<property name="from">
+			<value><![CDATA[Simple Application Monitor <noreply@somehost.com>]]></value>
+		</property>
+		<property name="to">
+			<value><![CDATA[System Administrator <sysadmin@somehost.com>]]></value>
+		</property>
+		<property name="subject" value="Default Template" />
+	</bean>
+	<!-- [End] Email Configuration -->
+
+	<!-- ======================================================================================================== -->
+
+	<!-- [Start] Transaction Manager -->
+	<bean id="genericTransactionManager"
+		class="org.springframework.jdbc.datasource.DataSourceTransactionManager"
+		scope="prototype">
+		<property name="dataSource" ref="dataSource" />
+	</bean>
+	<!-- [End] Transaction Manager -->
+
+	<!-- ======================================================================================================== -->
+
+	<!-- [Start] Action, Service & Dao Beans Declaration -->
+
+	<!-- [Start] Login Beans -->
+	<bean id="loginService"
+		class="org.springframework.transaction.interceptor.TransactionProxyFactoryBean"
+		scope="prototype">
+		<property name="transactionManager" ref="genericTransactionManager"/>			
+		<property name="target" ref="loginServiceImpl"/>
+		<property name="transactionAttributes">
+			<props>
+				<prop key="*">PROPAGATION_REQUIRED</prop>
+				<prop key="authenticate">PROPAGATION_REQUIRED,-Exception</prop>
+			</props>
+		</property>
+	</bean>
+
+	<bean id="otpService"
+		class="org.springframework.transaction.interceptor.TransactionProxyFactoryBean"
+		scope="prototype">
+		<property name="transactionManager" ref="genericTransactionManager"/>
+		<property name="target" ref="otpServiceImpl"/>
+		<property name="transactionAttributes">
+			<props>
+				<prop key="*">PROPAGATION_REQUIRED,-Exception</prop>
+			</props>
+		</property>
+	</bean>
+
+	<bean id="loginAction" class="com.nseit.generic.action.LoginAction"
+		scope="prototype">
+		<property name="loginService" ref="loginService" />
+		<property name="commonService" ref="commonService" />
+		<property name="agencyService" ref="agencyService" />
+		<property name="OTPService" ref="otpService"></property>
+	</bean>
+
+	<bean id="loginServiceImpl" class="com.nseit.generic.service.impl.LoginServiceImpl"
+		scope="prototype">
+		<property name="loginDao" ref="loginDao" />
+		<property name="commonDao" ref="commonDao"></property>
+	</bean>
+
+	<bean id="loginDao" class="com.nseit.generic.dao.impl.LoginDaoImpl"
+		scope="prototype">
+		<property name="dataSource" ref="dataSource" />
+		<property name="writeJdbcTemplate" ref="writeJdbcTemplate" />
+	</bean>
+
+	<bean id="otpServiceImpl" class="com.nseit.generic.service.impl.OTPServiceImpl"
+		scope="prototype">
+		<property name="OTPMasterDao" ref="OTPMasterDao" />
+		<property name="userDao" ref="userDao"></property>
+		<property name="registraionDAO" ref="registraionDAO"></property>
+	</bean>
+
+	<bean id="OTPMasterDao" class="com.nseit.generic.dao.impl.OTPMasterDaoImpl"
+		scope="prototype">
+		<property name="dataSource" ref="dataSource" />
+	</bean>
+	<!-- [End] Login Beans -->
+
+	<!-- admin mappinf for gcet -->
+
+	<!-- [End] Login Beans -->
+
+	<!-- [Start] Candidate Beans -->
+	<bean id="candidateService"
+		class="org.springframework.transaction.interceptor.TransactionProxyFactoryBean"
+		scope="prototype">
+		<property name="transactionManager" ref="genericTransactionManager" />
+		<property name="target" ref="candidateServiceImpl" />
+		<property name="transactionAttributes">
+			<props>
+				<prop key="*">PROPAGATION_REQUIRED,-Exception</prop>
+			</props>
+		</property>
+	</bean>
+
+	<bean id="candidatePersonalDetailsService"
+		class="org.springframework.transaction.interceptor.TransactionProxyFactoryBean"
+		scope="prototype">
+		<property name="transactionManager" ref="genericTransactionManager" />
+		<property name="target" ref="candidatePersonalDetailsServiceImpl" />
+		<property name="transactionAttributes">
+			<props>
+				<prop key="*">PROPAGATION_REQUIRED,-Exception</prop>
+			</props>
+		</property>
+	</bean>
+	<bean id="candidatePersonalDetailsServiceImpl"
+		class="com.nseit.generic.service.impl.CandidatePersonalDetailsServiceImpl"
+		scope="prototype">
+		<property name="candidateDao" ref="candidateDao" />
+		<property name="commonDao" ref="commonDao" />
+		<property name="candidatePersonalDetailsDAO" ref="candidatePersonalDetailsDAO"></property>
+		<property name="registraionDAO" ref="registraionDAO"></property>
+		<property name="OTPMasterDao" ref="OTPMasterDao"></property>
+		<!-- <property name="mailSender">
+			<ref bean="mailSender" />
+		</property> -->
+	</bean>
+
+
+
+	<bean id="candidatePersonalDetailsDAO"
+		class="com.nseit.generic.dao.impl.CandidatePersonalDetailsDAOImpl">
+		<property name="dataSource" ref="dataSource" />
+		<property name="writeJdbcTemplate" ref="writeJdbcTemplate" />
+	</bean>
+	<bean id="workExperienceDao" class="com.nseit.generic.dao.impl.WorkExperienceDaoImpl">
+		<property name="dataSource" ref="dataSource" />
+		<property name="writeJdbcTemplate" ref="writeJdbcTemplate" />
+	</bean>
+	<bean id="covidDutyCertificateDao" class="com.nseit.generic.dao.impl.CovidDutyCertificateDaoImpl">
+		<property name="dataSource" ref="dataSource" />
+		<property name="writeJdbcTemplate" ref="writeJdbcTemplate" />
+	</bean>
+	<bean id="candidateBean" class="com.nseit.generic.models.CandidateBean"
+		scope="prototype"></bean>
+	<bean id="personalBeanValidator" class="com.nseit.generic.util.validation.PersonalBeanValidator"
+		scope="prototype">
+		<property name="candidateBean" ref="candidateBean"/>
+	</bean>
+		<bean id="photoBeanValidator" class="com.nseit.generic.util.validation.PhotoBeanValidator"
+		scope="prototype">
+		<property name="candidateBean" ref="candidateBean"/>
+		<property name="uploadPhotoSignInS3sdkV2" ref="uploadPhotoSignInS3sdkV2"/>
+		</bean>
+		<bean id="signatureBeanValidator" class="com.nseit.generic.util.validation.SignatureBeanValidator"
+		scope="prototype">
+		<property name="candidateBean" ref="candidateBean"/>
+		</bean>
+	<bean id="candidateAction" class="com.nseit.generic.action.CandidateAction"
+		scope="prototype">
+		<property name="candidateService" ref="candidateService" />
+		<property name="commonService" ref="commonService" />
+		<property name="reportService" ref="reportService" />
+		<property name="candidateMgmtService" ref="candidateMgmtService" />
+		<property name="paymentService" ref="paymentService" />
+		<property name="candidatePersonalDetailsService" ref="candidatePersonalDetailsService" />
+		<property name="candidateEducationService" ref="candidateEducationService" />
+		<property name="candidateAdditionalDetailsService" ref="candidateAdditionalDetailsService" />
+		<property name="candidatePhotoSignatureService" ref="candidatePhotoSignatureService" />
+		<property name="candidateUploadDocService" ref="candidateUploadDocService" />
+		<property name="workExperienceService" ref="workExperienceService"></property>
+		<property name="candidateAgeQuotaSpecialMarksService" ref="candidateAgeQuotaSpecialMarksService" />
+		<property name="personalBeanValidator" ref="personalBeanValidator"/>
+		<property name="photoBeanValidator" ref="photoBeanValidator"></property>
+		<property name="signatureBeanValidator" ref="signatureBeanValidator"></property>
+		<property name="previewBeanValidator" ref="previewBeanValidator"/>
+		<property name="educationBeanValidator" ref="educationBeanValidator"/>
+		<property name="documentBeanValidator" ref="documentBeanValidator"/>
+		<property name="uploadPhotoSignInS3sdkV2" ref="uploadPhotoSignInS3sdkV2"/>
+		<property name="additionalBeanValidator" ref="additionalBeanValidator"/>
+		<property name="workExperienceValidator" ref="workExperienceValidator"/>
+		<!-- <property name="covidDutyCertificateService" ref="covidDutyCertificateService"></property>
+		<property name="covidDutyCertificateValidator" ref="covidDutyCertificateValidator"></property> -->
+	</bean>
+
+	<bean id="candidateEducationService"
+		class="org.springframework.transaction.interceptor.TransactionProxyFactoryBean"
+		scope="prototype">
+		<property name="transactionManager" ref="genericTransactionManager"/>
+		<property name="target" ref="candidateEducationServiceImpl"/>
+		<property name="transactionAttributes">
+			<props>
+				<prop key="*">PROPAGATION_REQUIRED,-Exception</prop>
+			</props>
+		</property>
+	</bean>
+	<bean id="candidateEducationServiceImpl"
+		class="com.nseit.generic.service.impl.CandidateEducationServiceImpl"
+		scope="prototype">
+		<property name="candidateDao" ref="candidateDao" />
+		<property name="commonDao" ref="commonDao" />
+		<property name="candidateEducationDao" ref="candidateEducationDao" />
+	</bean>
+	<bean id="candidateEducationDao" class="com.nseit.generic.dao.impl.CandidateEducationDaoImpl"
+		scope="prototype">
+		<property name="dataSource" ref="dataSource" />
+		<property name="writeJdbcTemplate" ref="writeJdbcTemplate" />
+	</bean>
+	<bean id="registrationBeanValidator"
+		class="com.nseit.generic.util.validation.RegistrationBeanValidator"
+		scope="prototype">
+		<property name="registrationService" ref="registrationService" />
+	</bean>
+	<bean id="candidateServiceImpl" class="com.nseit.generic.service.impl.CandidateServiceImpl"
+		scope="prototype">
+		<property name="candidateDao" ref="candidateDao" />
+		<property name="commonDao" ref="commonDao" />
+		<property name="workExperienceDao" ref="workExperienceDao"></property>
+		<property name="covidDutyCertificateDao" ref="covidDutyCertificateDao"></property> 
+		<property name="candidateAdditionalDetailsDao" ref="candidateAdditionalDetailsDao"></property>
+		<!-- <property name="mailSender">
+			<ref bean="mailSender" />
+		</property> -->
+		
+	</bean>
+
+	<bean id="candidateDao" class="com.nseit.generic.dao.impl.CandidateDaoImpl"
+		scope="prototype">
+		<property name="dataSource" ref="dataSource" />
+		<property name="writeJdbcTemplate" ref="writeJdbcTemplate" />
+	</bean>
+
+	<bean id="uploadManagementDao" class="com.nseit.generic.dao.impl.UploadManagementDaoImpl"
+		scope="prototype">
+		<property name="dataSource" ref="dataSource" />
+		<property name="writeJdbcTemplate" ref="writeJdbcTemplate" />
+	</bean>
+
+	<bean id="candidateAdditionalDetailsService"
+		class="org.springframework.transaction.interceptor.TransactionProxyFactoryBean"
+		scope="prototype">
+		<property name="transactionManager" ref="genericTransactionManager"/>
+		<property name="target" ref="candidateAdditionalDetailsServiceImpl"/>
+		<property name="transactionAttributes">
+			<props>
+				<prop key="*">PROPAGATION_REQUIRED,-Exception</prop>
+			</props>
+		</property>
+	</bean>
+
+	<bean id="candidateAdditionalDetailsServiceImpl"
+		class="com.nseit.generic.service.impl.CandidateAdditionalDetailsServiceImpl"
+		scope="prototype">
+		<property name="candidateDao" ref="candidateDao" />
+		<property name="commonDao" ref="commonDao" />
+		<property name="candidateAdditionalDetailsDao" ref="candidateAdditionalDetailsDao" />
+	</bean>
+
+	<bean id="candidateAdditionalDetailsDao"
+		class="com.nseit.generic.dao.impl.CandidateAdditionalDetailsDaoImpl"
+		scope="prototype">
+		<property name="dataSource" ref="dataSource" />
+		<property name="writeJdbcTemplate" ref="writeJdbcTemplate" />
+	</bean>
+
+
+	<!-- [End] Candidate Beans -->
+
+	<!-- [Start] Common Beans -->
+	<bean id="commonService" class="com.nseit.generic.service.impl.CommonServiceImpl"
+		scope="prototype">
+		<property name="commonDao" ref="commonDao" />
+	</bean>
+
+	<bean id="commonDao" class="com.nseit.generic.dao.impl.CommonDaoImpl"
+		scope="prototype">
+		<property name="dataSource" ref="dataSource" />
+		<property name="writeJdbcTemplate" ref="writeJdbcTemplate" />
+	</bean>
+
+	<!-- [End] Common Beans -->
+
+
+	<!-- RegistrationAction -->
+	<bean id="registrationAction" class="com.nseit.generic.action.RegistrationAction"
+		scope="prototype">
+		<property name="registrationService" ref="registrationService" />
+		<property name="loginService" ref="loginService" />
+		<property name="commonService" ref="commonService" />
+		<property name="registrationBeanValidator" ref="registrationBeanValidator"></property>
+		<property name="registrationBean" ref="registrationBean"></property>
+	</bean>
+
+	<bean id="registrationServiceImpl" class="com.nseit.generic.service.impl.RegistrationServiceImpl"
+		scope="prototype">
+		<property name="registraionDAO" ref="registraionDAO" />
+		<property name="commonDao" ref="commonDao" />
+		<property name="loginDao" ref="loginDao" />
+	</bean>
+
+	<bean id="registraionDAO" class="com.nseit.generic.dao.impl.RegistrationDaoImpl"
+		scope="prototype">
+		<property name="dataSource" ref="dataSource" />
+		<property name="writeJdbcTemplate" ref="writeJdbcTemplate" />
+	</bean>
+	<bean id="registrationService"
+		class="org.springframework.transaction.interceptor.TransactionProxyFactoryBean"
+		scope="prototype">
+		<property name="transactionManager" ref="genericTransactionManager"/>
+		<property name="target" ref="registrationServiceImpl"/>
+		<property name="transactionAttributes">
+			<props>
+				<prop key="*">PROPAGATION_REQUIRED,-Exception</prop>
+			</props>
+		</property>
+	</bean>
+	
+	<!-- added by Akanksha -->
+	<!-- RegistrationAction end -->
+
+	<!-- settings action start -->
+
+	<bean id="settingsAction" class="com.nseit.generic.action.SettingsAction"
+		scope="prototype">
+		<property name="settingsService" ref="settingsService" />
+		<property name="candidateService" ref="candidateService" />
+		<property name="agencyService" ref="agencyService" />
+		<property name="schedulingTestService" ref="schedulingTestService" />
+		<property name="commonService" ref="commonService" />
+	</bean>
+
+	<bean id="settingsServiceImpl" class="com.nseit.generic.service.impl.SettingsServiceImpl"
+		scope="prototype">
+		<property name="settingsDao" ref="settingsDao" />
+	</bean>
+
+	<bean id="settingsDao" class="com.nseit.generic.dao.impl.SettingsDaoImpl">
+		<property name="dataSource" ref="dataSource" />
+		<property name="writeJdbcTemplate" ref="writeJdbcTemplate" />
+	</bean>
+
+	<bean id="settingsService"
+		class="org.springframework.transaction.interceptor.TransactionProxyFactoryBean"
+		scope="prototype">
+		<property name="transactionManager" ref="genericTransactionManager" />
+		<property name="target" ref="settingsServiceImpl" />
+		<property name="transactionAttributes">
+			<props>
+				<prop key="insertEmailSMSSettingDetails">PROPAGATION_REQUIRED,-Exception</prop>
+				<prop key="insertSettingDetails">PROPAGATION_REQUIRED,-Exception</prop>
+				<prop key="updateDateRangeDetails">PROPAGATION_REQUIRED,-Exception</prop>
+				<prop key="*">PROPAGATION_REQUIRED</prop>
+			</props>
+		</property>
+	</bean>
+	<!-- settings action end -->
+
+	<!-- [Start] Agency Beans -->
+
+	<!-- [End] Agency Beans -->
+	<bean id="agencyAction" class="com.nseit.generic.action.AgencyAction"
+		scope="prototype">
+		<property name="agencyService" ref="agencyService" />
+		<property name="candidateMgmtService" ref="candidateMgmtService" />
+		<property name="reportService" ref="reportService" />
+	</bean>
+
+	<bean id="agencyServiceImpl" class="com.nseit.generic.service.impl.AgencyServiceImpl"
+		scope="prototype">
+		<property name="agencyDao" ref="agencyDao" />
+	</bean>
+
+	<bean id="agencyDao" class="com.nseit.generic.dao.impl.AgencyDaoImpl">
+		<property name="dataSource" ref="dataSource" />
+		<property name="writeJdbcTemplate" ref="writeJdbcTemplate" />
+	</bean>
+
+	<bean id="agencyService"
+		class="org.springframework.transaction.interceptor.TransactionProxyFactoryBean"
+		scope="prototype">
+		<property name="transactionManager" ref="genericTransactionManager"/>
+		<property name="target" ref="agencyServiceImpl"/>
+		<property name="transactionAttributes">
+			<props>
+				<prop key="generateLoginCregentials">PROPAGATION_REQUIRED,-Exception</prop>
+				<prop key="insertEmailSMSDetails">PROPAGATION_REQUIRED,-Exception</prop>
+				<prop key="insertUserDetails">PROPAGATION_REQUIRED,-Exception</prop>
+				<prop key="*">PROPAGATION_REQUIRED</prop>
+			</props>
+		</property>
+	</bean>
+
+	<!-- start Report Action -->
+	<bean id="reportAction" class="com.nseit.generic.action.ReportAction"
+		scope="prototype">
+		<property name="reportService" ref="reportService" />
+		<property name="candidateService" ref="candidateService" />
+
+	</bean>
+
+	<bean id="reportServiceImpl" class="com.nseit.generic.service.impl.ReportServiceImpl"
+		scope="prototype">
+		<property name="reportDao" ref="reportDao" />
+	</bean>
+
+
+	<bean id="reportDao" class="com.nseit.generic.dao.impl.ReportDaoImpl"
+		scope="prototype">
+		<property name="dataSource" ref="dataSource" />
+	</bean>
+
+	<bean id="reportService"
+		class="org.springframework.transaction.interceptor.TransactionProxyFactoryBean"
+		scope="prototype">
+		<property name="transactionManager" ref="genericTransactionManager" />
+		<property name="target" ref="reportServiceImpl" />
+		<property name="transactionAttributes">
+			<props>
+				<prop key="*">PROPAGATION_REQUIRED</prop>
+			</props>
+		</property>
+	</bean>
+	<!-- end Report Action -->
+
+
+	<!-- [End] Action & Service Beans Declaration -->
+	<!-- [Start] Action & Service Beans Declaration for CandidateManagement -->
+	<bean id="candidateMgmtAction" class="com.nseit.generic.action.CandidateMgmtAction"
+		scope="prototype">
+		<property name="candidateMgmtService" ref="candidateMgmtService" />
+		<property name="candidateService" ref="candidateService" />
+		<property name="commonService" ref="commonService" />
+		<property name="agencyService" ref="agencyService" />
+		<property name="reportService" ref="reportService" />
+		<property name="schedulingTestService" ref="schedulingTestService" />
+		<property name="paymentService" ref="paymentService" />
+
+	</bean>
+
+	<bean id="candidateMgmtServiceImpl" class="com.nseit.generic.service.impl.CandidateMgmtServiceImpl"
+		scope="prototype">
+		<property name="candidateMgmtDAO" ref="candidateMgmtDAO" />
+		<property name="commonDao" ref="commonDao" />
+		<property name="reportDao" ref="reportDao" />
+	</bean>
+
+	<bean id="candidateMgmtDAO" class="com.nseit.generic.dao.impl.CandidateMgmtDaoImpl"
+		scope="prototype">
+		<property name="dataSource" ref="dataSource" />
+		<property name="writeJdbcTemplate" ref="writeJdbcTemplate" />
+	</bean>
+
+	<bean id="candidateMgmtService"
+		class="org.springframework.transaction.interceptor.TransactionProxyFactoryBean"
+		scope="prototype">
+		<property name="transactionManager" ref="genericTransactionManager" />
+		<property name="target" ref="candidateMgmtServiceImpl"/>
+		<property name="transactionAttributes">
+			<props>
+				<prop key="approveCandidate">PROPAGATION_REQUIRED,-Exception</prop>
+				<prop key="*">PROPAGATION_REQUIRED</prop>
+			</props>
+		</property>
+	</bean>
+	<!--added for OTBS Scheduling Start -->
+
+	<bean id="schedulingTestService"
+		class="org.springframework.transaction.interceptor.TransactionProxyFactoryBean"
+		scope="prototype">
+		<property name="transactionManager" ref="genericTransactionManager"/>
+		<property name="target" ref="schedulingTestServiceImpl"/>
+		<property name="transactionAttributes">
+			<props>
+				<prop key="blockSeatForCandidate">PROPAGATION_REQUIRED,-Exception</prop>
+			</props>
+		</property>
+	</bean>
+
+	<bean id="schedulingTestAction" class="com.nseit.otbs.action.SchedulingTestAction"
+		scope="prototype">
+		<property name="schedulingTestService" ref="schedulingTestService" />
+		<property name="commonService" ref="commonService" />
+		<property name="candidateService" ref="candidateService" />
+	</bean>
+
+	<bean id="schedulingTestServiceImpl" class="com.nseit.otbs.service.impl.SchedulingTestServiceImpl"
+		scope="prototype">
+		<property name="schedulingTestDao" ref="schedulingTestDao" />
+
+	</bean>
+
+	<bean id="schedulingTestDao" class="com.nseit.otbs.dao.impl.SchedulingTestDaoImpl"
+		scope="prototype">
+		<property name="dataSource" ref="dataSource" />
+		<property name="writeJdbcTemplate" ref="writeJdbcTemplate" />
+	</bean>
+
+	<!--added for OTBS Scheduling End -->
+
+	<!--added for Work Experience -->
+	<bean id="workExperienceAction" class="com.nseit.generic.action.WorkExperienceAction"
+		scope="prototype">
+		<property name="commonService" ref="commonService" />
+		<property name="candidateService" ref="candidateService" />
+		<property name="workExperienceService" ref="workExperienceService"></property>
+		<property name="workExperienceValidator" ref="workExperienceValidator"/>
+	</bean>
+	
+	<bean id="workExperienceService"
+		class="org.springframework.transaction.interceptor.TransactionProxyFactoryBean"
+		scope="prototype">
+		<property name="transactionManager" ref="genericTransactionManager"/>
+		<property name="target" ref="workExperienceServiceImpl"/>
+		<property name="transactionAttributes">
+			<props>
+				<prop key="*">PROPAGATION_REQUIRED,-Exception</prop>
+			</props>
+		</property>
+	</bean>
+	
+	<bean id="workExperienceServiceImpl"
+		class="com.nseit.generic.service.impl.WorkExperienceServiceImpl">
+		<property name="workExperienceDao" ref="workExperienceDao" />
+	</bean>
+	
+	<!--added for Covid Duty Certificate -->
+	<bean id="covidDutyCertificateAction" class="com.nseit.generic.action.CovidDutyCertificateAction"
+		scope="prototype">
+		<property name="commonService" ref="commonService" />
+		<property name="candidateService" ref="candidateService" />
+		<property name="covidDutyCertificateService" ref="covidDutyCertificateService"></property>
+		<property name="covidDutyCertificateValidator" ref="covidDutyCertificateValidator"/> 
+	</bean>
+	
+	<bean id="covidDutyCertificateService"
+		class="org.springframework.transaction.interceptor.TransactionProxyFactoryBean"
+		scope="prototype">
+		<property name="transactionManager" ref="genericTransactionManager"/>
+		<property name="target" ref="covidDutyCertificateServiceImpl"/>
+		<property name="transactionAttributes">
+			<props>
+				<prop key="*">PROPAGATION_REQUIRED,-Exception</prop>
+			</props>
+		</property>
+	</bean>
+	
+	<bean id="covidDutyCertificateServiceImpl"
+		class="com.nseit.generic.service.impl.CovidDutyCertificateServiceImpl">
+		<property name="covidDutyCertificateDao" ref="covidDutyCertificateDao" />
+		<property name="commonDao" ref="commonDao" />
+	</bean>
+
+	<!-- Start PaymentAction -->
+	<!-- <bean id="paymentOfflineAction" class="com.nseit.payment.action.PaymentOfflineAction" 
+		> <property name="paymentService" ref="paymentService" /> <property name="commonService" 
+		ref="commonService" /> <property name="reportService" ref="reportService" 
+		/> </bean> -->
+	<bean id="paymentOnlineAction" class="com.nseit.payment.action.PaymentOnlineAction"
+		scope="prototype">
+		<property name="paymentService" ref="paymentService" />
+		<property name="commonService" ref="commonService" />
+	</bean>
+
+	<bean id="paymentServiceImpl" class="com.nseit.payment.service.impl.PaymentServiceImpl"
+		scope="prototype">
+		<property name="paymentDAO" ref="paymentDAO" />
+		<property name="commonDao" ref="commonDao" />
+	</bean>
+
+	<bean id="paymentDAO" class="com.nseit.payment.dao.impl.PaymentDaoImpl"
+		scope="prototype">
+		<property name="dataSource" ref="dataSource" />
+		<property name="writeJdbcTemplate" ref="writeJdbcTemplate" />
+	</bean>
+	<bean id="paymentService"
+		class="org.springframework.transaction.interceptor.TransactionProxyFactoryBean"
+		scope="prototype">
+		<property name="transactionManager" ref="genericTransactionManager" />
+		<property name="target" ref="paymentServiceImpl"/>
+		<property name="transactionAttributes">
+			<props>
+				<prop key="insertOnlinepaymentDetails">PROPAGATION_REQUIRED,-Exception</prop>
+				<prop key="insertDDDetails">PROPAGATION_REQUIRED,-Exception</prop>
+				<prop key="insertChallanDetails">PROPAGATION_REQUIRED,-Exception</prop>
+				<prop key="insertpagedetails">PROPAGATION_REQUIRED,-Exception</prop>
+			</props>
+		</property>
+	</bean>
+
+	<bean id="uploadManagementAction" class="com.nseit.generic.action.UploadManagementAction"
+		scope="prototype">
+		<property name="uploadManagementService" ref="uploadManagementService" />
+		<property name="candidateService" ref="candidateService" />
+	</bean>
+
+	<bean id="uploadManagementServiceImpl"
+		class="com.nseit.generic.service.impl.UploadManagementServiceImpl"
+		scope="prototype">
+		<property name="uploadManagementDao" ref="uploadManagementDao" />
+	</bean>
+
+	<bean id="uploadManagementService"
+		class="org.springframework.transaction.interceptor.TransactionProxyFactoryBean"
+		scope="prototype">
+		<property name="transactionManager" ref="genericTransactionManager"/>
+		<property name="target" ref="uploadManagementServiceImpl" />
+		<property name="transactionAttributes">
+			<props>
+				<prop key="insertCandidateImages">PROPAGATION_REQUIRED,-Exception</prop>
+				<prop key="insertCandidateSign">PROPAGATION_REQUIRED,-Exception</prop>
+				<prop key="saveCandidateMarks">PROPAGATION_REQUIRED,-Exception</prop>
+				<prop key="saveOfflinePaymentDtls">PROPAGATION_REQUIRED,-Exception</prop>
+			</props>
+		</property>
+	</bean>
+
+	<!-- <bean id="adminMenuAction" class="com.nseit.generic.action.AdminMenuAction" 
+		scope="prototype"> </bean> -->
+
+	<bean id="templateDownloadAction" class="com.nseit.generic.action.TemplateDownloadAction"
+		scope="prototype">
+		<property name="templateDownloadService" ref="templateDownloadService" />
+	</bean>
+
+	<bean id="templateDownloadServiceImpl"
+		class="com.nseit.generic.service.impl.TemplateDownloadServiceImpl"
+		scope="prototype">
+		<property name="templateDao" ref="templateDao" />
+	</bean>
+
+	<bean id="templateDao" class="com.nseit.generic.dao.impl.TemplateDaoImpl"
+		scope="prototype">
+		<property name="dataSource" ref="dataSource" />
+		<property name="writeJdbcTemplate" ref="writeJdbcTemplate" />
+	</bean>
+
+	<bean id="templateDownloadService"
+		class="org.springframework.transaction.interceptor.TransactionProxyFactoryBean"
+		scope="prototype">
+		<property name="transactionManager" ref="genericTransactionManager" />
+		<property name="target" ref="templateDownloadServiceImpl"/>
+		<property name="transactionAttributes">
+			<props>
+				<prop key="*">PROPAGATION_REQUIRED</prop>
+			</props>
+		</property>
+	</bean>
+
+	<bean id="billDeskResponseAction" class="com.nseit.payment.action.BillDeskResponseAction"
+		scope="prototype">
+		<property name="billDeskResposeService" ref="billDeskResposeService" />
+		<property name="commonService" ref="commonService" />
+	</bean>
+
+	<bean id="billDeskResposeServiceImpl"
+		class="com.nseit.payment.service.impl.BillDeskResposeServiceImpl"
+		scope="prototype">
+		<property name="billDeskResposeDAO" ref="billDeskResposeDAO" />
+		<property name="commonDao" ref="commonDao" />
+	</bean>
+
+	<bean id="billDeskResposeDAO" class="com.nseit.payment.dao.impl.BillDeskResposeDAOImpl"
+		scope="prototype">
+		<property name="dataSource" ref="dataSource" />
+		<property name="writeJdbcTemplate" ref="writeJdbcTemplate" />
+	</bean>
+
+	<bean id="billDeskResposeService"
+		class="org.springframework.transaction.interceptor.TransactionProxyFactoryBean"
+		scope="prototype">
+		<property name="transactionManager" ref="genericTransactionManager"/>
+		<property name="target" ref="billDeskResposeServiceImpl"/>
+		<property name="transactionAttributes">
+			<props>
+				<prop key="*">PROPAGATION_REQUIRED</prop>
+			</props>
+		</property>
+	</bean>
+
+	<bean id="techProcessResponseAction" class="com.nseit.payment.action.TechProcessResponseAction"
+		scope="prototype">
+		<property name="paymentService" ref="paymentService" />
+		<property name="commonService" ref="commonService" />
+		<property name="candidateMgmtService" ref="candidateMgmtService" />
+	</bean>
+
+	<!-- PaymentAction end -->
+
+	<bean id="moduleMasterAction" class="com.nseit.generic.action.ModuleMasterAction"
+		scope="prototype">
+		<property name="moduleService" ref="moduleService" />
+	</bean>
+
+	<bean id="moduleService" class="com.nseit.generic.service.impl.ModuleServiceImpl"
+		scope="prototype">
+		<property name="moduleDao" ref="moduleDao" />
+	</bean>
+
+	<bean id="moduleDao" class="com.nseit.generic.dao.impl.ModuleDaoImpl"
+		scope="prototype">
+		<property name="dataSource" ref="dataSource" />
+		<property name="writeJdbcTemplate" ref="writeJdbcTemplate" />
+	</bean>
+
+	<bean id="roleMasterAction" class="com.nseit.generic.action.RoleMasterAction"
+		scope="prototype">
+		<property name="roleService" ref="roleService" />
+	</bean>
+
+	<bean id="roleService" class="com.nseit.generic.service.impl.RoleServiceImpl"
+		scope="prototype">
+		<property name="roleDao" ref="roleDao" />
+	</bean>
+
+	<bean id="roleDao" class="com.nseit.generic.dao.impl.RoleDaoImpl"
+		scope="prototype">
+		<property name="dataSource" ref="dataSource" />
+		<property name="writeJdbcTemplate" ref="writeJdbcTemplate" />
+	</bean>
+
+	<bean id="userMasterAction" class="com.nseit.generic.action.UserMasterAction"
+		scope="prototype">
+		<property name="userService" ref="userService" />
+	</bean>
+
+	<bean id="userService" class="com.nseit.generic.service.impl.UserServiceImpl"
+		scope="prototype">
+		<property name="userDao" ref="userDao" />
+	</bean>
+
+	<bean id="userDao" class="com.nseit.generic.dao.impl.UserDaoImpl"
+		scope="prototype">
+		<property name="dataSource" ref="dataSource" />
+		<property name="writeJdbcTemplate" ref="writeJdbcTemplate" />
+	</bean>
+
+	<bean id="onlinePaymentServlet" class="com.nseit.generic.util.OnlinePaymentServlet"
+		scope="prototype">
+	</bean>
+
+	<bean id="techProcessOnlineAction" class="com.nseit.payment.action.TechProcessOnlineAction"
+		scope="prototype">
+		<property name="paymentService" ref="paymentService" />
+		<property name="commonService" ref="commonService" />
+	</bean>
+
+	<bean id="techProcessJobsAction" class="com.nseit.payment.action.TechProcessJobsAction"
+		scope="prototype">
+		<property name="paymentService" ref="paymentService" />
+		<property name="commonService" ref="commonService" />
+	</bean>
+
+	<!-- [End] Action & Service Beans Declaration -->
+
+	<!-- ======================================================================================================== -->
+
+	<!-- [Start] Interceptors -->
+	<bean id="loginInterceptor" class="com.nseit.generic.util.interceptor.LoginInterceptor"
+		scope="prototype" />
+	<bean id="sessionInterceptor" class="com.nseit.generic.util.interceptor.SessionInterceptor"
+		scope="prototype" />
+	<bean id="menuInterceptor" class="com.nseit.generic.util.interceptor.MenuInterceptor"
+		scope="prototype" />
+	<bean id="loggingInterceptor" class="com.nseit.generic.util.interceptor.LoggingInterceptor"
+		scope="prototype" />
+	<bean id="sslInterceptor" class="com.googlecode.sslplugin.interceptors.SSLInterceptor"
+		scope="prototype" />
+	<bean id="utilInjectorInterceptor"
+		class="com.nseit.generic.util.interceptor.UtilInjectorInterceptor"
+		scope="prototype" />
+	<!-- [End] Interceptors -->
+
+	<!-- log exceptions for any method call to any object in a package called 
+		'svc' -->
+	<!-- [Start] Exception Logger -->
+	<!-- <bean class="com.nseit.generic.util.ExceptionAspect" name="exceptionAspect" 
+		/> <aop:config> <aop:aspect ref="exceptionAspect"> <aop:around method="handle" 
+		pointcut="execution(* com.nseit.generic..*.*(..))" /> </aop:aspect> </aop:config> -->
+	<!-- [End] Exception Logger -->
+
+	<bean id="candidatePhotoSignatureService"
+		class="org.springframework.transaction.interceptor.TransactionProxyFactoryBean"
+		scope="prototype">
+		<property name="transactionManager" ref="genericTransactionManager"/>
+		<property name="target" ref="candidatePhotoSignatureServiceImpl"/>
+		<property name="transactionAttributes">
+			<props>
+				<prop key="*">PROPAGATION_REQUIRED,-Exception</prop>
+			</props>
+		</property>
+	</bean>
+	<bean id="candidatePhotoSignatureServiceImpl"
+		class="com.nseit.generic.service.impl.CandidatePhotoSignatureServiceImpl">
+		<property name="candidateDao" ref="candidateDao" />
+		<property name="commonDao" ref="commonDao" />
+		<property name="candidatePhotoSignatureDao" ref="candidatePhotoSignatureDao"></property>
+	</bean>
+	<bean id="candidatePhotoSignatureDao"
+		class="com.nseit.generic.dao.impl.CandidatePhotoSignatureDaoImpl">
+		<property name="dataSource" ref="dataSource" />
+		<property name="writeJdbcTemplate" ref="writeJdbcTemplate" />
+	</bean>
+
+
+	<bean id="candidateUploadDocService"
+		class="org.springframework.transaction.interceptor.TransactionProxyFactoryBean"
+		scope="prototype">
+		<property name="transactionManager" ref="genericTransactionManager"/>
+		<property name="target" ref="candidateUploadDocServiceImpl"/>
+		<property name="transactionAttributes">
+			<props>
+				<prop key="*">PROPAGATION_REQUIRED,-Exception</prop>
+			</props>
+		</property>
+	</bean>
+	<bean id="candidateUploadDocServiceImpl"
+		class="com.nseit.generic.service.impl.CandidateUploadDocServiceImpl">
+		<property name="candidateDao" ref="candidateDao" />
+		<property name="commonDao" ref="commonDao" />
+		<property name="candidateUploadDocDao" ref="candidateUploadDocDao" />
+
+		<property name="candidatePersonalDetailsDAO" ref="candidatePersonalDetailsDAO"></property>
+		<property name="candidateEducationDao" ref="candidateEducationDao" />
+		<property name="workExperienceDao" ref="workExperienceDao" />
+
+	</bean>
+	<bean id="candidateUploadDocDao" class="com.nseit.generic.dao.impl.CandidateUploadDocDaoImpl">
+		<property name="dataSource" ref="dataSource" />
+		<property name="writeJdbcTemplate" ref="writeJdbcTemplate" />
+	</bean>
+
+	<bean id="candidateAgeQuotaSpecialMarksService"
+		class="org.springframework.transaction.interceptor.TransactionProxyFactoryBean"
+		scope="prototype">
+		<property name="transactionManager" ref="genericTransactionManager"/>
+		<property name="target" ref="candidateAgeQuotaSpecialMarksServiceImpl"/>
+		<property name="transactionAttributes">
+			<props>
+				<prop key="*">PROPAGATION_REQUIRED,-Exception</prop>
+			</props>
+		</property>
+	</bean>
+
+	<bean id="candidateAgeQuotaSpecialMarksServiceImpl"
+		class="com.nseit.generic.service.impl.CandidateAgeQuotaSpecialMarksServiceImpl">
+		<property name="candidateDao" ref="candidateDao" />
+		<property name="commonDao" ref="commonDao" />
+		<property name="candidateAgeQuotaSpecialMarksDao" ref="candidateAgeQuotaSpecialMarksDao"></property>
+		<property name="candidatePersonalDetailsDao" ref="candidatePersonalDetailsDAO"></property>
+		<property name="workExperienceDao" ref="workExperienceDao"></property>
+	</bean>
+	<bean id="candidateAgeQuotaSpecialMarksDao"
+		class="com.nseit.generic.dao.impl.CandidateAgeQuotaSpecialMarksDaoImpl">
+		<property name="dataSource" ref="dataSource" />
+	</bean>
+
+	<bean id="sBIEPayResponseAction" class="com.nseit.payment.action.SBIEPayResponseAction"
+		scope="prototype">
+		<property name="commonService" ref="commonService" />
+		<property name="paymentService" ref="paymentService" />
+	</bean>
+
+	<bean id="safexResponseAction" class="com.nseit.payment.action.SafexResponseAction"
+		scope="prototype">
+		<property name="commonService" ref="commonService" />
+		<property name="paymentService" ref="paymentService" />
+		<!-- <property name="loginService" ref="loginService" /> -->
+	</bean>
+	
+	<bean id="atomResponseAction" class="com.nseit.payment.action.AtomResponseAction" scope="prototype" >
+		<property name="paymentService" ref="paymentService" />
+		<property name="commonService" ref="commonService" />
+	</bean>
+	
+	<bean id="registrationBean" class="com.nseit.generic.models.RegistrationBean"
+		scope="prototype">
+	</bean>
+	
+	<bean id="previewBeanValidator" class=" com.nseit.generic.util.validation.PreviewBeanValidator"
+	scope="prototype">
+		<property name="candidateBean" ref="candidateBean"/>
+		<property name="commonService" ref="commonService" />
+		<property name="personalBeanValidator" ref="personalBeanValidator"/>
+		<property name="educationBeanValidator" ref="educationBeanValidator"/>
+		<property name="photoBeanValidator" ref="photoBeanValidator"/>
+		<property name="signatureBeanValidator" ref="signatureBeanValidator"/>
+		<property name="documentBeanValidator" ref="documentBeanValidator"/>
+		<property name="additionalBeanValidator" ref="additionalBeanValidator"/>
+		<property name="workExperienceValidator" ref="workExperienceValidator"/>
+		<property name="covidDutyCertificateValidator" ref="covidDutyCertificateValidator"/>
+	</bean>	
+	
+	<bean id="educationBeanValidator"
+		class=" com.nseit.generic.util.validation.EducationBeanValidator"
+		scope="prototype">
+	</bean>
+
+	<bean id="documentBeanValidator" class="com.nseit.generic.util.validation.DocumentBeanValidator"
+	scope="prototype">
+	<property name="candidateUploadDocDao" ref="candidateUploadDocDao" />
+	<property name="candidateDao" ref="candidateDao" />
+	</bean>
+	
+	<bean id="uploadPhotoSignInS3sdkV2" class="com.nseit.generic.aws.util.UploadPhotoSignInS3sdkV2"
+	scope="prototype">
+	</bean>
+	
+	<bean id="additionalBeanValidator"
+		class=" com.nseit.generic.util.validation.AdditionalBeanValidator"
+		scope="prototype">
+	</bean>
+	
+	<bean id="workExperienceValidator"
+		class=" com.nseit.generic.util.validation.WorkExperienceValidator"
+		scope="prototype">
+		<property name="candidateService" ref="candidateService" />
+	</bean>
+	
+	<bean id="covidDutyCertificateValidator"
+		class=" com.nseit.generic.util.validation.CovidDutyCertificateValidator"
+		scope="prototype">
+	</bean>
+	<!-- [End] Final bean -->
+</beans>

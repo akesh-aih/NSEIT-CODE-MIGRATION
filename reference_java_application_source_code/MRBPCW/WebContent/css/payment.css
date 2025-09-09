@@ -1,0 +1,254 @@
+body{
+	margin:0;
+	font-family: Arial, Helvetica, sans-serif;
+	font-size: 11px;
+	color: #666;
+	/*background-color:#CCC;*/
+}
+table{ border-collapse:collapse;}
+#main { /*background-color:#CCC;*/}
+.brd3 {
+	border-bottom-width: 3px;
+	border-bottom-style: solid;
+	border-bottom-color:#a19f9f;
+	background: url(../images/bottom.gif) no-repeat bottom;
+	/* temp removal of border*/
+	border-bottom-width: 0px;
+}
+.brd3_2{
+	border-width: 1px;
+	border-bottom-style: solid;
+	border-bottom-color:#a19f9f;
+	background: url(../images/bottom_details.gif) no-repeat bottom;
+	/* temp removal of border*/
+	border-bottom-width: 1px;
+}
+.bor_box{border:1px solid #222;}
+.act{
+	text-decoration:none;
+	color:#636363;
+	background-color:#FFF
+	font-size:12px;
+	font-weight:bold;
+	padding:2px 20px 2px 15px;
+	display: block;
+	margin: 0px;
+}
+.cur{
+	text-decoration:none;
+	color:#FFF;
+	font-size:12px;
+	font-weight:bold;
+	background-color: #023a75;
+	padding:2px 20px 2px 15px;
+	display: block;
+	margin: 0px;
+}
+.cur:hover{color:#023a75;background-color: #fff;}
+.fltrt { /* this class can be used to float an element right in your page. The floated element must precede the element it should be next to on the page. */
+	float: right;
+	margin-left: 8px;
+}
+.margTop {
+	margin-top: 0px;
+}
+
+.fltlft { /* this class can be used to float an element left in your page */
+	float: left;
+	margin-right: 8px;
+}
+#main_body{
+	margin:0;
+	padding:0px;
+	background: url(../images/header_bg.jpg) repeat-x left top;
+}
+#logo_area {
+	height:88px;
+	width: 814px;
+	padding-right: 0px;
+	margin: 0 auto 0 auto;
+}
+.header_bg{ /* style for header if required */}
+#techpro_logo{
+	margin:0px;
+	width:83px;
+	padding-left:3px;
+	padding-top: 130px;
+}
+#techpro_logo2{
+	margin:0px;
+	padding-left:3px;
+	position:relative;
+}
+#content_body{
+	height:0px;
+	margin:0;
+	border-top: 3px solid #d5e2ee;
+}
+#pay_header {
+	margin:0;
+	height: 42px;
+	/*background: url(../images/tab_head.gif) no-repeat left top;*/
+}
+h1{
+	margin:0px;
+	font-family: Arial, Helvetica, sans-serif;
+	font-weight: bold;
+	font-size: 11px;
+	font-variant: normal;
+	color:#464646;
+}
+p{
+	font-family:Arial, Helvetica, sans-serif;
+	font-size:11px;
+	color:#464646;
+	padding-left:12px;
+	margin: 0;
+	}
+#content {
+	margin: 0px auto 0 auto;
+	width: 814px;
+}
+#l_side_links {
+	float: none;
+	width: 158px;
+	padding-top: 2px;
+	margin-left: 0px;
+	padding-left: 3px;
+	height: 275px;
+}
+
+#l_side_links a{
+	text-decoration:none;
+	font-size:12px;
+	font-weight:bold;
+	padding:4px 20px 4px 16px;
+	display: block;
+	margin: 0px;
+	color: #636363;
+	background-color: #E2E8EF;
+	border-bottom: 1px solid #497099;
+	border-right-width: 1px;
+	border-left-width: 1px;
+	border-right-color: #023A75;
+	border-left-color: #023A75;
+}
+#l_side_links a:hover{
+	color:#FFF;
+	background-color:#023a75;
+}
+#r_side_link {
+	padding-top: 21px;
+	margin-left: 0px;
+	width: 640px;
+	padding-bottom: 10px;
+	height: 310px;
+}
+#details{
+	padding-top: 3px;
+	margin-left: 0px;
+	width: 800px;
+	padding-bottom: 10px;
+	height: 350px;
+}
+.clearfloat{ clear:both; font-size:1px; line-height:0.1em;}
+
+
+.h3pay h3, .h3type h3, .h3type2 h3{
+	font-size: 18px;
+	font-weight: bold;
+	color: #FFF;
+	padding: 10px 0 0 20px;
+	margin: 0;
+}
+
+#r_side_link h1 {
+	margin-top: 2px;
+	margin-left: 0px;
+	font-size: 12px;
+}
+/*#l_side_links #creditcard, #l_side_links #netbanking, #l_side_links #cashcard, #l_side_links #debitcard{
+	display:none;
+	padding-left:15px;
+}*/
+#n1, #n2, #n3, #n4,#n5 {
+	display:none;
+	padding-left:15px;
+}
+#n0{
+	line-height:1.5em;
+	padding-top: 0px;
+}
+#n0 p {
+	font-size: 15px;
+	line-height: 1.5em;
+	display: none;
+}
+#n1 table, #n2 table, #n3 table, #n4 table,#n5 table{margin:10px 0;}
+#n1 td, #n2 td , #n3 td , #n4 td ,#n5 td  {
+	padding:4px 0;
+	vertical-align:top;
+	line-height:1.8em;
+}
+#n1 td input, #n2 td input, #n3 td input,#n4 td input,#n5 td input{
+	float:left;
+}
+
+.bluebutton{ background-color:#3877ae; color:#FFF; border:none; font-size:11px; height:18px;}
+.pay_button{
+	color:#FFF;
+	border:none;
+	font-size:11px;
+	height:21px;
+	width: 137px;
+	background: #3877ae url(../images/cont_payment.gif) no-repeat left top;
+}
+#footer p {
+	margin-left: 20px;
+	font-size: 10px;
+	padding: 8px 0 0 0;
+}
+#footer {
+	margin: 0px auto 0;
+	width: 814px;
+}
+.btop{ border-top:1px solid #497099;}
+
+#content #app {
+	margin: 0;
+	width: 814px;
+}
+#bottom_cluster {
+	margin: 10px 0 0 0;
+	padding: 0 0 0 15px;
+	clear: both;
+	float: left;
+}
+
+/*Query FORM*/
+.box{ border: none;}
+.box td{
+	padding: 3px 5px 3px 10px;
+	color: #575757;
+	font-size: 11px;
+}
+.box1{ border:1px solid #333;}
+.box1 td{
+	padding: 3px 5px 3px 10px;
+	color: #575757;
+	font-size: 11px;
+	border:1px solid #333;
+}
+.boxhead {
+	text-align: left;
+	padding:2px;
+}
+
+.box input, textarea, select {
+	background-color:#fff;
+	margin: 0;
+	border: 1px solid #CCC;
+	font-family: Arial, Helvetica, sans-serif;
+	font-size: 11px;
+}
+/*Query FORM end*/

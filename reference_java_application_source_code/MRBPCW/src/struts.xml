@@ -1,0 +1,912 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE struts PUBLIC
+        "-//Apache Software Foundation//DTD Struts Configuration 2.5//EN"
+        "http://struts.apache.org/dtds/struts-2.5.dtd">
+
+<struts>
+
+	<constant name="struts.devMode" value="true" />
+	<constant name="struts.enable.DynamicMethodInvocation" value="true" />
+
+	<constant name="struts.objectFactory"
+		value="org.apache.struts2.spring.StrutsSpringObjectFactory" />
+	<constant name="struts.custom.i18n.resources" value="global" />
+
+	<package name="default" namespace="/" extends="struts-default">
+
+		<result-types>
+			<result-type name="tiles"
+				class="org.apache.struts2.views.tiles.TilesResult" />
+			<result-type name="jasper"
+				class="org.apache.struts2.views.jasperreports.JasperReportsResult" />
+		</result-types>
+
+		<interceptors>
+			<interceptor name="sessionInterceptor" class="sessionInterceptor" />
+			<interceptor name="login" class="loginInterceptor" />
+			<interceptor name="exceptionLoggingInterceptor"
+				class="com.nseit.generic.util.ExceptionLoggingInterceptor"></interceptor>
+			<interceptor-stack name="genericDefaultStack">
+				<interceptor-ref name="tokenSession">
+					<param name="excludeMethods">forgotPasswordOTP,generateFpOTP,getAgeMatrixDetails,input,back,cancel,browse,reconcilePaymentAjaxckeck,
+					execute,getCityList,getDistrictList,getAltCityList,getAltDistrictList,registerCandidate,
+					getDocument,printFinalPageInJasper,redirectToPaymentMode,loadInstructions,
+					printPostAppliedInJasper,printHallTicket,getRoleMenu,getRole,
+					downloadMedicalScheduleTemplate,downloadMedicalTemplate,
+					downloadInterviewTemplate,downloadInterviewScheduleTemplate,
+					downloadFieldTestTemplate,downloadFieldTestScheduleTemplate,
+					downloadWrittenTestTemplate,downloadScheduleTemplate,generateReport,
+					getAcademicDetailsListForNodal,exportPaymentCollectionReportToExcel,
+					generatePaymentReport,createZipFile,updateDateRangeDetails,
+					getActivityList,getEmailSMSDetailsForDiscipline,downloadTemplate,
+					getRoleMenuMappingExists,RedirectFinal,insertCandidateImageForNodal,
+					insertCandidateSignatureForNodal,saveEducationalDetailsForNodal,
+					saveCandidateDetailsForNodal,forgotPassword,forgotUserId,
+					updatePasswordDetails,preparePDFForPaymentReceipt,
+					insertCandidateDocumentForNodal,insertCandidateDocumentsValidation,
+					getSubcasteList,getSportsMap,getRefKeyValMasterMap,getDegreeList,
+					getUnit,getDistrict,getPoliceStationList,generateOTP,verifyOTP,
+					getDesignationList,saveDocVerify,AuditTrailForDeclaration,
+					getAdvertisementNumber,getAdditionalDocument,saveAddDocVerify,
+					printFinalPageInJasper1,generatePaymentReceipt,generateChallanReceipt,
+					updateCandidateStageFinalSubmit,getPostMaster,downloadPdf,
+					viewPrintFinalDetails,viewPrintFinalDetails1,getDegreeList,
+					getUniversityBoardDropDown,registrationClick,resetPassword,
+					changePassword,viewPrintWithoutToken,viewPrintFinalDetails1,
+					goToTemplateDownload,showCandidateDataExportPage,exportReconileToExcel,
+					getDataForCandidateNodal,createDocumentZipFile,typeOCallHome,dashboard,auditTrailForGenderConfirmation,
+					downloadAppPDFfrmButton,getApplicationPDF,validateApplicantProvidedInfo,getRef1DistrictList,
+					getSubcasteList,getDesignationList,payMentDoneMsgDisplay,signout,getRef2DistrictList,
+					downloadPdf1,checkEducationalDocsUploadedOrNot,showUploadDocument,connectToSafex,
+					addAuditTrailForConf,checkIncompletePaymentStatus,checkIncompletePaymentStatus1,connectToSBIEPay,
+					connectToSBIEPayBilling,insertOnlinepaymentDetails,insertOnlinepaymentDetailsSBIEPay,insertOnlinepaymentDetailsSBIEPay1,
+					getDoubleVerificationResponse,getMajorSubjectListForPG,getEquivalentSubList,getEquivalentSubUniversity,verifyEmailExists,
+					getDoubleVerificationResponseBulk,connectToSBIEPayDoubleVerification,createServerSidePDF,getMajorSubjectList,updateScribeDetails,
+					getOptionalPaperList,checkSignExist,generateReportForPU,checkFirstLoggedUser,printAdmitCardPDF,checkPhotoExist,createServerSidePaymentPdf,
+					printScoreCardPDF,printCallLetterPDF,getDivisioanlPreference,audit,proceesTestPayment,successPayment,rejectPayment,abcd,displaySignedBy</param>
+				</interceptor-ref>
+				<interceptor-ref name="exception"></interceptor-ref>
+				<interceptor-ref name="exceptionLoggingInterceptor"></interceptor-ref>
+				<interceptor-ref name="sessionInterceptor" />
+				<interceptor-ref name="login" />
+				<interceptor-ref name="servletConfig" />
+				<interceptor-ref name="i18n" />
+				<interceptor-ref name="modelDriven" />
+				<interceptor-ref name="fileUpload" >
+                    <param name="maximumSize">9048000</param>
+                    <param name="allowedTypes">application/pdf, image/jpeg,image/jpg,application/octet-stream,image/png</param >
+                </interceptor-ref>
+
+				<interceptor-ref name="checkbox" />
+				<interceptor-ref name="multiselect" />
+				<interceptor-ref name="params">
+					<param name="excludeParams">dojo\..*,^struts\..*</param>
+				</interceptor-ref>
+				<interceptor-ref name="conversionError" />
+				<interceptor-ref name="workflow">
+					<param name="excludeMethods">input,back,cancel,browse,execute</param>
+				</interceptor-ref>
+				<interceptor-ref name="basicStack"/>
+			</interceptor-stack>
+		</interceptors>
+
+		<default-interceptor-ref name="genericDefaultStack" />
+
+		<global-results>
+			<result name="notloggedin" type="redirectAction">LoginAction_input</result>
+			<result name="sessionError">/WEB-INF/sessionErrorPage.jsp</result>
+			<result name="goToCandidateHomePage" type="redirectAction">CandidateAction_home
+			</result>
+			<result name="goToSuperAdminHomePage" type="redirectAction">AgencyAction_getGcetLoginHome
+			</result>
+			<result name="goToOtherHomePage" type="redirectAction">AgencyAction_goToActiveMenu
+			</result>
+			<result name="goToHomePage" type="redirectAction">LoginAction_input</result>
+			<result name="writePlainText">/WEB-INF/WritePlainTextToResponse.jsp</result>
+			<result name="errorPage">/WEB-INF/errorPage.jsp</result>
+			<result name="displayMessage">/WEB-INF/Redirect1.jsp</result>
+			<result name="invalid.token">/WEB-INF/security/SecurityCheck.jsp</result>
+			<result name="redirectActionURL">/WEB-INF/redirectActionURL.jsp</result>
+			<result name="childNotFoundForMenu" type="tiles">childNotFoundForMenu</result>
+			<result name="dynamicMenu" type="tiles">dynamicMenu</result>
+		</global-results>
+
+		<global-exception-mappings>
+			<exception-mapping name="globalException"
+				exception="java.lang.Throwable" result="errorPage" />
+		</global-exception-mappings>
+
+		<action name="Index" class="com.opensymphony.xwork2.ActionSupport">
+			<result name="success" type="tiles">index</result>
+		</action>
+
+		<action name="RedirectFinal" class="com.opensymphony.xwork2.ActionSupport">
+			<result name="success" type="tiles">displayMessage</result>
+		</action>
+
+		<action name="ContactUsAction" class="com.opensymphony.xwork2.ActionSupport">
+			<result name="success" type="tiles">contactUs</result>
+		</action>
+		
+		<action name="LoginAction_*" method="{1}" class="loginAction">
+		    <result name="instructions" type="tiles">instructions</result>
+			<result name="CloseWindow" type="tiles">CloseWindow</result>
+			<result name="firstLogin" type="tiles">changePassword</result>
+			<result name="input" type="tiles">loginPage</result>
+			<result name="success" type="redirectAction">CandidateAction_getCandidateDetails
+			</result>
+			<result name="successAgency" type="redirectAction">CandidateMgmtAction_getEligibleAndNonEligibleCandidateData
+			</result>
+			<!-- <result name="successNodal" type="redirectAction">CandidateMgmtAction_getEligibleAndNonEligibleCandidateDataForNodal
+			</result> -->
+			<result name="error" type="tiles">loginPage</result>
+			<result name="instructionPage" type="tiles">instructionPage</result>
+			<!-- <result name="successNseit" type="redirectAction">AgencyAction_getCredentialsPage
+			</result> -->
+			<result name="redirectCandidateHome" type="redirectAction">CandidateAction_home
+			</result>
+			<result name="successQuestionBank" type="redirectAction">AdminAction_getEncryptQBank
+			</result>
+			<result name="successGcetLogin" type="redirectAction">AgencyAction_getGcetLoginHome
+			</result>
+			<result name="registerPage" type="tiles">registerPage</result>
+			<result name="successUsr" type="redirectAction">AgencyAction_goToActiveMenu
+			</result>
+			<result name="resetPassword" type="tiles">resetPassword</result>
+			<result name="resetPasswordSuccessful" type="tiles">resetPasswordSuccessful
+			</result>
+			<result name="linkExpire" type="tiles">linkExpire</result>
+			<allowed-methods>input, loadInstructions, authenticateUser, registerCandidate, signout, goToHomePage, checkForgotPasswordStatus, changePassword, resetPassword, checkFirstLoggedUser </allowed-methods>
+		</action>
+
+		<action name="AgencyAction_*" method="{1}" class="agencyAction">
+			<result name="successAgency" type="tiles">successAgency
+			</result>
+			<result name="displayLoginData" type="tiles">displayLoginData
+			</result>
+			<result name="gcetHome" type="tiles">displayGcetHome</result>
+			<result name="reportPage" type="tiles">reportPage</result>
+			<result name="pondiReportPage" type="tiles" >pondiReportPage</result>
+			<result name="getShortlistedCandidateReportPage" type="tiles">shortlistedCandidateReportPage</result>
+			<result name="getSelectedCandidateReportPage" type="tiles">selectedCandidateReportPage
+			</result>
+			<result name="mailPage" type="tiles">mailPage</result>
+			<result name="importCredentials" type="tiles">importCredentials
+			</result>
+			<result name="getHelpCenterList" type="tiles">getHelpCenterList
+			</result>
+
+
+			<result name="excel" type="jasper">
+				<param name="location">/Jasper/RegisteredCandidateDetailsReport.jasper</param>
+				<param name="dataSource">candidateDetailsList</param>
+				<param name="reportParameters">parameterValues</param>
+				<param name="format">XLS</param>
+				<param name="contentType">application/vnd.ms-excel</param>
+				<param name="documentName">RegisteredCandidateDetailReport</param>
+				<param name="contentDisposition">attachment</param>
+				<param name="bufferSize">1024</param>
+			</result>
+
+			<result name="ShortlistedCandidateReport" type="jasper">
+				<param name="location">/Jasper/SummaryReport.jasper</param>
+				<param name="dataSource">jremptyDataSource</param>
+				<param name="reportParameters">parameterValues</param>
+				<param name="connection">connection</param>
+				<param name="format">XLS</param>
+				<param name="contentDisposition">application/vnd.ms-excel</param>
+				<param name="documentName">ShorlistedCandidateDetailReport</param>
+			</result>
+
+			<result name="SelectedCandidateReport" type="jasper">
+				<param name="location">/Jasper/SummaryReport.jasper</param>
+				<param name="dataSource">jremptyDataSource</param>
+				<param name="reportParameters">parameterValues</param>
+				<param name="connection">connection</param>
+				<param name="format">XLS</param>
+				<param name="contentDisposition">application/vnd.ms-excel</param>
+				<param name="documentName">SelectedCandidateDetailReport</param>
+			</result>
+		</action>
+
+
+		<!-- For admin gcet -->
+		<action name="AdminAction_*" method="{1}" class="adminAction">
+			<result name="adminHomePage" type="tiles">adminHomePage
+			</result>
+			<result name="uploaded" type="tiles">uploaded</result>
+			<result name="encryptQBank" type="tiles">encryptQBank</result>
+
+		</action>
+
+		<!--added for Work Experience-->
+		<action name="WorkExperienceAction_*" method="{1}"
+			class="workExperienceAction">
+			<result name="workExperience" type="tiles">workExperience
+			</result>
+			<allowed-methods>updateCandidateStage, getUnit, getDistrict, getPoliceStationList, getWorkExperiencePage, saveWorkExperienceDetails, saveWorkExperienceDetailsValidation,  </allowed-methods>
+		</action>
+		
+		<!--added for Covid Duty Certificate-->
+		<action name="CovidDutyCertificateAction_*" method="{1}"
+			class="covidDutyCertificateAction">
+			<result name="covidDutyCertificate" type="tiles">covidDutyCertificate
+			</result>
+			<allowed-methods>updateCandidateStage,getCovidDutyCertificate,saveCovidDutyCertificateDetails,displaySignedBy </allowed-methods>
+		</action>
+
+
+		<!-- Candidate Management Start -->
+
+		<action name="CandidateMgmtAction_*" method="{1}"
+			class="candidateMgmtAction">
+			<result name="papulatePaymentApproval" type="tiles">displayPaymentApproval
+			</result>
+			<result name="showPaymentReportScreen" type="tiles">showPaymentReportScreen
+			</result>
+			<result name="displayPaymentApproval" type="tiles">displayPaymentApproval
+			</result>
+			<result name="displayPaymentDetailsForCandidate">/WEB-INF/agency/agencyPaymentDetailsForUser.jsp</result>
+			<result name="writePlainText">/WEB-INF/WritePlainTextToResponse.jsp</result>
+			<result name="papulateEnrollmentDetails" type="tiles">enrollmentDetails
+			</result>
+			<result name="enrollmentDetails" type="tiles">enrollmentDetails
+			</result>
+			<result name="showEPostReconcile" type="tiles">showEPostReconcile
+			</result>
+			<result name="admitCatdDetails" type="tiles">admitCatdDetails
+			</result>
+			<result name="admitCardforWrittenTest" type="tiles">admitCardforWrittenTest
+			</result>
+			<result name="admitCardforFieldTest" type="tiles">admitCardforFieldTest
+			</result>
+			<result name="admitCardforInterview" type="tiles">admitCardforInterview
+			</result>
+			<result name="admitCardforMedicalTest" type="tiles">admitCardforMedicalTest
+			</result>
+
+			<result name="papulateEligibleAndNonEligible" type="tiles">eligibleCandidate
+			</result>
+			<result name="eligibleCandidate" type="tiles">eligibleCandidate
+			</result>
+
+			<result name="allocateTestCenter" type="tiles">allocateTestCenter
+			</result>
+
+			<result name="viewHallTicketForAdmin" type="tiles">viewHallTicketForAdmin
+			</result>
+
+			<result name="registrationDetails" type="tiles">registrationDetails
+			</result>
+
+			<result name="showMessage" type="tiles">showMessage</result>
+
+			<result name="showPhotoImage" type="stream">
+				<param name="inputName">inputStreamForImage</param>
+				<param name="bufferSize">1024</param>
+			</result>
+
+			<result name="showSignImage" type="stream">
+				<param name="inputName">inputStreamForSignature</param>
+				<param name="bufferSize">1024</param>
+			</result>
+			<result name="eligible" type="tiles">eligible</result>
+			<result name="eligibleForNodal" type="tiles">eligibleForNodal
+			</result>
+			<result name="viewCandidate" type="tiles">viewCandidate
+			</result>
+			<result name="viewCandidateForNodal" type="tiles">viewEditCandidateForNodal
+			</result>
+
+			<result name="generateRollNumber" type="tiles">generateRollNumber
+			</result>
+			<result name="allocateTestSlot" type="tiles">allocateTestSlot
+			</result>
+			<result name="showChallanReconcile" type="tiles">showChallanReconcile
+			</result>
+			<result name="showEPostReconcile" type="tiles">showEPostReconcile
+			</result>
+
+			<result name="generateNBPaymentReport" type="jasper">
+				<param name="location">/Jasper/PaymentReportForOnlinePayments.jasper</param>
+				<param name="dataSource">paymentReportExcelResultBeanList</param>
+				<param name="reportParameters">parameterValues</param>
+				<param name="format">XLS</param>
+				<param name="contentType">application/vnd.ms-excel</param>
+				<param name="documentName">PaymentDetailReport</param>
+				<param name="contentDisposition">attachment</param>
+				<param name="bufferSize">1024</param>
+			</result>
+
+			<result name="generateDDPaymentReport" type="jasper">
+				<param name="location">/Jasper/PaymentReportForDDPayments.jasper</param>
+				<param name="dataSource">paymentReportExcelResultBeanList</param>
+				<param name="reportParameters">parameterValues</param>
+				<param name="format">XLS</param>
+				<param name="contentType">application/vnd.ms-excel</param>
+				<param name="documentName">PaymentDetailReport</param>
+				<param name="contentDisposition">attachment</param>
+				<param name="bufferSize">1024</param>
+			</result>
+
+			<result name="generateCHPaymentReport" type="jasper">
+				<param name="location">/Jasper/PaymentReportForCHPayments.jasper</param>
+				<param name="dataSource">paymentReportExcelResultBeanList</param>
+				<param name="reportParameters">parameterValues</param>
+				<param name="format">XLS</param>
+				<param name="contentType">application/vnd.ms-excel</param>
+				<param name="documentName">PaymentDetailReport</param>
+				<param name="contentDisposition">attachment</param>
+				<param name="bufferSize">1024</param>
+			</result>
+
+		</action>
+
+		<!-- Candidate Management End -->
+
+
+		<action name="CandidateAction_*" method="{1}" class="candidateAction">
+			<result name="input" type="redirectAction">CandidateAction_home
+			</result>
+			<result name="covidDutyCertificate" type="tiles">covidDutyCertificate</result>
+			<result name="home" type="tiles">dashboard</result>
+			<result name="CloseWindow" type="tiles">CloseWindow</result>
+			<result name="changepasswordsuccess" type="tiles">loginPage</result>
+			<result name="download" type="tiles">loginPage</result>
+			<result name="redirectShowApplicationForm" type="redirectAction">CandidateAction_getCandidateDetails
+			</result>
+			<result name="applicationForm" type="tiles">applicationForm</result>
+			<result name="echallanPaymentDetailsPage" type="tiles">echallanPaymentDetailsPage</result>
+			
+			<result name="additionalEduForm" type="tiles">additionalEduForm</result>
+			<result name="additionalDetailsForm" type="tiles">additionalDetailsForm
+			</result>
+			<result name="showUploadPhotograph" type="tiles">showUploadPhotograph
+			</result>
+			<result name="applicationFormPreview" type="tiles">applicationFormPreview
+			</result>
+			<result name="adminHome" type="redirectAction">AdminAction_getHomePageForAdmin
+			</result>
+			<result name="apply" type="redirectAction">PaymentOnlineAction_showPaymentScreen
+			</result>
+			<result name="applyErr" type="tiles">apply</result>
+			<result name="redirectShowUploadPhotograph" type="redirectAction">CandidateAction_showUploadPhotograph
+			</result>
+			<result name="eligible" type="tiles">eligible</result>
+			<result name="eligibleForNodal" type="tiles">eligibleForNodal
+			</result>
+			<result name="eligibleNoneligibleUserDetailForNodal">/WEB-INF/agency/eligibleNoneligibleUserDetailForNodal.jsp
+			</result>
+			<result name="approvalReceipt" type="tiles">approvalReceipt</result>
+			<result name="approvalReceipt">/WEB-INF/agency/approvalReceipt.jsp</result>
+			<result name="viewCandidate" type="tiles">viewCandidate
+			</result>
+			<result name="viewCandidateForNodal" type="tiles">viewEditCandidateForNodal
+			</result>
+			<result name="redirectShowFinalPersonalDetails" type="redirectAction">CandidateAction_showFinalPersonalDetails
+			</result>
+			<result name="showFinalPersonalDetails" type="tiles">showFinalPersonalDetails
+			</result>
+			<result name="finalPersonalDetails" type="tiles">finalPersonalDetails
+			</result>
+			<result name="showViewPrintDetails" type="tiles">showViewPrintDetails
+			</result>
+			<result name="showViewPrintDetails1" type="tiles">showViewPrintDetails1
+			</result>
+			<result name="showViewPrintDetails2" type="tiles">showViewPrintDetails2
+			</result>
+			<result name="mockTest" type="tiles">mockTest</result>
+			<result name="approvalReceiptNodal" type="tiles">approvalReceiptNodal
+			</result>
+			<result name="viewCandidateForNodal" type="tiles">viewEditCandidateForNodal
+			</result>
+			<result name="showUploadSignature" type="tiles">showUploadSignature
+			</result>
+			<result name="redirectShowUploadSignature" type="redirectAction">CandidateAction_showUploadSignature
+			</result>
+			<result name="getUploadManagement" type="tiles">getUploadDocument
+			</result>
+			<result name="preferenceTestCenterPage" type="tiles">preferenceTestCenterPage
+			</result>
+			<result name="displayDocumentMessage" type="tiles">displayDocumentMessage
+			</result>
+			<result name="displayPrefTestCenterSuccessMessage" type="tiles">displayPrefTestCenterSuccessMessage
+			</result>
+			<result name="redirectPrefernceTestCenter" type="redirectAction">CandidateAction_getPrefernceTestCenter
+			</result>
+			<result name="redirectDocumentUpload" type="redirectAction">CandidateAction_getUploadManagement
+			</result>
+			<result name="redirectShowSignature" type="redirectAction">CandidateAction_showUploadImage
+			</result>
+			<result name="showDocumentPage" type="redirectAction">CandidateAction_showUploadDocument
+			</result>
+			<result name="showPreferenceTestCenterPage" type="redirectAction">CandidateAction_getPrefernceTestCenter
+			</result>
+			<result name="candidateDocForNodal" type="redirectAction">CandidateAction_getCandidateDetailsForNodalForEdit
+			</result>
+			<result name="showEducationalDetails">/WEB-INF/candidate/showEducationalDetails.jsp
+			</result>
+			<result name="showEducationalDetailsForNodal">/WEB-INF/candidate/showEducationalDetailsForNodal.jsp
+			</result>
+			<result name="writePlainText">/WEB-INF/WritePlainTextToResponse.jsp</result>
+			<result name="showPaymentReceipt" type="tiles">showPaymentReceipt
+			</result>
+			<result name="ageDetailsForm" type="tiles">ageDetailsForm</result>
+			<result name="quotaDetailsForm" type="tiles">quotaDetailsForm</result>
+			<result name="redirectPaymentUpload" type="redirectAction">PaymentOnlineAction_showPaymentScreen
+			</result>
+
+			<result name="downloadPdf">/WEB-INF/index_pdf.jsp</result>
+
+			<result name="selectSlot" type="tiles">selectSlot</result>
+			<result name="preferenceTestCenterPageWithTestDate" type="tiles">preferenceTestCenterPageWithTestDate
+			</result>
+			<result name="showPreferenceTestCenterTestDatePage" type="redirectAction">CandidateAction_getPrefernceTestCenterTestDate
+			</result>
+			<result name="educationalDetailsPage" type="tiles">educationalDetailsPage
+			</result>
+			<result name="preferenceDetailsPage" type="tiles">preferencesPage</result>
+			<result name="showCandidateDashboard" type="tiles">showCandidateDashboard
+			</result>
+			<result name="getAgeQutaDetails" type="tiles">getAgeQutaDetails
+			</result>
+			<result name="successPDF" type="stream">
+				<param name="contentType">application/pdf</param>
+				<param name="inputName">documentInputStream</param>
+				<param name="contentDisposition">attachment;filename=%{documentFileName}</param>
+			</result>
+			<result name="successPDF1" type="stream">
+				<param name="contentDisposition">application/pdf</param>
+				<param name="contentType">application/pdf</param>
+				<param name="inputName">documentInputStream</param>
+				<param name="contentDisposition">attachment;filename="Application Form.pdf"</param>
+			</result>
+			<result name="successDOC" type="stream">
+				<param name="contentType">application/msword</param>
+				<param name="inputName">documentInputStream</param>
+				<param name="contentDisposition">attachment;filename=%{documentFileName}</param>
+			</result>
+			<result name="successXLS" type="stream">
+				<param name="contentType">application/vnd.ms-excel</param>
+				<param name="inputName">documentInputStream</param>
+				<param name="contentDisposition">attachment;filename=%{documentFileName}</param>
+			</result>
+			<result name="successIMAGE" type="stream">
+				<param name="contentType">image</param>
+				<param name="inputName">documentInputStream</param>
+				<param name="contentDisposition">attachment;filename=%{documentFileName}</param>
+				<param name="bufferSize">1024</param>
+			</result>
+			<result name="successCsv" type="stream">
+				<param name="contentType">text/csv</param>
+				<param name="inputName">documentInputStream</param>
+				<param name="contentDisposition">attachment;filename=%{documentFileName}</param>
+			</result>
+
+			<!-- VIJAYA -->
+			<result name="PrintJasperApplicationForm" type="jasper">
+				<param name="location">/Jasper/app.jasper</param>
+				<param name="dataSource">parameterValues</param>
+				<param name="reportParameters">parameterValues</param>
+				<param name="format">PDF</param>
+				<param name="contentDisposition">attachment;filename="One-Time Registration
+					Form.pdf"</param>
+				<param name="documentName">ApplicationForm</param>
+				<param name="connection">connection</param>
+			</result>
+
+			<result name="PrintJasperApplicationForm1" type="jasper">
+				<param name="location">/Jasper/app.jasper</param>
+				<param name="dataSource">parameterValues</param>
+				<param name="reportParameters">parameterValues</param>
+				<param name="format">PDF</param>
+				<param name="contentDisposition">attachment;filename="Application Form.pdf"</param>
+				<param name="documentName">ApplicationForm</param>
+				<param name="connection">connection</param>
+			</result>
+
+			<result name="PrintJasperAppliedPost" type="jasper">
+				<param name="location">/Jasper/postApplied.jasper</param>
+				<param name="dataSource">parameterValues</param>
+				<param name="reportParameters">parameterValues</param>
+				<param name="format">PDF</param>
+				<param name="contentDisposition">application/pdf</param>
+				<param name="documentName">postApplied</param>
+				<param name="connection">connection</param>
+			</result>
+
+			<!-- VIJAYA -->
+			<result name="PrintAcknowledgementReceipt" type="jasper">
+				<param name="location">/Jasper/Approval_Receipt.jasper</param>
+				<param name="dataSource">parameterValues</param>
+				<param name="reportParameters">parameterValues</param>
+				<param name="format">PDF</param>
+				<param name="contentDisposition">application/pdf</param>
+				<param name="documentName">AcknowledgementReceipt</param>
+			</result>
+			<result name="instructionPage" type="tiles">instructionPage</result>
+
+			<!-- VIJAYA -->
+			<result name="PrintPaymentReceipt" type="jasper">
+				<param name="location">/Jasper/PaymentReceipt.jasper</param>
+				<param name="dataSource">parameterValues</param>
+				<param name="reportParameters">parameterValues</param>
+				<param name="format">PDF</param>
+				<param name="contentDisposition">application/pdf</param>
+				<param name="documentName">PaymentReceipt</param>
+			</result>
+			<allowed-methods>navigateToAction,input, getCandidateDetails, getAgeMatrixDetails, insertCandidateImage, showUploadPhotograph, showUploadPhotograph1, checkPhotoExist, checkSignExist, getAlternateStateList, getDistrictList, getAltDistrictList, getAlternateDistrictList, updateCandidateStageFinalSubmit, paymentValidation, updateCandidateStage, showFinalPersonalDetails, getImageCastForS3, viewPrintFinalDetails, saveCandidateDetails, home, showInstructionPage, registrationClick, searchCandidate, mockTest, showUploadSignature, showUploadSignature1, insertCandidateSignature, showUploadDocument, getDocument, insertCandidateDocuments, preparePDFForPaymentReceipt, continueTestBooking, displayPaymentReceipt, getCandidateEducationalDetailsPage, saveAcademicDetails, audit, dashboard, saveChallanDetails, getCandidateAdditionalDetails, AuditTrailForDeclaration, getDegreeList, getToken, getSubcasteList, redirectPaymentUpload, getCandidateEducationalDetailsPageForUpdate, checkMissingUploadedDoc, printScoreCardPDF, printCallLetterPDF, printAdmitCardPDF, openPracticeTest, printHallTicket, createServerSidePDF, getApplicationPDF, saveDocVerify, saveCandidateAdditionalDetails, getRef1DistrictList, getRef2DistrictList, auditTrailForGenderConfirmation,  finalFormSubmition,createServerSidePaymentPdf</allowed-methods>
+		</action>
+
+		<!-- Registration action Start -->
+
+		<action name="RegistrationAction_*" method="{1}" class="registrationAction">
+			<result name="firstLogin" type="tiles">changePassword</result>
+			<result name="success" type="tiles">loginPage</result>
+			<result name="error" type="tiles">loginPage</result>
+			<result name="displayAppForm" type="tiles">displayAppForm</result>
+			<result name="registerPage" type="tiles">registerPage</result>
+			<result name="goToWelcomePage" type="tiles">goTowelcomePage</result>
+			<result name="resetPasswordSuccessful" type="tiles">resetPasswordSuccessful
+			</result>
+			<result name="writePlainText">/WEB-INF/WritePlainTextToResponse.jsp</result>
+			<allowed-methods>updatePasswordDetailsValidation, updatePasswordDetails, forgotRegistrationNumberValidation, forgotPasswordValidation, 
+			forgotUserIdValidation, forgotPassword, checkForgotPassword, forgotUserId, checkForgotUserId, changePasswordForFirstTime, registerCandidate, goToHomePage, refreshCaptchaImage, 
+			OTP, generateOTP, generateRandomOTP, verifyEmailExists, verifyOTP , forgotPasswordOTP,generateFpOTP,getAgeMatrixDetails</allowed-methods>
+		</action>
+		<!-- Registration Action end -->
+		<!-- start of settings action -->
+		<action name="SettingsAction_*" method="{1}" class="settingsAction">
+			<result name="insertEmailSMSSettingDetails" type="tiles">insertEmailSMSSettingDetails
+			</result>
+			<result name="getUploadManagement" type="tiles">getUploadManagement
+			</result>
+			<result name="getDateDefinitionDetails" type="tiles">getDateDefinitionDetails
+			</result>
+			<result name="displayDateDefinitionDetails">/WEB-INF/agency/dispalyDefineDates.jsp
+			</result>
+		</action>
+		<!-- end of settings action -->
+
+		<!-- Added by Raman Pawar for OTBS -->
+		<action name="SchedulingTestAction_*" method="{1}"
+			class="schedulingTestAction">
+			<result name="success" type="tiles">getSeatBookDetails</result>
+			<result name="showBatchDetails" type="tiles">showBatchDetails</result>
+			<result name="ShowHallTicket" type="tiles">ShowHallTicket</result>
+			<result name="CloseWindow" type="tiles">CloseWindow</result>
+			<result name="hallTicket" type="tiles">hallTicket</result>
+			<result name="successPage" type="tiles">successPage</result>
+			<result name="showAttemptTwoPage" type="redirectAction">SchedulingTestAction_showAttemptTwoPage
+			</result>
+
+			<!-- VIJAYA -->
+			<result name="PrintHallTicket" type="jasper">
+				<param name="location">/Jasper/HallTicket_Attempt_One.jasper</param>
+				<param name="dataSource">parameterValues</param>
+				<param name="reportParameters">parameterValues</param>
+				<param name="format">PDF</param>
+				<param name="contentDisposition">application/pdf</param>
+				<param name="documentName">HallTicket</param>
+			</result>
+		</action>
+		<!-- ForSchedulingTestAction for Jasper Report Generation -->
+
+
+		<!-- For Report Action for Jasper Report Generation -->
+		<action name="ReportAction_*" method="{1}" class="reportAction">
+			<result name="attendenceReportPage" type="tiles">attendenceReportPage
+			</result>
+			<result name="bulkDownloadReportPage" type="tiles">bulkDownloadReportPage
+			</result>
+			<result name="scheduleReportPage" type="tiles">scheduleReportPage
+			</result>
+			<result name="paymentReportPage" type="tiles">paymentReportPage
+			</result>
+			<result name="paymentCollectionReportPage" type="tiles">paymentCollectionReportPage
+			</result>
+			<result name="paymentReconcCandidateWiseReport">/agency/paymentReconcCandidateWiseReport.jsp
+			</result>
+
+			<result name="success" type="tiles">seatUtilizationReport</result>
+			<result name="error" type="tiles">seatUtilizationReport</result>
+			<result name="paymentReconcilliationReport" type="tiles">paymentReconcilliationReport
+			</result>
+			<result name="admitCardforWrittenTest" type="tiles">admitCardforWrittenTest
+			</result>
+			<result name="admitCardforFieldTest" type="tiles">admitCardforFieldTest
+			</result>
+			<result name="admitCardforInterview" type="tiles">admitCardforInterview
+			</result>
+			<result name="admitCardforMedicalTest" type="tiles">admitCardforMedicalTest
+			</result>
+			<result name="attendanceReportWithRollNo" type="jasper">
+				<param name="location">/Jasper/AttendanceReport_WithRollNo.jasper</param>
+				<param name="dataSource">jremptyDataSource</param>
+				<param name="reportParameters">parameterValues</param>
+				<param name="connection">connection</param>
+				<param name="format">PDF</param>
+				<param name="contentDisposition">application/pdf</param>
+				<param name="documentName">CandidateAttedenceReport</param>
+			</result>
+
+			<result name="attendanceReportWithoutRollNo" type="jasper">
+				<param name="location">/Jasper/AttendanceReport_WithoutRollNo.jasper</param>
+				<param name="dataSource">jremptyDataSource</param>
+				<param name="reportParameters">parameterValues</param>
+				<param name="connection">connection</param>
+				<param name="format">PDF</param>
+				<param name="contentDisposition">application/pdf</param>
+				<param name="documentName">CandidateAttedenceReport</param>
+			</result>
+
+			<result name="attendanceReportOnlySignatureWithRollNo" type="jasper">
+				<param name="location">/Jasper/AttendanceReport_OnlySignature_WithRollNo.jasper</param>
+				<param name="dataSource">jremptyDataSource</param>
+				<param name="reportParameters">parameterValues</param>
+				<param name="connection">connection</param>
+				<param name="format">PDF</param>
+				<param name="contentDisposition">application/pdf</param>
+				<param name="documentName">CandidateAttedenceReport</param>
+			</result>
+
+			<result name="attendanceReportOnlySignatureWithoutRollNo"
+				type="jasper">
+				<param name="location">/Jasper/AttendanceReport_OnlySignature_WithoutRollNo.jasper</param>
+				<param name="dataSource">jremptyDataSource</param>
+				<param name="reportParameters">parameterValues</param>
+				<param name="connection">connection</param>
+				<param name="format">PDF</param>
+				<param name="contentDisposition">application/pdf</param>
+				<param name="documentName">CandidateAttedenceReport</param>
+			</result>
+
+
+
+			<result name="attendanceReportOnlyPhotoWithRollNo" type="jasper">
+				<param name="location">/Jasper/AttendanceReport_OnlyPhoto_WithRollNo.jasper</param>
+				<param name="dataSource">jremptyDataSource</param>
+				<param name="reportParameters">parameterValues</param>
+				<param name="connection">connection</param>
+				<param name="format">PDF</param>
+				<param name="contentDisposition">application/pdf</param>
+				<param name="documentName">CandidateAttedenceReport</param>
+			</result>
+
+			<result name="attendanceReportOnlyPhotoWithoutRollNo" type="jasper">
+				<param name="location">/Jasper/AttendanceReport_OnlyPhoto_WithoutRollNo.jasper</param>
+				<param name="dataSource">jremptyDataSource</param>
+				<param name="reportParameters">parameterValues</param>
+				<param name="connection">connection</param>
+				<param name="format">PDF</param>
+				<param name="contentDisposition">application/pdf</param>
+				<param name="documentName">CandidateAttedenceReport</param>
+			</result>
+
+			<result name="attendanceReportwihtoutPhotoSignWithRollNo"
+				type="jasper">
+				<param name="location">/Jasper/AttendanceReport_wihtoutPhotoSign_WithRollNo.jasper</param>
+				<param name="dataSource">jremptyDataSource</param>
+				<param name="reportParameters">parameterValues</param>
+				<param name="connection">connection</param>
+				<param name="format">PDF</param>
+				<param name="contentDisposition">application/pdf</param>
+				<param name="documentName">CandidateAttedenceReport</param>
+			</result>
+
+			<result name="attendanceReportwihtoutPhotoSignRollNo" type="jasper">
+				<param name="location">/Jasper/AttendanceReport_wihtoutPhotoSignRollNo.jasper</param>
+				<param name="dataSource">jremptyDataSource</param>
+				<param name="reportParameters">parameterValues</param>
+				<param name="connection">connection</param>
+				<param name="format">PDF</param>
+				<param name="contentDisposition">application/pdf</param>
+				<param name="documentName">CandidateAttedenceReport</param>
+			</result>
+
+			<result name="generateBulkDownloadReport" type="jasper">
+				<param name="location">/Jasper/BuilkHallTicket_1.jasper</param>
+				<param name="dataSource">hallTicketBeanBulkList</param>
+				<param name="format">PDF</param>
+				<param name="reportParameters">parameterValues</param>
+				<param name="contentDisposition">application/pdf</param>
+				<param name="documentName">BulkDownloadHallTickets</param>
+			</result>
+
+			<!--
+				<result name="exportToExcelReconcilliationDetails" type="jasper">
+				<param
+				name="location">/Jasper/paymentReconcilliationDetails.jasper</param>
+				<param name="dataSource">paymentReconciliationCandExport</param>
+				<param name="format">PDF</param> <param
+				name="reportParameters">parameterValues</param> <param
+				name="contentDisposition">application/pdf</param> <param
+				name="documentName">PaymentReconcilliationDetails</param> </result>
+			-->
+			<result name="exportToExcelReconcilliationDetails" type="jasper">
+				<param name="location">/Jasper/paymentReconcilliationDetails.jasper</param>
+				<param name="dataSource">paymentReconciliationCandExport</param>
+				<param name="reportParameters">parameterValues</param>
+				<param name="format">XLS</param>
+				<param name="contentType">application/vnd.ms-excel</param>
+				<param name="documentName">PaymentReconciliationDetails</param>
+				<param name="contentDisposition">attachment</param>
+				<param name="bufferSize">1024</param>
+			</result>
+
+		</action>
+
+		<!--Start for Payment  Action -->
+
+		<action name="PaymentOnlineAction_*" method="{1}"
+			class="paymentOnlineAction">
+			<result name="downloadPaymentPdf">/WEB-INF/payment_pdf.jsp</result>
+			<result name="CloseWindow" type="tiles">CloseWindow</result>
+			<result name="showOnlinePaymentScreen" type="tiles">showOnlinePaymentScreen
+			</result>
+			<result name="input" type="tiles">showOnlinePaymentScreen</result>
+			<result name="error" type="tiles">showOnlinePaymentScreen</result>
+			<result name="success" type="tiles">loginPage</result>
+			<result name="displaygateway">/WEB-INF/candidate/doOnlinePayment.jsp
+			</result>
+			<result name="displayCreditCardScreen">/WEB-INF/candidate/doOnlinePayment_2.jsp
+			</result>
+			<result name="displayChallanScreen" type="tiles">displayChallanScreen
+			</result>
+			<result name="checkout" type="tiles">checkout</result>
+			<result name="displayEPostScreen" type="tiles">displayEPostScreen
+			</result>
+			<result name="displayDDScreen" type="tiles">displayDDScreen</result>
+			<result name="doOnlinePaymentOne">/WEB-INF/candidate/icicibank-s1.jsp</result>
+			<result name="doOnlinePaymentTwo">/WEB-INF/candidate/icicibank-s2.jsp</result>
+			<result name="doOnlineCreditPayOne">/WEB-INF/candidate/idianOverseasBankPay.jsp</result>
+			<result name="doOnlineCreditPayTwo">/WEB-INF/candidate/visa.jsp</result>
+			<result name="doOnlineCreditPayThree">/WEB-INF/candidate/visaMasterCard.jsp</result>
+			<result name="pdf" type="jasper">
+				<param name="location">/Jasper/ePostChallan.jasper</param>
+				<param name="dataSource">parameterValues</param>
+				<param name="reportParameters">parameterValues</param>
+				<param name="format">PDF</param>
+				<param name="contentDisposition">attachment;filename="E-PostReceipt.pdf"</param>
+				<!--            	<param name="documentName">E-PostReceipt</param>    -->
+			</result>
+			<result name="paymentReceipt" type="jasper">
+				<param name="location">/WEB-INF/Jasper/paymentReceiptforres.jasper</param>
+				<param name="dataSource">parameterValues</param>
+				<param name="reportParameters">parameterValues</param>
+				<param name="format">PDF</param>
+				<param name="contentDisposition">attachment;filename="PaymentReceipt.pdf"</param>
+				<!--            	<param name="documentName">E-PostReceipt</param>    -->
+			</result>
+				<result name="ChallanReceipt" type="jasper">
+				<param name="location">/Jasper/ePostChallan.jasper</param>
+				<param name="dataSource">parameterValues</param>
+				<param name="reportParameters">parameterValues</param>
+				<param name="format">PDF</param>
+				<param name="contentDisposition">attachment;filename="ChallanReceipt.pdf"</param>
+				<!--            	<param name="documentName">E-PostReceipt</param>    -->
+			</result>		
+			<allowed-methods>connectToAtom, getPaymentManagement, showPaymentScreen, goToNetBankingPayment, statusMsgDisplay,
+			 insertOnlinepaymentDetails, generatePaymentReceipt, generateChallanReceipt, insertChallanDetails, validate,
+			  redirectToPaymentMode, displayDDScreen, displayChallanScreen, checkIncompletePaymentStatus,
+			   checkIncompletePaymentStatus1, reconcilePaymentAjaxckeck, connectToSBIEPay, connectToSafex,
+			    insertOnlinepaymentDetailsSBIEPay, connectToSBIEPayBilling, proceesTestPayment, successPayment,
+			     rejectPayment, connectToAIPay, sendRequestPostCall, sendPost</allowed-methods>
+		</action>
+		<!--End of Payment  Action -->
+
+		<!--Start for Upload Management  Action -->
+		<action name="UploadManagementAction_*" method="{1}"
+			class="uploadManagementAction">
+			<result name="getUploadBulkManagement" type="tiles">getUploadBulkManagement
+			</result>
+			<result name="getUploadCandidateMarks" type="tiles">getUploadCandidateMarks
+			</result>
+			<result name="getUploadOfflinePayments" type="tiles">getUploadOfflinePayments
+			</result>
+			<result name="getUploadCandidateSchedule" type="tiles">getUploadCandidateSchedule
+			</result>
+			<result name="getUploadFieldSchedule" type="tiles">getUploadFieldSchedule
+			</result>
+			<result name="getUploadCandidateWrittenTestScore" type="tiles">getUploadCandidateWrittenTestScore
+			</result>
+			<result name="getUploadCandidateFieldTestScore" type="tiles">getUploadCandidateFieldTestScore
+			</result>
+			<result name="getUploadCandidateInterviewScore" type="tiles">getUploadCandidateInterviewScore
+			</result>
+			<result name="getUploadCandidateMedicalScore" type="tiles">getUploadCandidateMedicalScore
+			</result>
+			<result name="getUploadInterviewSchedule" type="tiles">getUploadInterviewSchedule
+			</result>
+			<result name="getUploadMedicalSchedule" type="tiles">getUploadMedicalSchedule
+			</result>
+		</action>
+		<!--End of Upload Management Action -->
+
+
+		<action name="TemplateDownloadAction_*" method="{1}"
+			class="templateDownloadAction">
+			<result name="showTemplateDownloadPage" type="tiles">showTemplateDownloadPage
+			</result>
+			<result name="candidateExportData" type="tiles">candidateExportData
+			</result>
+
+
+			<result name="successCsv" type="stream">
+				<param name="inputName">documentInputStream</param>
+				<param name="contentType">application/csv</param>
+				<param name="contentDisposition">filename="template.csv"</param>
+
+			</result>
+		</action>
+
+		<action name="BillDeskResponseAction_*" method="{1}"
+			class="billDeskResponseAction">
+			<result name="success" type="tiles">billDeskMsg</result>
+		</action>
+
+		<action name="ModuleMasterAction_*" method="{1}" class="moduleMasterAction">
+			<result name="moduleMaster" type="tiles">moduleMaster</result>
+			<result name="editModule" type="tiles">editModule</result>
+			<result name="addModule" type="tiles">addModule</result>
+		</action>
+
+		<action name="RoleMasterAction_*" method="{1}" class="roleMasterAction">
+			<result name="roleMaster" type="tiles">roleMaster</result>
+			<result name="roleMenuMaster" type="tiles">roleMenuMaster
+			</result>
+			<result name="editRole" type="tiles">editRole</result>
+			<result name="addRole" type="tiles">addRole</result>
+		</action>
+
+		<action name="UserMasterAction_*" method="{1}" class="userMasterAction">
+			<result name="userMaster" type="tiles">userMaster</result>
+			<result name="editUser" type="tiles">editUser</result>
+			<result name="addUser" type="tiles">addUser</result>
+		</action>
+
+		<action name="TechProcessResponseAction_*" method="{1}"
+			class="techProcessResponseAction">
+			<result name="success" type="tiles">paymentResponse</result>
+			<result name="successResp" type="tiles">successResp</result>
+		</action>
+
+		<action name="TechProcessOnlineAction_*" method="{1}"
+			class="techProcessOnlineAction">
+			<result name="error" type="tiles">showOnlinePaymentScreen</result>
+			<allowed-methods>execute, statusMsgDisplay, showPaymentResponse, payMentDoneMsgDisplay </allowed-methods>
+		</action>
+
+		<action name="TechProcessJobsAction_*" method="{1}"
+			class="techProcessJobsAction">
+			<result name="typeOCallHome" type="tiles">typeOCallHomeTP
+			</result>
+			<allowed-methods>execute, statusMsgDisplay, showPaymentResponse, payMentDoneMsgDisplay </allowed-methods>
+		</action>
+
+		<action name="OnlinePaymentServlet" method="{1}"
+			class="onlinePaymentServlet">
+		</action>
+		
+		<action name="SBIEPayResponseAction_*"  method="{1}" class="sBIEPayResponseAction">
+			<result name="success" type="tiles">paymentResponse</result>
+			<result name="successResp" type="tiles">successResp</result>
+			<result name="typeSBIEPayCallHome" type="tiles" >typeSBIEPayCallHome</result>
+			<allowed-methods>execute, statusMsgDisplay, statusRejectMsgDisplay, typeSBIEPayCallHome, connectToSBIEPayDoubleVerification, getDoubleVerificationResponseBulkforCheckStatus, getDoubleVerificationResponse, getDoubleVerificationResponseBulk, sendDoubleVerificationPostCall, getSBIPushResponse </allowed-methods>
+		</action>
+		
+		<action name="SafexResponseAction_*"  method="{1}" class="safexResponseAction">
+			<result name="success" type="tiles">paymentResponse</result>
+			<allowed-methods>execute, statusMsgDisplay, getDoubleVerificationResponseBulk , getDoubleVerificationResponseBulkforCheckStatus, sendDoubleVerificationPostCall</allowed-methods>
+		</action>
+		
+		<action name="AtomResponseAction_*"  method="{1}" class="atomResponseAction">
+			<result name="success" type="tiles">paymentResponse</result>
+			<result name="successResp" type="tiles">successResp</result>
+			<allowed-methods>execute, statusMsgDisplay, getDoubleVerificationResponseBulk ,
+			 getDoubleVerificationResponseBulkforCheckStatus, sendDoubleVerificationPostCall</allowed-methods>
+		</action>
+		
+		
+	</package>
+</struts>

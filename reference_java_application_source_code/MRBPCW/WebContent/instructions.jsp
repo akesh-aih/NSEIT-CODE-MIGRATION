@@ -111,7 +111,6 @@ b, strong {
 	margin-bottom: 7px;
 }
 
-/
 *.decimal_number ol {
 	counter-reset: item
 }

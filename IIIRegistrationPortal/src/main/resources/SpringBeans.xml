@@ -1,0 +1,93 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:tx="http://www.springframework.org/schema/tx"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans
+                           http://www.springframework.org/schema/beans/spring-beans.xsd
+                           http://www.springframework.org/schema/tx
+                           http://www.springframework.org/schema/tx/spring-tx.xsd">
+
+    <!-- Force TimeZone to Asia/Kolkata to override incorrect JVM defaults -->
+    <bean id="timeZoneSetter" class="org.springframework.beans.factory.config.MethodInvokingFactoryBean">
+        <property name="targetClass" value="java.util.TimeZone" />
+        <property name="targetMethod" value="setDefault" />
+        <property name="arguments">
+            <list>
+                <bean class="java.util.TimeZone" factory-method="getTimeZone">
+                    <constructor-arg value="Asia/Kolkata" />
+                </bean>
+            </list>
+        </property>
+    </bean>
+
+    <!-- DataSource Configuration (HikariCP) -->
+    <bean id="dataSource" class="com.zaxxer.hikari.HikariDataSource" destroy-method="close" scope="singleton" depends-on="timeZoneSetter">
+        <property name="driverClassName" value="org.postgresql.Driver" />
+        <property name="jdbcUrl" value="jdbc:postgresql://localhost:5433/AgencyLicensingPortal?currentSchema=dbo" />
+        <property name="username" value="postgres" />
+        <property name="password" value="sa123" />
+    </bean>
+
+    <!-- JdbcTemplate -->
+    <bean id="jdbcTemplate" class="org.springframework.jdbc.core.JdbcTemplate" scope="prototype">
+        <property name="dataSource" ref="dataSource" />
+    </bean>
+
+    <!-- Transaction Manager -->
+    <bean id="transactionManager" class="org.springframework.jdbc.datasource.DataSourceTransactionManager">
+        <property name="dataSource" ref="dataSource" />
+    </bean>
+
+    <!-- DAO Bean -->
+    <bean id="healthDao" class="com.nseit.health.dao.impl.HealthDaoImpl" scope="prototype">
+        <property name="jdbcTemplate" ref="jdbcTemplate" />
+    </bean>
+
+    <!-- Service Target Bean -->
+    <bean id="healthServiceTarget" class="com.nseit.health.service.impl.HealthServiceImpl" scope="prototype">
+        <property name="healthDao" ref="healthDao" />
+    </bean>
+
+    <!-- Service Proxy with Transaction Management -->
+    <bean id="healthService" class="org.springframework.transaction.interceptor.TransactionProxyFactoryBean" scope="prototype">
+        <property name="transactionManager" ref="transactionManager" />
+        <property name="target" ref="healthServiceTarget" />
+        <property name="transactionAttributes">
+            <props>
+                <prop key="checkHealth">PROPAGATION_REQUIRED,readOnly</prop>
+            </props>
+        </property>
+    </bean>
+
+    <!-- Action Bean -->
+    <bean id="healthAction" class="com.nseit.health.action.HealthAction" scope="prototype">
+        <property name="healthService" ref="healthService" />
+    </bean>
+
+    <!-- [End] Health Beans -->
+
+    <!-- [Start] User Beans -->
+    <bean id="loginAction" class="com.nseit.users.action.LoginAction" scope="prototype">
+        <property name="userService" ref="userService"/>
+    </bean>
+
+    <bean id="userService" class="org.springframework.transaction.interceptor.TransactionProxyFactoryBean" scope="prototype">
+        <property name="transactionManager" ref="transactionManager"/>
+        <property name="target" ref="userServiceImpl"/>
+        <property name="transactionAttributes">
+            <props>
+                <prop key="authenticate">PROPAGATION_REQUIRED,-Exception</prop>
+            </props>
+        </property>
+    </bean>
+
+    <bean id="userServiceImpl" class="com.nseit.users.service.impl.UserServiceImpl" scope="prototype">
+        <property name="userDao" ref="userDao"/>
+    </bean>
+
+    <bean id="userDao" class="com.nseit.users.dao.impl.UserDaoImpl" scope="prototype">
+        <property name="jdbcTemplate" ref="jdbcTemplate"/>
+    </bean>
+    <!-- [End] User Beans -->
+
+</beans>

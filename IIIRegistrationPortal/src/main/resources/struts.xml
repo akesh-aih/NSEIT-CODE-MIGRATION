@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE struts PUBLIC
+    "-//Apache Software Foundation//DTD Struts Configuration 2.5//EN"
+    "http://struts.apache.org/dtds/struts-2.5.dtd">
+
+<struts>
+    <constant name="struts.devMode" value="true" />
+    <constant name="struts.mapper.action.prefix.enabled" value="true"/>
+    <!-- <constant name="struts.allowlist.packageNames" value="com.nseit.*"/> -->
+    <constant name="struts.allowlist.packageNames" value="com.nseit.health.models,com.nseit.users.models"/>
+
+    <package name="default" extends="struts-default">
+
+        <interceptors>
+            <interceptor-stack name="genericDefaultStack">
+                <interceptor-ref name="modelDriven"/>
+                <interceptor-ref name="basicStack"/>
+            </interceptor-stack>
+        </interceptors>
+
+        <default-interceptor-ref name="genericDefaultStack"/>
+
+        <action name="health" class="healthAction">
+            <result name="success">/WEB-INF/health/health.jsp</result>
+        </action>
+
+        <action name="LoginAction_*" method="{1}" class="loginAction">
+            <result name="input">/WEB-INF/login/login.jsp</result>
+            <result name="success" type="redirectAction">dashboard</result>
+            <result name="error">/WEB-INF/login/login.jsp</result>
+            <result name="logout" type="redirectAction">LoginAction_input</result>
+            <allowed-methods>authenticateUser,logout,input</allowed-methods>
+        </action>
+
+        <action name="dashboard">
+            <result>/WEB-INF/login/dashboard.jsp</result>
+        </action>
+
+    </package>
+</struts>

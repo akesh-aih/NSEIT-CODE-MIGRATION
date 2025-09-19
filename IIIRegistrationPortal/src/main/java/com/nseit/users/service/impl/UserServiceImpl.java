@@ -140,6 +140,60 @@ public class UserServiceImpl implements UserService {
             logger.error("Failed to send password reset email to {} (Login ID: {}): {}", emailId, loginId, e.getMessage(), e);
             // Optionally, re-throw or handle this error differently if email sending is critical
             throw new RuntimeException("Failed to send password reset email. Please contact support.", e);
+        // TODO: Integrate with email sending utility here
+    }
+
+    @Override
+    public String changePassword(String loginId, String oldPassword, String newPassword) {
+        logger.info("Attempting to change password for Login ID: {}", loginId);
+
+        // 1. User Verification and Status Checks
+        User user = userDao.findByUsername(loginId); // Reuse findByUsername to get user details
+
+        if (user == null) {
+            logger.warn("Change password failed: User not found for Login ID: {}", loginId);
+            return "Invalid Login ID";
         }
+
+        if (!user.isActive()) {
+            logger.warn("Change password failed: User is inactive - {}", loginId);
+            return "User ID is inactive. Please contact Technical Support";
+        }
+
+        if (user.isSuspended()) {
+            logger.warn("Change password failed: User is suspended - {}", loginId);
+            return "User ID is suspended. Please contact Technical Support";
+        }
+
+        // 2. Verify Old Password
+        String encryptedOldPassword;
+        try {
+            encryptedOldPassword = LoginEncryptor.encrypt(oldPassword);
+        } catch (Exception e) {
+            logger.error("Error encrypting old password for {}: {}", loginId, e.getMessage(), e);
+            return "Failed to encrypt old password.";
+        }
+
+        if (!encryptedOldPassword.equals(user.getPassword())) {
+            logger.warn("Change password failed: Invalid old password for Login ID: {}", loginId);
+            return "Invalid Old Password";
+        }
+
+        // 3. Encrypt New Password
+        String encryptedNewPassword;
+        try {
+            encryptedNewPassword = LoginEncryptor.encrypt(newPassword);
+        } catch (Exception e) {
+            logger.error("Error encrypting new password for {}: {}", loginId, e.getMessage(), e);
+            return "Failed to encrypt new password.";
+        }
+
+        // 4. Update Database
+        // As per SP: bitChgPwdOnNxtLogin = 0, bitIsSuspended = 0
+        // Transaction password is not changed in this flow, so pass null.
+        userDao.updatePassword(loginId, encryptedNewPassword, null, false, false);
+        logger.info("Password changed successfully for Login ID: {}", loginId);
+
+        return ActionSupport.SUCCESS; // Return Struts2 SUCCESS constant
     }
 }

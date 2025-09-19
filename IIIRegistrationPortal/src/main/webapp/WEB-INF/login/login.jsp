@@ -61,7 +61,7 @@
             </div>
             <s:submit value="Login" cssClass="btn btn-primary btn-block" />
             <p class="bottomLink"><a href="ForgotPasswordAction_input.action">Forgot Password?</a></p>
-            <p class="bottomLink"><a href="#">Change Password?</a></p>
+            <p class="bottomLink"><a href="ChangePasswordAction_input.action">Change Password?</a></p>
         </s:form>
     </div>
 </body>

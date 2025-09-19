@@ -3,8 +3,10 @@ public interface UserQueries {
 
     String VALIDATE_LOGIN =
         "SELECT " +
-        "    U.\"intUserID\", U.\"varUserLoginID\", U.\"varUserName\", U.\"varPassword\", U.\"bitIsActive\", U.\"bitIsLoggedIn\", " +
-        "    COALESCE(U.\"sntIncorrectLoginAttempts\", 0) AS \"sntIncorrectLoginAttempts\", U.\"bitIsSuspended\", " +
+    "    U.\"intUserID\", U.\"varUserLoginID\", U.\"varUserName\", U.\"varPassword\", " +
+    "    U.\"varTrxnPassword\", " + // <-- Added here
+    "    U.\"bitIsActive\", U.\"bitIsLoggedIn\", " +
+            "    COALESCE(U.\"sntIncorrectLoginAttempts\", 0) AS \"sntIncorrectLoginAttempts\", U.\"bitIsSuspended\", " +
         "    U.\"bitChgPwdOnNxtLogin\", R.\"sntRoleID\", COALESCE(R.\"varRoleName\", '') AS \"varRoleName\", " +
         "    COALESCE(R.\"role_code\", '') AS \"role_code\", " +
         "    COALESCE(I.\"intTblMstInsurerUserID\", D.\"intInsurerUserID\", A.\"intInsurerUserID\", PDPI.\"intTblMstInsurerUserID\", CU.\"CorporateUserID\", 0) AS \"intTblMstInsurerUserID\", " +
@@ -69,7 +71,7 @@ public interface UserQueries {
         "UPDATE \"TblMstUser\" SET \"bitIsLoggedIn\" = TRUE, \"sntIncorrectLoginAttempts\" = 0, \"dtLastLoggedIn\" = CURRENT_TIMESTAMP " +
         "WHERE \"varUserLoginID\" = ?";
 
-    String FIND_USER_DETAILS_FOR_RESET =
+    String FIND_USER_BY_LOGINID_AND_EMAIL =
         "SELECT " +
         "    U.\"intUserID\", U.\"varUserLoginID\", U.\"varUserName\", U.\"varPassword\", U.\"bitIsActive\", U.\"bitIsLoggedIn\", " +
         "    COALESCE(U.\"sntIncorrectLoginAttempts\", 0) AS \"sntIncorrectLoginAttempts\", U.\"bitIsSuspended\", " +
@@ -127,7 +129,7 @@ public interface UserQueries {
         "LEFT JOIN \"_TblApplicationParameter\" APPDP ON APPDP.\"VcParamNameConstant\" = 'Insurer_Type' AND PDPI.\"tntInsurerType\" = APPDP.\"BintParamConstantValue\" " +
         "LEFT JOIN \"_TblApplicationParameter\" APPDP1 ON APPDP1.\"VcParamNameConstant\" = 'Insurer_Type_New' AND PDPI.\"tntInsurerTypeNew\" = APPDP1.\"BintParamConstantValue\" " +
         "LEFT JOIN \"TblMstCorporateUser\" CU ON CU.\"CorporateUserID\" = U.\"intUserID\" " +
-        "WHERE U.\"varUserLoginID\" = ? AND U.\"varEmailID\" = ?;
+        "WHERE U.\"varUserLoginID\" = ? AND U.\"varEmailID\" = ?;";
 
     String UPDATE_USER_PASSWORD_AND_FLAGS =
         "UPDATE \"TblMstUser\" SET " +
@@ -135,13 +137,13 @@ public interface UserQueries {
         "\"varTrxnPassword\" = ?, " +
         "\"bitChgPwdOnNxtLogin\" = ?, " +
         "\"bitIsSuspended\" = ? " +
-        "WHERE \"varUserLoginID\" = ?";
+        "WHERE \"varUserLoginID\" = ?;";
 
 
 
-    String GET_MENU_PERMISSIONS = "SELECT * FROM \"STP_GetMenuPermission_New2\"(?)";
+    String GET_MENU_PERMISSIONS = "SELECT * FROM \"STP_GetMenuPermission_New2\"(?);";
 
-    String CHANGE_PASSWORD = "SELECT * FROM \"STP_CMN_ChangePassword_New\"(?, ?, ?, ?)";
+    String CHANGE_PASSWORD = "SELECT * FROM \"STP_CMN_ChangePassword_New\"(?, ?, ?, ?);";
 
-    String SAVE_USER = "SELECT * FROM \"SP_SAVE_User\"(?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
+    String SAVE_USER = "SELECT * FROM \"SP_SAVE_User\"(?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?);";
 }

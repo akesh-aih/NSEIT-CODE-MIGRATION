@@ -16,10 +16,11 @@
             <interceptor name="loginCheck" class="com.nseit.generic.util.interceptor.LoginCheckInterceptor" />
             <interceptor-stack name="publicStack">
                 <interceptor-ref name="exception"/>
-                <interceptor-ref name="modelDriven"/>
+                <!-- <interceptor-ref name="modelDriven"/> -->
                 <interceptor-ref name="params">
                     <param name="excludeParams">^(class|Class|servletRequest|servletResponse|session|request|application|parameters|context|dojo|struts|_memberAccess|getModel)(\..*|\[.*\])$</param>
                 </interceptor-ref>
+                <interceptor-ref name="servletConfig"/>
                 <interceptor-ref name="conversionError"/>
             </interceptor-stack>
             <interceptor-stack name="genericDefaultStack">

@@ -4,6 +4,10 @@ import com.nseit.generic.dao.BaseDao;
 import com.nseit.users.dao.UserDao;
 import com.nseit.users.models.User;
 import com.nseit.users.queries.UserQueries;
+import com.nseit.users.service.impl.UserServiceImpl;
+
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.springframework.jdbc.core.RowMapper;
 
 import java.sql.ResultSet;
@@ -12,6 +16,7 @@ import java.util.List;
 import java.util.Map;
 
 public class UserDaoImpl extends BaseDao implements UserDao {
+    private static final Logger logger = LogManager.getLogger(UserDaoImpl.class);
 
     @Override
     public User findByUsername(String username) {
@@ -39,11 +44,6 @@ public class UserDaoImpl extends BaseDao implements UserDao {
         return getJdbcTemplate().queryForList(UserQueries.GET_MENU_PERMISSIONS, userId);
     }
 
-    @Override
-    public String changePassword(String loginId, String oldPassword, String newPassword) {
-        // This will be implemented later, as it requires a function call
-        return null;
-    }
 
     @Override
     public String saveUser(User user, int currentUserId) {
@@ -77,6 +77,7 @@ public class UserDaoImpl extends BaseDao implements UserDao {
             user.setUserLoginId(rs.getString("varUserLoginID")); // Added missing line
             user.setUserName(rs.getString("varUserName"));
             user.setPassword(rs.getString("varPassword"));
+            user.setTransactionPassword(rs.getString("varTrxnPassword")); // Added
             user.setActive(rs.getBoolean("bitIsActive"));
             user.setSuspended(rs.getBoolean("bitIsSuspended"));
             user.setChangePasswordOnNextLogin(rs.getBoolean("bitChgPwdOnNxtLogin"));

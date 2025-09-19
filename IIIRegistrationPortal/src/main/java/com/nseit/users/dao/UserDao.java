@@ -14,7 +14,6 @@ public interface UserDao {
 
     List<Map<String, Object>> getMenuPermissions(int userId);
 
-    String changePassword(String loginId, String oldPassword, String newPassword);
 
     String saveUser(User user, int currentUserId);
 

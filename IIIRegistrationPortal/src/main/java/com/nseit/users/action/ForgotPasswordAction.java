@@ -4,8 +4,10 @@ import com.nseit.users.service.UserService;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.apache.struts2.ActionSupport;
+import org.apache.struts2.action.ServletRequestAware;
+import jakarta.servlet.http.HttpServletRequest;
 
-public class ForgotPasswordAction extends ActionSupport {
+public class ForgotPasswordAction extends ActionSupport implements ServletRequestAware {
 
     private static final Logger logger = LogManager.getLogger(ForgotPasswordAction.class);
 
@@ -19,6 +21,14 @@ public class ForgotPasswordAction extends ActionSupport {
         this.userService = userService;
     }
 
+    private HttpServletRequest request;
+
+    @Override
+    public void withServletRequest(HttpServletRequest request) {
+        this.request = request;
+        logger.info("ServletRequestAware: HttpServletRequest set for ForgotPasswordAction.");
+    }
+
     // Action method to display the forgot password form
     public String input() {
         return INPUT;
@@ -26,6 +36,14 @@ public class ForgotPasswordAction extends ActionSupport {
 
     // Action method to handle the reset password submission
     public String resetPassword() {
+        // Manually retrieve parameters from HttpServletRequest
+        String submittedLoginId = request.getParameter("loginId");
+        String submittedEmailId = request.getParameter("emailId");
+
+        // Set them on the action properties
+        this.setLoginId(submittedLoginId);
+        this.setEmailId(submittedEmailId);
+
         logger.info("Forgot password request for Login ID: {} and Email ID: {}", loginId, emailId);
         try {
             // Call the service to handle password reset logic

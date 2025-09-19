@@ -36,6 +36,7 @@ public class User implements Serializable {
     private boolean isSuspended;
     private boolean changePasswordOnNextLogin;
     private boolean rememberMe;
+    private String transactionPassword;
 
     // Getters and Setters
 
@@ -248,5 +249,13 @@ public class User implements Serializable {
 
     public void setRememberMe(boolean rememberMe) {
         this.rememberMe = rememberMe;
+    }
+
+    public String getTransactionPassword() {
+        return transactionPassword;
+    }
+
+    public void setTransactionPassword(String transactionPassword) {
+        this.transactionPassword = transactionPassword;
     }
 }

@@ -4,8 +4,10 @@ import com.nseit.users.service.UserService;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.apache.struts2.ActionSupport;
+import org.apache.struts2.action.ServletRequestAware;
+import jakarta.servlet.http.HttpServletRequest;
 
-public class ChangePasswordAction extends ActionSupport {
+public class ChangePasswordAction extends ActionSupport implements ServletRequestAware {
 
     private static final Logger logger = LogManager.getLogger(ChangePasswordAction.class);
 
@@ -15,10 +17,17 @@ public class ChangePasswordAction extends ActionSupport {
     private String confirmNewPassword;
 
     private UserService userService;
+    private HttpServletRequest request;
 
     // Setter for UserService (Spring injection)
     public void setUserService(UserService userService) {
         this.userService = userService;
+    }
+
+    @Override
+    public void withServletRequest(HttpServletRequest request) {
+        this.request = request;
+        logger.info("ServletRequestAware: HttpServletRequest set for ChangePasswordAction.");
     }
 
     // Action method to display the change password form
@@ -28,6 +37,18 @@ public class ChangePasswordAction extends ActionSupport {
 
     // Action method to handle the change password submission
     public String changePassword() {
+        // Manually retrieve parameters from HttpServletRequest
+        String submittedLoginId = request.getParameter("loginId");
+        String submittedOldPassword = request.getParameter("oldPassword");
+        String submittedNewPassword = request.getParameter("newPassword");
+        String submittedConfirmNewPassword = request.getParameter("confirmNewPassword");
+
+        // Set them on the action properties
+        this.setLoginId(submittedLoginId);
+        this.setOldPassword(submittedOldPassword);
+        this.setNewPassword(submittedNewPassword);
+        this.setConfirmNewPassword(submittedConfirmNewPassword);
+
         logger.info("Change password request for Login ID: {}", loginId);
 
         // Basic validation: New password and confirm new password must match

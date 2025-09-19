@@ -115,7 +115,7 @@ public class LoginAction extends ActionSupport implements SessionAware, ModelDri
         }
         
         logger.info("User logged out successfully");
-        return "logout";  // This matches your struts.xml result name
+        return SUCCESS;  // This matches your struts.xml result name
     }
 
     /**

@@ -1,11 +1,14 @@
 package com.nseit.users.service.impl;
 
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
+import org.apache.struts2.ActionSupport;
+
 import com.nseit.generic.util.LoginEncryptor;
+import com.nseit.generic.util.emailsms.EmailUtil;
 import com.nseit.users.dao.UserDao;
 import com.nseit.users.models.User;
 import com.nseit.users.service.UserService;
-import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.Logger;
 
 public class UserServiceImpl implements UserService {
 
@@ -140,7 +143,7 @@ public class UserServiceImpl implements UserService {
             logger.error("Failed to send password reset email to {} (Login ID: {}): {}", emailId, loginId, e.getMessage(), e);
             // Optionally, re-throw or handle this error differently if email sending is critical
             throw new RuntimeException("Failed to send password reset email. Please contact support.", e);
-        // TODO: Integrate with email sending utility here
+        }
     }
 
     @Override
@@ -190,8 +193,8 @@ public class UserServiceImpl implements UserService {
 
         // 4. Update Database
         // As per SP: bitChgPwdOnNxtLogin = 0, bitIsSuspended = 0
-        // Transaction password is not changed in this flow, so pass null.
-        userDao.updatePassword(loginId, encryptedNewPassword, null, false, false);
+        // Pass the existing transaction password to preserve its value
+        userDao.updatePassword(loginId, encryptedNewPassword, user.getTransactionPassword(), false, false);
         logger.info("Password changed successfully for Login ID: {}", loginId);
 
         return ActionSupport.SUCCESS; // Return Struts2 SUCCESS constant

@@ -67,9 +67,7 @@
     <!-- [End] Health Beans -->
 
     <!-- [Start] User Beans -->
-    <bean id="loginAction" class="com.nseit.users.action.LoginAction" scope="prototype">
-        <property name="userService" ref="userService"/>
-    </bean>
+
 
     <bean id="userService" class="org.springframework.transaction.interceptor.TransactionProxyFactoryBean" scope="prototype">
         <property name="transactionManager" ref="transactionManager"/>
@@ -83,11 +81,32 @@
 
     <bean id="userServiceImpl" class="com.nseit.users.service.impl.UserServiceImpl" scope="prototype">
         <property name="userDao" ref="userDao"/>
+        <property name="emailUtil" ref="emailUtil"/>
     </bean>
 
     <bean id="userDao" class="com.nseit.users.dao.impl.UserDaoImpl" scope="prototype">
         <property name="jdbcTemplate" ref="jdbcTemplate"/>
     </bean>
+    <!-- ForgotPasswordAction Bean -->
+    <bean id="forgotPasswordAction" class="com.nseit.users.action.ForgotPasswordAction" scope="prototype">
+        <property name="userService" ref="userService"/>
+    </bean>
+
+    <!-- ChangePasswordAction Bean -->
+    <bean id="changePasswordAction" class="com.nseit.users.action.ChangePasswordAction" scope="prototype">
+        <property name="userService" ref="userService"/>
+    </bean>
+
+    <!-- Email Utility Bean -->
+    <bean id="emailUtil" class="com.nseit.generic.util.emailsms.EmailUtil" scope="singleton">
+        <property name="host" value="smtp.example.com"/>
+        <property name="port" value="587"/>
+        <property name="username" value="your_email@example.com"/>
+        <property name="password" value="your_email_password"/>
+        <property name="auth" value="true"/>
+        <property name="starttlsEnable" value="true"/>
+    </bean>
+
     <!-- [End] User Beans -->
 
 </beans>

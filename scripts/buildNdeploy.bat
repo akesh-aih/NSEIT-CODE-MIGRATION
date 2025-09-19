@@ -13,7 +13,7 @@ echo ==========================
 cd /d "%PROJECT_DIR%"
 
 REM Run Maven inside CMD explicitly
-cmd /c "%MAVEN_PATH% clean install"
+cmd /c "%MAVEN_PATH% clean install -U"
 
 IF %ERRORLEVEL% NEQ 0 (
     echo [ERROR] Maven build failed!

@@ -2,10 +2,13 @@ package com.nseit.users.models;
 
 import java.io.Serializable;
 import java.util.Date;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
 public class User implements Serializable {
 
     private static final long serialVersionUID = 1L;
+    private static final Logger logger = LogManager.getLogger(User.class);
 
     private int userId;
     private String userName;
@@ -32,6 +35,7 @@ public class User implements Serializable {
     private boolean isActive;
     private boolean isSuspended;
     private boolean changePasswordOnNextLogin;
+    private boolean rememberMe;
 
     // Getters and Setters
 
@@ -49,6 +53,7 @@ public class User implements Serializable {
 
     public void setUserName(String userName) {
         this.userName = userName;
+        logger.info("User.setUserName() called with: {}", userName);
     }
 
     public String getUserLoginId() {
@@ -57,6 +62,7 @@ public class User implements Serializable {
 
     public void setUserLoginId(String userLoginId) {
         this.userLoginId = userLoginId;
+        logger.info("User.setUserLoginId() called with: {}", userLoginId);
     }
 
     public String getPassword() {
@@ -65,6 +71,7 @@ public class User implements Serializable {
 
     public void setPassword(String password) {
         this.password = password;
+        logger.info("User.setPassword() called with: {}", password);
     }
 
     public int getRoleId() {
@@ -233,5 +240,13 @@ public class User implements Serializable {
 
     public void setChangePasswordOnNextLogin(boolean changePasswordOnNextLogin) {
         this.changePasswordOnNextLogin = changePasswordOnNextLogin;
+    }
+
+    public boolean isRememberMe() {
+        return rememberMe;
+    }
+
+    public void setRememberMe(boolean rememberMe) {
+        this.rememberMe = rememberMe;
     }
 }

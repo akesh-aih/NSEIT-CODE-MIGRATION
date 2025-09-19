@@ -17,4 +17,8 @@ public interface UserDao {
     String changePassword(String loginId, String oldPassword, String newPassword);
 
     String saveUser(User user, int currentUserId);
+
+    User findUserByLoginIdAndEmail(String loginId, String emailId);
+
+    void updatePassword(String loginId, String newEncryptedPassword, String newEncryptedTrxnPassword, boolean changePwdOnNextLogin, boolean isSuspended);
 }

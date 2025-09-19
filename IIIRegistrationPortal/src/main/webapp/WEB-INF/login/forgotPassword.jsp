@@ -3,7 +3,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title>Login</title>
+    <title>Forgot Password</title>
     <link rel="stylesheet" href="<s:url value="/css/bootstrap.min.css" />" type="text/css"/>
     <style>
         body {
@@ -13,7 +13,7 @@
             min-height: 100vh;
             background-color: #f8f9fa;
         }
-        .login-container {
+        .forgot-password-container {
             width: 100%;
             max-width: 400px;
             padding: 15px;
@@ -23,7 +23,7 @@
             background-color: #fff;
             box-shadow: 0 0.125rem 0.25rem rgba(0, 0, 0, 0.075);
         }
-        .login-container h2 {
+        .forgot-password-container h2 {
             margin-bottom: 1.5rem;
             text-align: center;
         }
@@ -37,31 +37,31 @@
     </style>
 </head>
 <body>
-    <div class="login-container">
-        <h2>Login</h2>
+    <div class="forgot-password-container">
+        <h2>Forgot Password</h2>
 
         <s:if test="hasActionErrors()">
             <div class="alert alert-danger" role="alert">
                 <s:actionerror/>
             </div>
         </s:if>
+        <s:if test="hasActionMessages()">
+            <div class="alert alert-success" role="alert">
+                <s:actionmessage/>
+            </div>
+        </s:if>
 
-        <s:form action="LoginAction_authenticateUser" method="post">
+        <s:form action="ForgotPasswordAction_resetPassword" method="post">
             <div class="form-group">
-                <label for="userLoginId">Username</label>
-                <s:textfield name="userLoginId" cssClass="form-control" placeholder="Enter Username" />
+                <label for="loginId">Login ID</label>
+                <s:textfield name="loginId" cssClass="form-control" placeholder="Enter Login ID" required="true" />
             </div>
             <div class="form-group">
-                <label for="password">Password</label>
-                <s:password name="password" cssClass="form-control" placeholder="Enter Password" />
+                <label for="emailId">Email ID</label>
+                <s:textfield name="emailId" cssClass="form-control" placeholder="Enter Registered Email ID" required="true" />
             </div>
-            <div class="form-group form-check">
-                <s:checkbox name="rememberMe" cssClass="form-check-input" fieldValue="true" />
-                <label class="form-check-label" for="rememberMe">Remember Me</label>
-            </div>
-            <s:submit value="Login" cssClass="btn btn-primary btn-block" />
-            <p class="bottomLink"><a href="ForgotPasswordAction_input.action">Forgot Password?</a></p>
-            <p class="bottomLink"><a href="#">Change Password?</a></p>
+            <s:submit value="Reset Password" cssClass="btn btn-primary btn-block" />
+            <p class="bottomLink"><a href="LoginAction_input.action">Back to Login</a></p>
         </s:form>
     </div>
 </body>

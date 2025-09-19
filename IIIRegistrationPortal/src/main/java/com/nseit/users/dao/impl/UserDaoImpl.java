@@ -21,6 +21,11 @@ public class UserDaoImpl extends BaseDao implements UserDao {
 
     @Override
     public void logLogin(int userId, String loginId) {
+    	System.out.println("Inputs to log login {" 
+    		    + UserQueries.INSERT_LOGIN_LOG + ", "
+    		    + userId + ", "
+    		    + loginId + ", "
+    		    + userId + "}");
         getJdbcTemplate().update(UserQueries.INSERT_LOGIN_LOG, userId, loginId, userId);
     }
 
@@ -36,18 +41,32 @@ public class UserDaoImpl extends BaseDao implements UserDao {
 
     @Override
     public String changePassword(String loginId, String oldPassword, String newPassword) {
-        // This method will call a stored procedure, which is not directly supported by JdbcTemplate.
-        // We will need to use a different approach, such as SimpleJdbcCall or CallableStatement.
-        // For now, we will leave this method empty.
+        // This will be implemented later, as it requires a function call
         return null;
     }
 
     @Override
     public String saveUser(User user, int currentUserId) {
-        // This method will call a stored procedure, which is not directly supported by JdbcTemplate.
-        // We will need to use a different approach, such as SimpleJdbcCall or CallableStatement.
-        // For now, we will leave this method empty.
+        // This will be implemented later, as it requires a function call
         return null;
+    }
+
+    @Override
+    public User findUserByLoginIdAndEmail(String loginId, String emailId) {
+        logger.info("Finding user by Login ID: {} and Email ID: {}", loginId, emailId);
+        List<User> users = getJdbcTemplate().query(UserQueries.FIND_USER_BY_LOGINID_AND_EMAIL, new UserRowMapper(), loginId, emailId);
+        return users.isEmpty() ? null : users.get(0);
+    }
+
+    @Override
+    public void updatePassword(String loginId, String newEncryptedPassword, String newEncryptedTrxnPassword, boolean changePwdOnNextLogin, boolean isSuspended) {
+        logger.info("Updating password for Login ID: {}", loginId);
+        getJdbcTemplate().update(UserQueries.UPDATE_USER_PASSWORD_AND_FLAGS,
+                newEncryptedPassword,
+                newEncryptedTrxnPassword,
+                changePwdOnNextLogin,
+                isSuspended,
+                loginId);
     }
 
     private static class UserRowMapper implements RowMapper<User> {
@@ -55,6 +74,7 @@ public class UserDaoImpl extends BaseDao implements UserDao {
         public User mapRow(ResultSet rs, int rowNum) throws SQLException {
             User user = new User();
             user.setUserId(rs.getInt("intUserID"));
+            user.setUserLoginId(rs.getString("varUserLoginID")); // Added missing line
             user.setUserName(rs.getString("varUserName"));
             user.setPassword(rs.getString("varPassword"));
             user.setActive(rs.getBoolean("bitIsActive"));
@@ -78,4 +98,4 @@ public class UserDaoImpl extends BaseDao implements UserDao {
             return user;
         }
     }
-}
+    }

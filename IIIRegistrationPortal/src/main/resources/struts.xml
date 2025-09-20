@@ -1,101 +1,25 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE struts PUBLIC
     "-//Apache Software Foundation//DTD Struts Configuration 2.5//EN"
-    "https://struts.apache.org/dtds/struts-2.5.dtd">
+    "http://struts.apache.org/dtds/struts-2.5.dtd">
 
 <struts>
-    <constant name="struts.devMode" value="false" />
-    <constant name="struts.mapper.action.prefix.enabled" value="false"/>
-    <constant name="struts.allowlist.packageNames" value="com.nseit.health.models,com.nseit.users.models"/>
 
-    <package name="default" extends="struts-default">
+    <constant name="struts.objectFactory" value="spring" />
+    <constant name="struts.devMode" value="true" />
+    <constant name="struts.allowlist.classes" value="com.nseit.health.models.HealthBean" />
 
-        <interceptors>
-            <interceptor name="parameters" class="org.apache.struts2.interceptor.parameter.ParametersInterceptor" />
-            <interceptor name="sessionCheck" class="com.nseit.generic.util.interceptor.SessionCheckInterceptor" />
-            <interceptor name="loginCheck" class="com.nseit.generic.util.interceptor.LoginCheckInterceptor" />
-            <interceptor-stack name="publicStack">
-                <interceptor-ref name="exception"/>
-                <!-- <interceptor-ref name="modelDriven"/> -->
-                <interceptor-ref name="params">
-                    <param name="excludeParams">^(class|Class|servletRequest|servletResponse|session|request|application|parameters|context|dojo|struts|_memberAccess|getModel)(\..*|\[.*\])$</param>
-                </interceptor-ref>
-                <interceptor-ref name="servletConfig"/>
-                <interceptor-ref name="conversionError"/>
-            </interceptor-stack>
-            <interceptor-stack name="genericDefaultStack">
-                <interceptor-ref name="exception"/>
-                <interceptor-ref name="modelDriven"/>
-                <interceptor-ref name="parameters"/>
-                <interceptor-ref name="servletConfig"/>
-                <interceptor-ref name="params">
-                    <param name="excludeParams">^(class|Class|servletRequest|servletResponse|session|request|application|parameters|context|dojo|struts|_memberAccess|getModel)(\..*|\[.*\])$</param>
-                </interceptor-ref>
-                <interceptor-ref name="conversionError"/>
-            </interceptor-stack>        </interceptors>
+    <package name="default" namespace="/" extends="struts-default">
 
-        <default-interceptor-ref name="genericDefaultStack"/>
+        <result-types>
+            <result-type name="tiles" class="org.apache.struts2.views.tiles.TilesResult" />
+        </result-types>
 
-        <global-results>
-            <result name="login" type="redirectAction">
-                <param name="actionName">LoginAction_input</param>
-                <param name="namespace">/</param>
-            </result>
-            <result name="error">/WEB-INF/error.jsp</result>
-            <result name="sessionExpired" type="redirectAction">
-                <param name="actionName">LoginAction_input</param>
-                <param name="namespace">/</param>
-            </result>
-        </global-results>
-
-        <action name="health" class="healthAction">
-            <result name="success">/WEB-INF/health/health.jsp</result>
-        </action>
-
-        <action name="LoginAction_input" class="com.nseit.users.action.LoginAction" method="input">
-            <interceptor-ref name="defaultStack"/> <!-- Use defaultStack which does not have sessionCheck -->
-            <result name="input">/WEB-INF/login/login.jsp</result>
-        </action>
-
-        <action name="LoginAction_authenticateUser" class="com.nseit.users.action.LoginAction" method="authenticateUser">
-            <interceptor-ref name="genericDefaultStack"/>
-            <result name="success" type="redirectAction">dashboard</result>
-            <result name="input">/WEB-INF/login/login.jsp</result>
-            <result name="error">/WEB-INF/login/login.jsp</result>
-        </action>
-
-        <action name="LoginAction_logout" class="com.nseit.users.action.LoginAction" method="logout">
-            <interceptor-ref name="genericDefaultStack"/>
-            <result name="success" type="redirectAction">LoginAction_input</result>
-        </action>
-
-        <!-- Forgot Password Actions -->
-        <action name="ForgotPasswordAction_input" class="com.nseit.users.action.ForgotPasswordAction" method="input">
-            <interceptor-ref name="publicStack"/>
-            <result name="input">/WEB-INF/login/forgotPassword.jsp</result>
-        </action>
-
-        <action name="ForgotPasswordAction_resetPassword" class="com.nseit.users.action.ForgotPasswordAction" method="resetPassword">
-            <interceptor-ref name="publicStack"/>
-            <result name="success" type="redirectAction">LoginAction_input</result>
-            <result name="input">/WEB-INF/login/forgotPassword.jsp</result>
-        </action>
-
-        <!-- Change Password Actions -->
-        <action name="ChangePasswordAction_input" class="com.nseit.users.action.ChangePasswordAction" method="input">
-            <interceptor-ref name="publicStack"/>
-            <result name="input">/WEB-INF/login/changePassword.jsp</result>
-        </action>
-
-        <action name="ChangePasswordAction_changePassword" class="com.nseit.users.action.ChangePasswordAction" method="changePassword">
-            <interceptor-ref name="publicStack"/>
-            <result name="success" type="redirectAction">LoginAction_input</result>
-            <result name="input">/WEB-INF/login/changePassword.jsp</result>
-        </action>
-
-        <action name="dashboard">
-            <result>/WEB-INF/login/dashboard.jsp</result>
+        <action name="health" class="healthAction" method="checkHealth">
+            <result name="success" type="tiles">health</result>
+            <result name="input" type="tiles">health</result>
         </action>
 
     </package>
+
 </struts>

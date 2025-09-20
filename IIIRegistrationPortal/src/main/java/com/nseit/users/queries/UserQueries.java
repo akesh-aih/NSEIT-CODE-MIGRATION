@@ -141,9 +141,9 @@ public interface UserQueries {
 
 
 
-    String GET_MENU_PERMISSIONS = "SELECT * FROM \"STP_GetMenuPermission_New2\"(?);";
+    String GET_MENU_PERMISSIONS = "SELECT * FROM \"STP_GetMenuPermission_New2\"(?);"; // TODO: Extract business logic from SP and re-implement in Java service/DAO
 
-    String CHANGE_PASSWORD = "SELECT * FROM \"STP_CMN_ChangePassword_New\"(?, ?, ?, ?);";
+    String CHANGE_PASSWORD = "SELECT * FROM \"STP_CMN_ChangePassword_New\"(?, ?, ?, ?);"; // TODO: Extract business logic from SP and re-implement in Java service/DAO
 
-    String SAVE_USER = "SELECT * FROM \"SP_SAVE_User\"(?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?);";
+    String SAVE_USER = "SELECT * FROM \"SP_SAVE_User\"(?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?);"; // TODO: Extract business logic from SP and re-implement in Java service/DAO
 }

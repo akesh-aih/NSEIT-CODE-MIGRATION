@@ -1,16 +1,17 @@
 <%@ page contentType="text/html; charset=UTF-8" %>
 <%@ taglib prefix="s" uri="/struts-tags" %>
-<!DOCTYPE html>
-<html>
-<head>
-    <title>Dashboard</title>
-</head>
-<body>
-    <h2>Welcome, <s:property value="#session.user.userName"/>!</h2>
-    <p>Your role is: <s:property value="#session.user.roleName"/></p>
-    
-    <s:form action="LoginAction_logout" method="post">
-        <s:submit value="Logout" />
-    </s:form>
-</body>
-</html>
+
+<div class="dashboard-container">
+    <h2>Welcome to Dashboard</h2>
+
+    <s:if test="#session.user != null">
+        <p>Hello, <s:property value="#session.user.userName"/>!</p>
+        <p>Your Role: <s:property value="#session.user.roleName"/></p>
+        <p>Last Logged In: <s:property value="#session.user.lastLoggedInDateTime"/></p>
+    </s:if>
+    <s:else>
+        <p>Please log in to view the dashboard.</p>
+    </s:else>
+
+    <!-- Add more dashboard content here -->
+</div>

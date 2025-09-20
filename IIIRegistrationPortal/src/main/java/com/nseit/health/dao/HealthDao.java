@@ -1,7 +1,7 @@
 package com.nseit.health.dao;
 
-import com.nseit.health.models.Health;
+import com.nseit.health.models.HealthBean;
 
 public interface HealthDao {
-    Health getHealth();
+    HealthBean checkHealth(HealthBean healthBean);
 }

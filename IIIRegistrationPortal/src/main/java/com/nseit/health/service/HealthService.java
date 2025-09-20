@@ -1,7 +1,7 @@
 package com.nseit.health.service;
 
-import com.nseit.health.models.Health;
+import com.nseit.health.models.HealthBean;
 
 public interface HealthService {
-    Health checkHealth();
+    HealthBean checkHealth(HealthBean healthBean);
 }

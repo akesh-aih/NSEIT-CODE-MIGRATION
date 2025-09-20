@@ -1,14 +1,16 @@
 package com.nseit.health.service.impl;
 
-import com.nseit.health.dao.HealthDao;
-import com.nseit.health.models.Health;
-import com.nseit.health.service.HealthService;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
+
+import com.nseit.health.dao.HealthDao;
+import com.nseit.health.models.HealthBean;
+import com.nseit.health.service.HealthService;
 
 public class HealthServiceImpl implements HealthService {
 
     private static final Logger logger = LogManager.getLogger(HealthServiceImpl.class);
+
     private HealthDao healthDao;
 
     public void setHealthDao(HealthDao healthDao) {
@@ -16,10 +18,8 @@ public class HealthServiceImpl implements HealthService {
     }
 
     @Override
-    public Health checkHealth() {
-        logger.info("Checking application health");
-        Health health = healthDao.getHealth();
-        logger.debug("Service returning health status: {}", health.getStatus());
-        return health;
+    public HealthBean checkHealth(HealthBean healthBean) {
+        logger.info("In HealthServiceImpl.checkHealth(), testName: {}", healthBean.getTestName());
+        return healthDao.checkHealth(healthBean);
     }
 }
